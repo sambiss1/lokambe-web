@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "siteName": "LOKAMBE",
+    "defaultTitle": "LOKAMBE — Congolese private investment fund",
+    "defaultDescription": "Congolese private fund for investing in, creating and supporting small and medium-sized enterprises and income-generating activities."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "model": "Our model",
+    "process": "Process",
+    "sectors": "Sectors & criteria",
+    "governance": "Governance",
+    "impact": "Impact",
+    "investors": "Investors",
+    "contact": "Contact",
+    "apply": "Submit a project",
+    "mainNavigation": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content",
+    "homeLink": "LOKAMBE — back to home"
+  },
+  "language": {
+    "label": "Language selection",
+    "fr": "Français",
+    "en": "English"
+  },
+  "footer": {
+    "description": "Congolese private fund for investing in, creating and supporting small and medium-sized enterprises and income-generating activities.",
+    "exploreTitle": "Explore",
+    "engageTitle": "Get involved",
+    "legalNotice": "Legal notice",
+    "privacy": "Privacy",
+    "rights": "© {year} LOKAMBE. All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has been moved.",
+    "back": "Back to home"
+  }
+}

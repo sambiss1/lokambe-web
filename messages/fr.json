@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "siteName": "LOKAMBE",
+    "defaultTitle": "LOKAMBE — Fonds privé congolais d’investissement",
+    "defaultDescription": "Fonds privé congolais d’investissement, de création et d’accompagnement des petites et moyennes entreprises et des activités génératrices de revenus."
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "model": "Notre modèle",
+    "process": "Processus",
+    "sectors": "Secteurs & critères",
+    "governance": "Gouvernance",
+    "impact": "Impact",
+    "investors": "Investisseurs",
+    "contact": "Contact",
+    "apply": "Soumettre un projet",
+    "mainNavigation": "Navigation principale",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "skipToContent": "Aller au contenu",
+    "homeLink": "LOKAMBE — retour à l’accueil"
+  },
+  "language": {
+    "label": "Choix de la langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "footer": {
+    "description": "Fonds privé congolais d’investissement, de création et d’accompagnement des petites et moyennes entreprises et des activités génératrices de revenus.",
+    "exploreTitle": "Découvrir",
+    "engageTitle": "S’engager",
+    "legalNotice": "Mentions légales",
+    "privacy": "Confidentialité",
+    "rights": "© {year} LOKAMBE. Tous droits réservés."
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "La page que vous cherchez n’existe pas ou a été déplacée.",
+    "back": "Retour à l’accueil"
+  }
+}

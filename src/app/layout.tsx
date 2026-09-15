@@ -1,11 +1,7 @@
 import type {ReactNode} from 'react';
-import {cabinetGrotesk} from './fonts';
-import './globals.css';
 
+// Layout racine volontairement vide : `[locale]/layout.tsx` (site public)
+// et `admin/layout.tsx` (Plan 3) rendent chacun leur propre <html>.
 export default function RootLayout({children}: {children: ReactNode}) {
-  return (
-    <html lang="fr" className={cabinetGrotesk.variable}>
-      <body className="bg-white font-sans text-ink antialiased">{children}</body>
-    </html>
-  );
+  return children;
 }
