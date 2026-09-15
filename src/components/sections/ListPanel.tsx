@@ -8,7 +8,12 @@ type Props = {groups: TitledList[]; tone?: 'light' | 'dark'; variant?: 'chips' |
 export function ListPanel({groups, tone = 'light', variant = 'chips', columns = 3}: Props) {
   const dark = tone === 'dark';
   return (
-    <ul className={cx('grid gap-4', columns === 3 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2')}>
+    <ul
+      className={cx(
+        'grid gap-4',
+        groups.length === 1 ? '' : columns === 3 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2',
+      )}
+    >
       {groups.map((group, index) => (
         <Reveal
           as="li"

@@ -49,7 +49,7 @@ export function AdminShell({children}: {children: ReactNode}) {
   return (
     <div className="min-h-screen bg-[#f7f6f9] min-[900px]:flex">
       {/* Barre latérale permanente sur grand écran. */}
-      <aside className="hidden w-[16.5rem] flex-none min-[900px]:sticky min-[900px]:top-0 min-[900px]:block min-[900px]:h-screen">
+      <aside className="hidden w-[16.5rem] flex-none bg-lokambe-blue min-[900px]:sticky min-[900px]:top-0 min-[900px]:block min-[900px]:h-screen">
         <AdminNav />
       </aside>
 

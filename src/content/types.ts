@@ -167,6 +167,41 @@ export type LegalContent = {
   sections: TextBlock[];
 };
 
+export type FormsContent = {
+  common: {
+    optional: string;
+    required: string;
+    previous: string;
+    next: string;
+    submit: string;
+    sending: string;
+    stepLabel: string;
+    errorsTitle: string;
+    honeypotLabel: string;
+  };
+  application: {
+    steps: TitledText[];
+    fields: Record<string, string>;
+    sectors: Record<string, string>;
+    needTypes: Record<string, string>;
+    files: {cta: string; hint: string; empty: string; remove: string};
+    review: {title: string; edit: string};
+    success: {
+      title: string;
+      text: string;
+      referenceLabel: string;
+      next: string;
+      back: string;
+      demoNotice: string;
+    };
+  };
+  contact: {
+    fields: Record<string, string>;
+    kinds: Record<string, string>;
+    success: {title: string; text: string; again: string; demoNotice: string};
+  };
+};
+
 export type SiteContent = {
   home: HomeContent;
   about: AboutContent;
@@ -178,6 +213,7 @@ export type SiteContent = {
   apply: ApplyContent;
   investors: InvestorsContent;
   contact: ContactContent;
+  forms: FormsContent;
   legalNotice: LegalContent;
   privacy: LegalContent;
 };

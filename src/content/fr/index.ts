@@ -2,6 +2,7 @@ import type {SiteContent} from '../types';
 import {about} from './about';
 import {apply} from './apply';
 import {contact} from './contact';
+import {forms} from './forms';
 import {governance} from './governance';
 import {home} from './home';
 import {impact} from './impact';
@@ -22,6 +23,7 @@ export const fr: SiteContent = {
   apply,
   investors,
   contact,
+  forms,
   legalNotice,
   privacy,
 };
