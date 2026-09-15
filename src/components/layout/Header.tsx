@@ -74,7 +74,7 @@ export function Header() {
           />
         </Link>
 
-        <nav aria-label={t('mainNavigation')} className="ml-auto hidden lg:block">
+        <nav aria-label={t('mainNavigation')} className="ml-auto hidden xl:block">
           <ul className="flex items-center gap-1">
             {MAIN_NAV.map((entry) =>
               entry.kind === 'group' ? (
@@ -104,7 +104,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-3 lg:ml-2">
+        <div className="ml-auto flex items-center gap-3 xl:ml-2">
           <LanguageSwitcher tone={solid ? 'blue' : 'white'} />
           <ButtonLink href={APPLY_HREF} variant={solid ? 'blue' : 'white'} className="hidden md:inline-flex">
             {t('apply')}

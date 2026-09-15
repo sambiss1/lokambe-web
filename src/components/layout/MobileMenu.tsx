@@ -43,7 +43,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
         aria-label={t('openMenu')}
         onClick={() => setOpen(true)}
         className={cx(
-          'grid size-12 place-items-center rounded-full transition-colors lg:hidden',
+          'grid size-12 place-items-center rounded-full transition-colors xl:hidden',
           solid ? 'bg-lokambe-blue text-white' : 'bg-white text-lokambe-blue',
         )}
       >
@@ -61,7 +61,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
             aria-modal="true"
             aria-label={t('mainNavigation')}
             className={cx(
-              'fixed inset-0 z-[60] flex flex-col bg-lokambe-blue text-white transition-[clip-path,visibility] duration-700 ease-(--ease-out-expo) lg:hidden',
+              'fixed inset-0 z-[60] flex flex-col bg-lokambe-blue text-white transition-[clip-path,visibility] duration-700 ease-(--ease-out-expo) xl:hidden',
               open
                 ? 'visible [clip-path:circle(150%_at_calc(100%-3rem)_2.5rem)]'
                 : 'invisible [clip-path:circle(0%_at_calc(100%-3rem)_2.5rem)]',
