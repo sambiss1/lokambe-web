@@ -5,6 +5,7 @@ import {cx} from '@/lib/cx';
 
 type RevealProps = {
   children: ReactNode;
+  id?: string;
   as?: ElementType;
   className?: string;
   /** Rang dans une série, pour décaler l'apparition. */
@@ -12,7 +13,7 @@ type RevealProps = {
 };
 
 /** Fait apparaître son contenu quand il entre dans l'écran (une seule fois). */
-export function Reveal({children, as: Tag = 'div', className, index = 0}: RevealProps) {
+export function Reveal({children, as: Tag = 'div', className, index = 0, id}: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(false);
 
@@ -34,7 +35,7 @@ export function Reveal({children, as: Tag = 'div', className, index = 0}: Reveal
   }, []);
 
   return (
-    <Tag ref={ref} data-shown={shown} style={{'--i': index} as CSSProperties} className={cx('reveal', className)}>
+    <Tag ref={ref} id={id} data-shown={shown} style={{'--i': index} as CSSProperties} className={cx('reveal', className)}>
       {children}
     </Tag>
   );
