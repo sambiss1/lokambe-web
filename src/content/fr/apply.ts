@@ -11,7 +11,7 @@ export const apply: ApplyContent = {
     title: 'Présentez-nous votre projet',
     intro:
       'Vous développez une activité réelle et vous avez besoin de capital productif et d’accompagnement pour changer d’échelle ? Nous ne donnons pas : nous investissons à vos côtés.',
-    image: {src: '/images/apply-hero.webp', alt: 'Commerçante congolaise souriante dans sa boutique'},
+    image: {src: '/images/apply-hero.webp', alt: 'Commerçante souriante au comptoir de sa boutique'},
   },
   eligibility: {
     eyebrow: 'Avant de commencer',

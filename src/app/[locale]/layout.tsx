@@ -3,6 +3,8 @@ import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import type {ReactNode} from 'react';
+import {Footer} from '@/components/layout/Footer';
+import {Header} from '@/components/layout/Header';
 import {routing} from '@/i18n/routing';
 import {cabinetGrotesk} from '../fonts';
 import '../globals.css';
@@ -33,7 +35,9 @@ export default async function LocaleLayout({children, params}: Props) {
     <html lang={locale} className={cabinetGrotesk.variable}>
       <body className="bg-white font-sans text-ink antialiased">
         <NextIntlClientProvider>
+          <Header />
           <main id="main">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

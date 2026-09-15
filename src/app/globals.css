@@ -2,24 +2,230 @@
 
 @theme {
   --color-lokambe-blue: #001df3;
+  --color-lokambe-blue-deep: #0012a8;
   --color-lokambe-peach: #f7c4a7;
+  --color-lokambe-peach-soft: #fdeee4;
   --color-lokambe-red: #f01346;
   --color-ink: #0a0a0a;
+  --color-ink-soft: #3d3d45;
+  --color-line: #e7e3ea;
   --font-sans: var(--font-cabinet-grotesk), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-marquee: lk-marquee 38s linear infinite;
+  --animate-float: lk-float 7s ease-in-out infinite;
+  --animate-orbit: lk-orbit 14s linear infinite;
+  --animate-pulse-dot: lk-pulse-dot 2.4s ease-out infinite;
+}
+
+@keyframes lk-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes lk-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@keyframes lk-orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes lk-pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-lokambe-red) 55%, transparent);
+  }
+  80%,
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+
+@keyframes lk-line-up {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes lk-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes lk-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    clip-path: inset(18% 18% 18% 18% round 999px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    clip-path: inset(0 0 0 0 round 999px);
+  }
+}
+
+@keyframes lk-word-fill {
+  from {
+    color: color-mix(in srgb, currentColor 18%, transparent);
+  }
+  to {
+    color: inherit;
+  }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01" on;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-lokambe-blue);
+    outline: 3px solid var(--color-lokambe-red);
     outline-offset: 3px;
   }
 
   ::selection {
     background: var(--color-lokambe-peach);
     color: var(--color-lokambe-blue);
+  }
+
+  [id] {
+    scroll-margin-top: 6.5rem;
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+/* Titres « charte » : capitales grasses, interlignage serré (cf. slogan). */
+@utility display {
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* Apparition des lignes de titre au chargement (masque + glissement). */
+@utility line-mask {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.12em 0.04em;
+  margin-block: -0.12em -0.04em;
+
+  & > span {
+    display: block;
+    animation: lk-line-up 1s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i, 0) * 110ms + 120ms);
+  }
+}
+
+@utility fade-up {
+  animation: lk-fade-up 0.9s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 450ms);
+}
+
+@utility capsule-in {
+  animation: lk-scale-in 1.3s var(--ease-out-expo) both;
+  animation-delay: 250ms;
+}
+
+/* Apparition au défilement, pilotée par <Reveal> (data-shown). */
+@utility reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 80ms);
+
+  &[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Remplissage progressif des mots au défilement (navigateurs compatibles). */
+@supports (animation-timeline: view()) {
+  .word-fill > span {
+    animation: lk-word-fill linear both;
+    animation-timeline: view();
+    animation-range: cover 10% cover 45%;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Accordéon FAQ : ouverture animée là où c'est supporté. */
+.faq-item {
+  interpolate-size: allow-keywords;
+}
+
+.faq-item::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.45s var(--ease-out-expo),
+    content-visibility 0.45s allow-discrete;
+}
+
+.faq-item[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .word-fill > span {
+    animation: none !important;
   }
 }

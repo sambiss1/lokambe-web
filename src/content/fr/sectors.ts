@@ -10,7 +10,7 @@ export const sectors: SectorsContent = {
     eyebrow: 'Secteurs et critères',
     title: 'Comment cette entreprise gagne-t-elle de l’argent ?',
     intro: 'C’est la question fondamentale à laquelle LOKAMBE doit pouvoir répondre clairement avant chaque investissement.',
-    image: {src: '/images/sectors-hero.webp', alt: 'Pâtissier préparant des gâteaux dans son laboratoire'},
+    image: {src: '/images/sectors-hero.webp', alt: 'Cuisinière préparant des pâtisseries dans une cuisine professionnelle'},
   },
   thesis: {
     eyebrow: 'Thèse d’investissement',

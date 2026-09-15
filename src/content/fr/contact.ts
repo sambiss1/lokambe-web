@@ -10,7 +10,7 @@ export const contact: ContactContent = {
     eyebrow: 'Contact',
     title: 'Parlons de votre projet',
     intro: 'Une question, une proposition de partenariat ou une demande d’information ? L’équipe LOKAMBE vous répond.',
-    image: {src: '/images/contact-hero.webp', alt: 'Poignée de main entre deux entrepreneurs'},
+    image: {src: '/images/contact-hero.webp', alt: 'Poignée de main entre deux hommes en extérieur'},
   },
   details: {
     title: 'Coordonnées',

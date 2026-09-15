@@ -17,23 +17,38 @@ export type TeamRole = {
   note?: string;
 };
 
+export type Fact = {value: number; label: string; text: string};
+export type FaqItem = {question: string; answer: string};
+export type SectorCard = TitledText & {image: ImageRef; tags: string[]};
+export type ProcessPhase = {title: string; steps: TitledText[]};
+
 export type HomeContent = {
   meta: PageMeta;
   hero: {
     eyebrow: string;
-    title: string;
+    /** Titre découpé en lignes pour l'animation d'apparition. */
+    titleLines: string[];
     tagline: string;
     intro: string;
     image: ImageRef;
     primary: LinkItem;
     secondary: LinkItem;
+    cards: {
+      step: {label: string; title: string; text: string};
+      sector: {label: string; title: string};
+      place: {label: string; title: string};
+    };
   };
+  marquee: string[];
   statement: {quote: string; text: string};
-  functions: SectionHeading & {items: TitledText[]};
-  sectors: SectionHeading & {items: TitledText[]; link: LinkItem};
-  process: SectionHeading & {steps: TitledText[]; link: LinkItem};
-  pilot: SectionHeading & {paragraphs: string[]; image: ImageRef};
-  cta: CtaContent;
+  facts: SectionHeading & {items: Fact[]; note: string};
+  functions: SectionHeading & {items: TitledText[]; cycle: string[]; cycleLabel: string};
+  sectors: SectionHeading & {items: SectorCard[]; link: LinkItem};
+  process: SectionHeading & {phases: ProcessPhase[]; link: LinkItem; stepLabel: string; prevLabel: string; nextLabel: string};
+  support: SectionHeading & {items: TitledList[]; closing: string};
+  pilot: SectionHeading & {paragraphs: string[]; image: ImageRef; phases: Phase[]; motto: string};
+  faq: SectionHeading & {items: FaqItem[]; contactText: string; contact: LinkItem};
+  cta: CtaContent & {image: ImageRef};
 };
 
 export type AboutContent = {

@@ -11,7 +11,7 @@ export const about: AboutContent = {
     title: 'La RDC ne manque pas d’entrepreneurs.',
     intro:
       'Elle manque de mécanismes permettant à davantage d’entrepreneurs de changer d’échelle. LOKAMBE est né pour y répondre.',
-    image: {src: '/images/about-hero.webp', alt: 'Artisane congolaise dans son atelier'},
+    image: {src: '/images/about-hero.webp', alt: 'Tailleur cousant sur sa machine à coudre'},
   },
   problem: {
     eyebrow: 'Le problème',

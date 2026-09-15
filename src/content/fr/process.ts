@@ -10,7 +10,7 @@ export const investmentProcess: ProcessContent = {
     eyebrow: 'Processus',
     title: 'De l’identification au réinvestissement',
     intro: 'Le processus d’investissement de LOKAMBE suit une démarche structurée, documentée et collégiale.',
-    image: {src: '/images/process-hero.webp', alt: 'Échange de travail entre un entrepreneur et un analyste'},
+    image: {src: '/images/process-hero.webp', alt: 'Trois femmes échangeant autour d’un ordinateur portable'},
   },
   investment: {
     eyebrow: 'Processus d’investissement',

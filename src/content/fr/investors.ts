@@ -11,7 +11,7 @@ export const investors: InvestorsContent = {
     title: 'Le capital congolais au service de l’économie congolaise',
     intro:
       'Notre ambition : faire du capital privé un véritable moteur de création d’entreprises et de transformation de l’économie congolaise.',
-    image: {src: '/images/investors-hero.webp', alt: 'Vue de Kinshasa et du fleuve Congo'},
+    image: {src: '/images/investors-hero.webp', alt: 'Vue de Kinshasa depuis le fleuve Congo'},
   },
   why: {
     eyebrow: 'Pourquoi LOKAMBE',

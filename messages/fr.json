@@ -19,7 +19,10 @@
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "skipToContent": "Aller au contenu",
-    "homeLink": "LOKAMBE — retour à l’accueil"
+    "homeLink": "LOKAMBE — retour à l’accueil",
+    "fund": "Le fonds",
+    "invest": "Investir",
+    "menuTitle": "Menu"
   },
   "language": {
     "label": "Choix de la langue",
@@ -32,11 +35,27 @@
     "engageTitle": "S’engager",
     "legalNotice": "Mentions légales",
     "privacy": "Confidentialité",
-    "rights": "© {year} LOKAMBE. Tous droits réservés."
+    "rights": "© {year} LOKAMBE. Tous droits réservés.",
+    "contactTitle": "Nous écrire",
+    "pilot": "Phase pilote à Kinshasa, RDC",
+    "backToTop": "Revenir en haut"
   },
   "notFound": {
     "title": "Page introuvable",
     "text": "La page que vous cherchez n’existe pas ou a été déplacée.",
     "back": "Retour à l’accueil"
+  },
+  "navDesc": {
+    "about": "Pourquoi LOKAMBE existe et ce en quoi nous croyons.",
+    "model": "Deux piliers, des instruments adaptés, un capital qui circule.",
+    "governance": "Une équipe, un comité et des décisions collégiales.",
+    "process": "Les 12 étapes, de l’identification au réinvestissement.",
+    "sectors": "Nos 5 secteurs prioritaires et nos critères.",
+    "impact": "Emplois, revenus et déploiement territorial.",
+    "investors": "Investir avec nous ou rejoindre notre réseau."
+  },
+  "navPromo": {
+    "title": "Vous portez une activité qui mérite de grandir ?",
+    "cta": "Soumettre un projet"
   }
 }

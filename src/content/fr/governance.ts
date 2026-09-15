@@ -11,7 +11,7 @@ export const governance: GovernanceContent = {
     title: 'Agilité entrepreneuriale, rigueur d’investisseur',
     intro:
       'La gouvernance de LOKAMBE concilie l’agilité d’une structure entrepreneuriale avec la rigueur nécessaire à la protection du capital, à la maîtrise des risques, à la qualité des décisions d’investissement et à la bonne gestion du portefeuille.',
-    image: {src: '/images/governance-hero.webp', alt: 'Équipe réunie autour d’une table de travail'},
+    image: {src: '/images/governance-hero.webp', alt: 'Deux jeunes hommes en réunion autour d’une table de travail'},
   },
   team: {
     eyebrow: 'L’équipe permanente',

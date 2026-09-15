@@ -11,7 +11,7 @@ export const model: ModelContent = {
     title: 'Investisseur. Créateur. Accompagnateur.',
     intro:
       'LOKAMBE ne se limite pas à financer des entreprises. Il contribue à les identifier, les faire naître, les structurer, les développer et les valoriser.',
-    image: {src: '/images/model-hero.webp', alt: 'Boulangère congolaise présentant sa production'},
+    image: {src: '/images/model-hero.webp', alt: 'Boulanger souriant derrière sa vitrine de pâtisseries'},
   },
   roles: {
     eyebrow: 'Le modèle LOKAMBE',

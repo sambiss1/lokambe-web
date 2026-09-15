@@ -19,7 +19,10 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content",
-    "homeLink": "LOKAMBE — back to home"
+    "homeLink": "LOKAMBE — back to home",
+    "fund": "The fund",
+    "invest": "Invest",
+    "menuTitle": "Menu"
   },
   "language": {
     "label": "Language selection",
@@ -32,11 +35,27 @@
     "engageTitle": "Get involved",
     "legalNotice": "Legal notice",
     "privacy": "Privacy",
-    "rights": "© {year} LOKAMBE. All rights reserved."
+    "rights": "© {year} LOKAMBE. All rights reserved.",
+    "contactTitle": "Write to us",
+    "pilot": "Pilot phase in Kinshasa, DRC",
+    "backToTop": "Back to top"
   },
   "notFound": {
     "title": "Page not found",
     "text": "The page you are looking for does not exist or has been moved.",
     "back": "Back to home"
+  },
+  "navDesc": {
+    "about": "Why LOKAMBE exists and what we believe in.",
+    "model": "Two pillars, fitting instruments, capital that circulates.",
+    "governance": "A team, a committee and collective decisions.",
+    "process": "The 12 steps, from sourcing to reinvestment.",
+    "sectors": "Our 5 priority sectors and our criteria.",
+    "impact": "Jobs, income and territorial rollout.",
+    "investors": "Invest with us or join our network."
+  },
+  "navPromo": {
+    "title": "Running a business that deserves to grow?",
+    "cta": "Submit a project"
   }
 }

@@ -17,6 +17,7 @@
     "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
+    "lucide-react": "^1.46.0",
     "next": "16.3.5",
     "next-intl": "^4.14.5",
     "react": "19.2.8",

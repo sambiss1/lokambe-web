@@ -10,7 +10,7 @@ export const impact: ImpactContent = {
     eyebrow: 'Impact et vision',
     title: 'Rentabilité et création de valeur locale, ensemble',
     intro: 'LOKAMBE considère l’impact comme une composante de la création de valeur, et le mesure au même titre que la performance financière.',
-    image: {src: '/images/impact-hero.webp', alt: 'Employés d’une petite entreprise congolaise au travail'},
+    image: {src: '/images/impact-hero.webp', alt: 'Deux employés souriants au comptoir d’un restaurant de rue'},
   },
   performance: {
     eyebrow: 'Mesure de la performance',
