@@ -1,7 +1,7 @@
 export type LinkItem = {label: string; href: string};
 export type TitledText = {title: string; text: string};
 export type TitledList = {title: string; intro?: string; items: string[]};
-export type ImageRef = {src: string; alt: string};
+export type ImageRef = {src: string; alt: string; /** `object-position` CSS, si le cadrage par défaut coupe mal. */ position?: string};
 export type PageMeta = {title: string; description: string};
 export type SectionHeading = {eyebrow?: string; title: string; intro?: string};
 export type PageHeroContent = {eyebrow: string; title: string; intro: string; image?: ImageRef};

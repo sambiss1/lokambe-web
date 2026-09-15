@@ -39,6 +39,7 @@ export function PageHero({hero, marquee}: {hero: PageHeroContent; marquee?: stri
               fill
               priority
               sizes="(min-width: 1024px) 34vw, 85vw"
+              style={hero.image.position ? {objectPosition: hero.image.position} : undefined}
               className="object-cover"
             />
           </div>

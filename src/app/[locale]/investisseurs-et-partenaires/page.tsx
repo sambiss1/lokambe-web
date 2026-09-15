@@ -8,6 +8,7 @@ import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
 import {getContent} from '@/content';
+import {CONTACT_EMAIL} from '@/lib/brand';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
@@ -41,8 +42,15 @@ export default async function InvestorsPage({params}: Props) {
         <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-4">
             <p className="text-xl leading-relaxed text-ink-soft">
-              {investors.hero.intro}
+              Écrivez-nous directement, ou utilisez le formulaire : nous revenons vers vous avec une présentation
+              détaillée du fonds.
             </p>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="mt-5 inline-block text-xl font-bold text-lokambe-blue underline decoration-lokambe-peach decoration-2 underline-offset-8 transition-colors hover:decoration-lokambe-blue"
+            >
+              {CONTACT_EMAIL}
+            </a>
           </Reveal>
           <div className="lg:col-span-8">
             <ContactForm title={investors.form.title} labels={forms} defaultKind="investisseur" />

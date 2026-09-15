@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# lokambe-web
 
-## Getting Started
+Site public et back-office de **LOKAMBE**, fonds privé congolais d'investissement, de création et d'accompagnement des PME et des activités génératrices de revenus.
 
-First, run the development server:
+Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · next-intl · Vitest.
+
+## Démarrer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local
+npm run dev -- -p 3011     # http://localhost:3011/fr
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Commande | Rôle |
+|---|---|
+| `npm run dev` | Serveur de développement |
+| `npm run build` / `npm run start` | Build et exécution en production (Railway lit `PORT`) |
+| `npm run lint` / `npm run typecheck` / `npm run test` | Contrôles |
+| `npm run brand` | Régénère logos, favicon et image Open Graph depuis `../assets-source/` |
+| `npm run images` | Convertit `images-raw/*.jpg` en WebP optimisés dans `public/images/` |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Organisation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/[locale]/        pages publiques (fr, en préparé)
+├── app/admin/           back-office (hors i18n, noindex)
+├── content/{types,fr}/  tout le texte éditorial, typé
+├── components/
+│   ├── ui/              boutons, conteneur, logo, en-tête de section
+│   ├── motion/          apparitions au défilement, bandeau défilant, compteur
+│   ├── layout/          en-tête fixe, menu mobile, pied de page
+│   ├── sections/        briques réutilisables des pages intérieures
+│   ├── home/            sections de la page d'accueil
+│   ├── forms/           candidature (4 étapes) et contact
+│   └── admin/           écrans du back-office
+├── lib/                 constantes partagées avec l'API, schémas zod, SEO
+└── i18n/                routage et messages next-intl
+```
 
-## Learn More
+## État actuel
 
-To learn more about Next.js, take a look at the following resources:
+Les interfaces sont complètes avec des **données fictives** : les formulaires et le back-office ne parlent pas encore à l'API. Chaque point de branchement est marqué par un commentaire `TODO(api)`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Charte
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Bleu `#001df3`, pêche `#f7c4a7`, rouge `#f01346` (accents uniquement), encre `#0a0a0a`. Police Cabinet Grotesk auto-hébergée. Titres en capitales grasses. Les animations respectent `prefers-reduced-motion`.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Crédits des photos : `public/images/CREDITS.md`.
