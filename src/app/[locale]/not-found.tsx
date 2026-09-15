@@ -1,19 +1,20 @@
 import {useTranslations} from 'next-intl';
-import {Link} from '@/i18n/navigation';
+import {ButtonLink} from '@/components/ui/Button';
+import {Container} from '@/components/ui/Container';
 
 export default function LocaleNotFound() {
   const t = useTranslations('notFound');
 
   return (
-    <section className="grid min-h-[60vh] place-items-center bg-lokambe-blue px-4 py-24 text-white">
-      <div className="text-center">
-        <p className="text-7xl font-extrabold md:text-9xl">404</p>
-        <h1 className="mt-4 text-2xl font-bold uppercase md:text-4xl">{t('title')}</h1>
-        <p className="mt-4 text-lg text-white/85">{t('text')}</p>
-        <Link href="/" className="mt-8 inline-block rounded-full bg-white px-6 py-3 font-bold uppercase text-lokambe-blue">
+    <section className="grid min-h-[70vh] place-items-center bg-lokambe-blue px-4 py-32 text-white">
+      <Container className="text-center">
+        <p className="display text-[clamp(5rem,18vw,12rem)] leading-none text-lokambe-peach">404</p>
+        <h1 className="display mt-6 text-[clamp(1.75rem,5vw,3.5rem)]">{t('title')}</h1>
+        <p className="mx-auto mt-5 max-w-lg text-lg text-white/80">{t('text')}</p>
+        <ButtonLink href="/" variant="white" size="lg" className="mt-10">
           {t('back')}
-        </Link>
-      </div>
+        </ButtonLink>
+      </Container>
     </section>
   );
 }
