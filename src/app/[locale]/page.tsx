@@ -9,13 +9,17 @@ import {SectorsBento} from '@/components/home/SectorsBento';
 import {Statement} from '@/components/home/Statement';
 import {SupportPilot} from '@/components/home/SupportPilot';
 import {getContent} from '@/content';
+import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
   const {meta} = getContent(locale).home;
-  return {title: {absolute: `LOKAMBE — ${meta.title}`}, description: meta.description};
+  return {
+    ...pageMetadata(meta, {locale, path: '/'}),
+    title: {absolute: `LOKAMBE — ${meta.title}`},
+  };
 }
 
 export default async function HomePage({params}: Props) {

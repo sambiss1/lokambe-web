@@ -16,7 +16,7 @@ type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(getContent(locale).impact.meta);
+  return pageMetadata(getContent(locale).impact.meta, {locale, path: '/impact'});
 }
 
 export default async function ImpactPage({params}: Props) {

@@ -174,10 +174,10 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                   {application.files.map((file) => (
                     <li
                       key={file.fileId}
-                      className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-lokambe-peach-soft/60 px-4 py-3"
+                      className="flex flex-col gap-2 rounded-2xl bg-lokambe-peach-soft/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                     >
                       <span className="min-w-0 truncate text-sm font-bold">{file.filename}</span>
-                      <span className="flex items-center gap-4">
+                      <span className="flex flex-none items-center justify-between gap-4 sm:justify-end">
                         <span className="text-xs text-ink-soft tabular-nums">{formatBytes(file.size)}</span>
                         {/* TODO(api) : lien vers GET /api/admin/files/<applicationId>/<fileId>. */}
                         <button

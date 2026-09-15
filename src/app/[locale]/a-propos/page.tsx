@@ -15,7 +15,7 @@ type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(getContent(locale).about.meta);
+  return pageMetadata(getContent(locale).about.meta, {locale, path: '/a-propos'});
 }
 
 export default async function AboutPage({params}: Props) {

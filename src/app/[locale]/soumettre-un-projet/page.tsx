@@ -14,7 +14,7 @@ type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(getContent(locale).apply.meta);
+  return pageMetadata(getContent(locale).apply.meta, {locale, path: '/soumettre-un-projet'});
 }
 
 export default async function ApplyPage({params}: Props) {

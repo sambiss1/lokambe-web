@@ -50,7 +50,11 @@ export function Header() {
       className={cx(
         'fixed inset-x-0 top-0 z-50 transition-[transform,background-color,box-shadow] duration-500 ease-(--ease-out-expo)',
         hidden && openGroup === null ? '-translate-y-full' : 'translate-y-0',
-        solid ? 'bg-white/90 shadow-[0_1px_0_rgba(10,10,10,0.08)] backdrop-blur-xl' : 'bg-transparent',
+        openGroup !== null
+          ? 'bg-white'
+          : scrolled
+            ? 'bg-white/90 shadow-[0_1px_0_rgba(10,10,10,0.08)] backdrop-blur-xl'
+            : 'bg-transparent',
       )}
       onMouseLeave={() => setOpenGroup(null)}
     >
@@ -83,7 +87,7 @@ export function Header() {
                   active={entry.items.some((item) => pathname === item.href)}
                   onOpen={() => setOpenGroup(entry.key)}
                   onClose={() => setOpenGroup(null)}
-                  onToggle={() => setOpenGroup((current) => (current === entry.key ? null : entry.key))}
+                  onToggle={() => setOpenGroup(entry.key)}
                 />
               ) : (
                 <li key={entry.key} onMouseEnter={() => setOpenGroup(null)}>

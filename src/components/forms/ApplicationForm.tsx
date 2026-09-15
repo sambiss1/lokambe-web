@@ -77,7 +77,7 @@ export function ApplicationForm({content, labels}: Props) {
 
   const goTo = (next: number) => {
     setStep(next);
-    formTop.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    formTop.current?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
   };
 
   const goNext = async () => {
@@ -99,7 +99,7 @@ export function ApplicationForm({content, labels}: Props) {
     await new Promise((resolve) => setTimeout(resolve, 900));
     setSending(false);
     setReference(mockReference());
-    formTop.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    formTop.current?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
   });
 
   if (reference) {

@@ -11,7 +11,7 @@ type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(getContent(locale).contact.meta);
+  return pageMetadata(getContent(locale).contact.meta, {locale, path: '/contact'});
 }
 
 export default async function ContactPage({params}: Props) {

@@ -16,7 +16,7 @@ type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(getContent(locale).process.meta);
+  return pageMetadata(getContent(locale).process.meta, {locale, path: '/processus'});
 }
 
 export default async function ProcessPage({params}: Props) {
