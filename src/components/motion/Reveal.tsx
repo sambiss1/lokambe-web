@@ -15,7 +15,8 @@ type RevealProps = {
 /** Fait apparaître son contenu quand il entre dans l'écran (une seule fois). */
 export function Reveal({children, as: Tag = 'div', className, index = 0, id}: RevealProps) {
   const ref = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
+  // Sans IntersectionObserver (très vieux navigateurs), le contenu s'affiche directement.
+  const [shown, setShown] = useState(() => typeof IntersectionObserver === 'undefined');
 
   useEffect(() => {
     const node = ref.current;

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import {Link} from '@/i18n/navigation';
 import type {HomeContent} from '@/content/types';
 import {cx} from '@/lib/cx';
 import {Reveal} from '../motion/Reveal';
@@ -40,7 +41,10 @@ export function SectorsBento({sectors}: {sectors: HomeContent['sectors']}) {
               index={index}
               className={cx('w-[78vw] max-w-[22rem] flex-none snap-start lg:w-auto lg:max-w-none', SPANS[index])}
             >
-              <article className="group relative isolate flex h-[27rem] flex-col justify-end overflow-hidden rounded-[2rem] bg-lokambe-blue-deep p-6 text-white sm:p-7 lg:h-full">
+              <Link
+                href={sectors.link.href}
+                aria-label={`${sector.title} — ${sectors.link.label}`}
+                className="group relative isolate flex h-[27rem] flex-col justify-end overflow-hidden rounded-[2rem] bg-lokambe-blue-deep p-6 text-white sm:p-7 lg:h-full">
                 <Image
                   src={sector.image.src}
                   alt={sector.image.alt}
@@ -72,7 +76,7 @@ export function SectorsBento({sectors}: {sectors: HomeContent['sectors']}) {
                 >
                   <span className="overflow-hidden">{sector.text}</span>
                 </p>
-              </article>
+              </Link>
             </Reveal>
           ))}
         </ul>

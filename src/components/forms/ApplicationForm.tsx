@@ -3,7 +3,7 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Paperclip, X} from 'lucide-react';
 import {useRef, useState} from 'react';
-import {useForm} from 'react-hook-form';
+import {useForm, useWatch} from 'react-hook-form';
 import type {ApplyContent, FormsContent} from '@/content/types';
 import {Link} from '@/i18n/navigation';
 import {ALLOWED_FILE_TYPES, NEED_TYPES, SECTORS} from '@/lib/constants';
@@ -15,6 +15,8 @@ import {FormSteps} from './FormSteps';
 import {SuccessPanel} from './SuccessPanel';
 
 type Props = {content: ApplyContent['form']; labels: FormsContent};
+
+const FORM_TOP_ID = 'candidature';
 
 const STEP_FIELDS = [
   ['applicant.firstName', 'applicant.lastName', 'applicant.phone', 'applicant.email', 'applicant.city', 'applicant.commune'],
@@ -41,13 +43,12 @@ export function ApplicationForm({content, labels}: Props) {
   const [reference, setReference] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
-  const formTop = useRef<HTMLDivElement>(null);
 
   const {
     register,
     handleSubmit,
     trigger,
-    watch,
+    control,
     formState: {errors},
   } = useForm<ApplicationValues>({
     resolver: zodResolver(applicationSchema),
@@ -71,13 +72,17 @@ export function ApplicationForm({content, labels}: Props) {
     } as unknown as ApplicationValues,
   });
 
-  const sector = watch('business.sector');
-  const isFormal = watch('business.isFormal');
-  const consent = watch('consent');
+  const sector = useWatch({control, name: 'business.sector'});
+  const isFormal = useWatch({control, name: 'business.isFormal'});
+  const consent = useWatch({control, name: 'consent'});
+
+  const scrollToFormTop = () => {
+    document.getElementById(FORM_TOP_ID)?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
+  };
 
   const goTo = (next: number) => {
     setStep(next);
-    formTop.current?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
+    scrollToFormTop();
   };
 
   const goNext = async () => {
@@ -99,12 +104,12 @@ export function ApplicationForm({content, labels}: Props) {
     await new Promise((resolve) => setTimeout(resolve, 900));
     setSending(false);
     setReference(mockReference());
-    formTop.current?.scrollIntoView?.({behavior: 'smooth', block: 'start'});
+    scrollToFormTop();
   });
 
   if (reference) {
     return (
-      <div ref={formTop}>
+      <div id={FORM_TOP_ID}>
         <SuccessPanel
           title={labels.application.success.title}
           text={labels.application.success.text}
@@ -124,7 +129,7 @@ export function ApplicationForm({content, labels}: Props) {
   }
 
   return (
-    <div ref={formTop} className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+    <div id={FORM_TOP_ID} className="grid gap-10 lg:grid-cols-12 lg:gap-16">
       <div className="lg:col-span-4">
         <FormSteps steps={labels.application.steps} current={step} stepLabel={labels.common.stepLabel} onSelect={goTo} />
       </div>

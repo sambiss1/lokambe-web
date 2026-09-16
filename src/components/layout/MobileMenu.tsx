@@ -1,7 +1,7 @@
 'use client';
 
 import {useTranslations} from 'next-intl';
-import {type CSSProperties, useEffect, useState, useSyncExternalStore} from 'react';
+import {type CSSProperties, useEffect, useRef, useState, useSyncExternalStore} from 'react';
 import {createPortal} from 'react-dom';
 import {SLOGAN} from '@/lib/brand';
 import {Link, usePathname} from '@/i18n/navigation';
@@ -16,19 +16,45 @@ export function MobileMenu({solid}: {solid: boolean}) {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
 
+  // Menu ouvert : défilement bloqué, focus enfermé dans le panneau, Échap pour fermer.
   useEffect(() => {
     if (!open) return;
+    const dialog = dialogRef.current;
+    const openButton = openButtonRef.current;
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    dialog?.querySelector<HTMLElement>('a, button')?.focus();
+
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab' || !dialog) return;
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+      ).filter((element) => element.offsetParent !== null);
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = previous;
       window.removeEventListener('keydown', onKey);
+      openButton?.focus();
     };
   }, [open]);
 
@@ -37,6 +63,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
   return (
     <>
       <button
+        ref={openButtonRef}
         type="button"
         aria-expanded={open}
         aria-controls="mobile-menu"
@@ -56,6 +83,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
       {mounted &&
         createPortal(
           <div
+            ref={dialogRef}
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
