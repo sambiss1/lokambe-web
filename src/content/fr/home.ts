@@ -18,7 +18,7 @@ export const home: HomeContent = {
     cards: {
       step: {label: 'Étape 3 sur 12', title: 'Visiter', text: 'Vérification de terrain et compréhension de l’activité.'},
       sector: {label: 'Secteur prioritaire', title: 'Métiers de bouche'},
-      place: {label: 'Phase pilote', title: 'Kinshasa'},
+      place: {label: 'Au-delà du capital', title: 'Accompagnement'},
     },
   },
   marquee: ['Investir', 'Créer', 'Accompagner', 'Faire grandir', 'Réinvestir'],
@@ -31,11 +31,9 @@ export const home: HomeContent = {
     title: 'Un fonds pensé pour durer',
     items: [
       {value: 5, label: 'secteurs prioritaires', text: 'Restauration, métiers de bouche, commerce, événementiel et services.'},
-      {value: 12, label: 'étapes d’investissement', text: 'De l’identification au réinvestissement, chaque décision est documentée.'},
+      {value: 3, label: 'façons d’intervenir', text: 'Investir dans une activité, en créer une nouvelle, accompagner sa croissance.'},
       {value: 5, label: 'domaines d’accompagnement', text: 'Finance, commercial, marketing, opérations et ressources humaines.'},
-      {value: 3, label: 'phases de déploiement', text: 'Kinshasa d’abord, puis d’autres pôles économiques, puis un réseau national.'},
     ],
-    note: 'LOKAMBE est en phase pilote : nous publierons nos résultats lorsqu’ils seront mesurés.',
   },
   functions: {
     eyebrow: 'Notre modèle',
@@ -63,7 +61,7 @@ export const home: HomeContent = {
     eyebrow: 'Secteurs prioritaires',
     title: 'Là où nous concentrons nos efforts',
     intro:
-      'La phase pilote est volontairement concentrée sur un nombre limité de secteurs afin de développer une véritable expertise sectorielle.',
+      'Nous concentrons nos efforts sur un nombre limité de secteurs, pour les connaître vraiment.',
     items: [
       {
         title: 'Restauration',
@@ -147,29 +145,41 @@ export const home: HomeContent = {
   support: {
     eyebrow: 'Accompagnement',
     title: 'Le capital ne suffit pas',
-    intro: 'Chaque investissement significatif est associé à un plan d’accompagnement adapté.',
+    intro: 'Chaque investissement s’accompagne d’un appui concret, sur les sujets qui font grandir une entreprise.',
     items: [
-      {title: 'Finance', items: ['Comptabilité', 'Trésorerie', 'Budget', 'Reporting', 'Contrôle des coûts', 'Suivi des marges']},
-      {title: 'Commercial', items: ['Stratégie de prix', 'Développement de clientèle', 'Distribution', 'Partenariats']},
-      {title: 'Marketing', items: ['Identité de marque', 'Communication', 'Présence digitale', 'Réseaux sociaux']},
-      {title: 'Opérations', items: ['Gestion des stocks', 'Achats', 'Procédures', 'Qualité', 'Productivité']},
-      {title: 'Ressources humaines', items: ['Recrutement', 'Organisation', 'Fiches de poste', 'Management', 'Culture d’entreprise']},
+      {title: 'Finance', text: 'Comptabilité, trésorerie et suivi des marges.'},
+      {title: 'Commercial', text: 'Prix, clientèle et distribution.'},
+      {title: 'Marketing', text: 'Marque, communication et présence digitale.'},
+      {title: 'Opérations', text: 'Stocks, achats et qualité.'},
+      {title: 'Ressources humaines', text: 'Recrutement, organisation et management.'},
     ],
-    closing: 'L’objectif : une entreprise plus autonome, plus structurée et plus performante.',
   },
   pilot: {
-    eyebrow: 'Phase pilote',
-    title: 'Kinshasa, laboratoire du modèle',
+    eyebrow: 'Notre engagement',
+    title: 'Ce que change un investissement',
     paragraphs: [
-      'LOKAMBE commence par Kinshasa, à travers une phase pilote destinée à tester le modèle, constituer un premier portefeuille, créer les premières entreprises, mesurer les performances et documenter les méthodes nécessaires à une expansion progressive vers d’autres pôles économiques de la RDC.',
+      'Nous investissons dans des activités réelles, aux côtés d’entrepreneurs qui les dirigent au quotidien. Le capital sert à produire davantage, vendre davantage et employer davantage.',
     ],
     image: {src: '/images/home-kinshasa.webp', alt: 'Boulevard de Kinshasa avec taxis jaunes et motos'},
-    phases: [
-      {label: 'Phase 1', title: 'Kinshasa', text: 'Construire l’équipe, tester les procédures, constituer le premier portefeuille.'},
-      {label: 'Phase 2', title: 'Extension', text: 'Déploiement progressif dans d’autres pôles économiques.'},
-      {label: 'Phase 3', title: 'Réseau national', text: 'Un réseau d’entrepreneurs, d’entreprises et de partenaires dans plusieurs provinces.'},
+    overlay: 'RDC.',
+    points: [
+      {
+        label: 'Ce que nous finançons',
+        title: 'Équipements et stock',
+        text: 'Machines, matériel, matières premières et fonds de roulement.',
+      },
+      {
+        label: 'Ce que nous apportons',
+        title: 'Accompagnement',
+        text: 'Des compétences, des outils et un réseau, aux côtés de l’entrepreneur.',
+      },
+      {
+        label: 'Ce que nous visons',
+        title: 'Des entreprises solides',
+        text: 'Plus structurées, plus autonomes, créatrices d’emplois et de revenus.',
+      },
     ],
-    motto: 'Commencer concentré pour apprendre. Grandir progressivement pour durer.',
+    closing: 'Nous investissons dans ceux qui créent déjà.',
   },
   faq: {
     eyebrow: 'Questions fréquentes',
@@ -178,32 +188,22 @@ export const home: HomeContent = {
       {
         question: 'Qui peut soumettre un projet à LOKAMBE ?',
         answer:
-          'Les entrepreneurs qui développent une activité réelle en RDC : PME, microentreprises ou activités génératrices de revenus, avec des revenus existants ou démontrables, une clientèle identifiable et un besoin précis. Pendant la phase pilote, nous étudions en priorité les projets situés à Kinshasa.',
+          'Les entrepreneurs qui développent une activité réelle en RDC : PME, microentreprises ou activités génératrices de revenus, avec une clientèle identifiable et un besoin précis.',
       },
       {
         question: 'Mon activité n’est pas formalisée. Puis-je candidater ?',
         answer:
-          'Oui. Le niveau de formalisation n’est pas le seul critère d’entrée. Une activité informelle présentant un potentiel économique peut être accompagnée dans sa structuration et sa formalisation, avant ou pendant l’intervention de LOKAMBE.',
+          'Oui. Une activité informelle qui présente un potentiel économique peut être accompagnée dans sa structuration et sa formalisation.',
       },
       {
         question: 'Quels secteurs sont prioritaires ?',
         answer:
-          'Pendant la phase pilote : la restauration, les métiers de bouche et la transformation alimentaire, le commerce et la distribution, l’événementiel et les services. Le champ d’intervention s’élargira à mesure que le portefeuille et l’équipe se développeront.',
+          'La restauration, les métiers de bouche et la transformation alimentaire, le commerce et la distribution, l’événementiel et les services.',
       },
       {
         question: 'LOKAMBE fait-il des dons ou des subventions ?',
         answer:
-          'Non. Nous ne donnons pas, nous investissons. Selon le projet, LOKAMBE peut proposer un financement remboursable, une prise de participation, un co-investissement ou un partenariat entrepreneurial, toujours associé à un accompagnement.',
-      },
-      {
-        question: 'Quels documents dois-je préparer ?',
-        answer:
-          'Tout ce qui aide à comprendre votre activité : photos du local et des équipements, relevés de ventes ou cahier de caisse, devis des achats envisagés, et le RCCM si votre activité est formalisée. Le formulaire accepte jusqu’à 5 fichiers.',
-      },
-      {
-        question: 'Comment ma candidature est-elle étudiée ?',
-        answer:
-          'Vous recevez une référence de dossier. Un premier filtre est réalisé selon nos critères, puis, si votre dossier est présélectionné, nous venons visiter votre activité. L’analyse complète est ensuite présentée au Comité d’investissement, qui décide de façon collégiale.',
+          'Non. Nous ne donnons pas, nous investissons : le capital est engagé aux côtés de l’entrepreneur, et toujours associé à un accompagnement.',
       },
     ],
     contactText: 'Une autre question ? Notre équipe vous répond.',

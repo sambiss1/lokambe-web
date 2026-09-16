@@ -93,67 +93,6 @@ export const model: ModelContent = {
       },
     ],
   },
-  instruments: {
-    eyebrow: 'Instruments d’investissement',
-    title: 'Des instruments adaptés à chaque projet',
-    intro: 'Selon la nature du projet et le cadre juridique applicable, LOKAMBE pourra utiliser différents instruments.',
-    items: [
-      {title: 'Financement remboursable', text: 'Adapté aux activités générant des flux de trésorerie réguliers.'},
-      {title: 'Prise de participation', text: 'Adaptée aux entreprises présentant un potentiel de croissance et de valorisation important.'},
-      {title: 'Co-investissement', text: 'Association avec d’autres investisseurs ou partenaires financiers.'},
-      {title: 'Création directe', text: 'LOKAMBE crée, finance et détient une entreprise.'},
-      {
-        title: 'Partenariat entrepreneurial',
-        text: 'Association avec un entrepreneur apportant son expertise, son réseau ou sa capacité opérationnelle.',
-      },
-    ],
-    criteria: {
-      title: 'Le choix de l’instrument dépendra notamment',
-      items: [
-        'Du niveau de risque',
-        'Du besoin de financement',
-        'De la maturité de l’entreprise',
-        'Du potentiel de croissance',
-        'De la capacité de remboursement',
-        'Du rendement attendu',
-        'De la structure juridique',
-      ],
-    },
-  },
-  portfolio: {
-    eyebrow: 'Politique de portefeuille',
-    title: 'Un portefeuille équilibré',
-    paragraphs: [
-      'LOKAMBE cherchera à construire un portefeuille équilibré plutôt qu’à multiplier les investissements.',
-      'Au démarrage, LOKAMBE privilégiera un nombre limité d’entreprises afin de garantir un niveau élevé de suivi et d’accompagnement. Une réserve de capital sera également maintenue pour répondre aux opportunités, accompagner les entreprises performantes, financer certains besoins de suivi et faire face aux imprévus.',
-    ],
-    dimensions: {
-      title: 'La diversification pourra être organisée selon',
-      items: [
-        'Les secteurs',
-        'La taille des entreprises',
-        'Leur niveau de maturité',
-        'Les modèles économiques',
-        'Les zones géographiques',
-        'Les instruments financiers',
-        'Les niveaux de risque',
-      ],
-    },
-  },
-  economics: {
-    eyebrow: 'Modèle économique',
-    title: 'La création de valeur comme moteur',
-    intro:
-      'Le modèle économique de LOKAMBE reposera principalement sur la création de valeur au niveau des entreprises et investissements de son portefeuille. Les revenus pourront notamment provenir :',
-    items: [
-      {title: 'Des financements', items: ['Intérêts', 'Rendements contractuels', 'Autres revenus liés aux instruments de financement']},
-      {title: 'Des participations', items: ['Dividendes', 'Plus-values', 'Distributions']},
-      {title: 'Des entreprises détenues', items: ['Bénéfices', 'Dividendes', 'Valorisation des actifs']},
-      {title: 'Des cessions', items: ['Vente totale ou partielle de participations', 'Réalisation de plus-values']},
-    ],
-    cycleTitle: 'Le cycle économique',
-    cycle: ['Capital', 'Entreprise / Actif', 'Croissance', 'Cash-flow', 'Rendement', 'Réinvestissement'],
-  },
   cta: {
     title: 'Votre activité correspond à notre modèle ?',
     text: 'Découvrez nos critères d’investissement puis présentez-nous votre projet.',

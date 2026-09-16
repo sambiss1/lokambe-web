@@ -3,8 +3,6 @@ import {setRequestLocale} from 'next-intl/server';
 import {ContactForm} from '@/components/forms/ContactForm';
 import {Reveal} from '@/components/motion/Reveal';
 import {CardGrid} from '@/components/sections/CardGrid';
-import {Highlight} from '@/components/sections/Highlight';
-import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
 import {getContent} from '@/content';
@@ -30,12 +28,6 @@ export default async function InvestorsPage({params}: Props) {
       <Section eyebrow={investors.why.eyebrow} title={investors.why.title}>
         <CardGrid items={investors.why.items} columns={2} />
       </Section>
-
-      <Section tone="peach-soft" eyebrow={investors.capital.eyebrow} title={investors.capital.title} intro={investors.capital.intro}>
-        <ListPanel groups={investors.capital.items} variant="bullets" />
-      </Section>
-
-      <Highlight tone="blue">{investors.capital.principle}</Highlight>
 
       <Section eyebrow={investors.network.eyebrow} title={investors.network.title}>
         <CardGrid items={investors.network.items} />

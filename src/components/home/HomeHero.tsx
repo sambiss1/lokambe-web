@@ -1,4 +1,4 @@
-import {MapPin, UtensilsCrossed} from 'lucide-react';
+import {HeartHandshake, UtensilsCrossed} from 'lucide-react';
 import Image from 'next/image';
 import type {CSSProperties} from 'react';
 import type {HomeContent} from '@/content/types';
@@ -108,7 +108,7 @@ export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: s
             >
               <span className="relative grid size-8 place-items-center">
                 <span className="absolute size-3 animate-pulse-dot rounded-full bg-lokambe-red" />
-                <MapPin className="relative size-5 text-lokambe-peach" strokeWidth={2.2} />
+                <HeartHandshake className="relative size-5 text-lokambe-peach" strokeWidth={2.2} />
               </span>
               <span className="leading-tight">
                 <span className="block text-xs font-medium text-white/70">{cards.place.label}</span>

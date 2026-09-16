@@ -35,45 +35,6 @@ export const investors: InvestorsContent = {
       },
     ],
   },
-  capital: {
-    eyebrow: 'Besoin initial en capital',
-    title: 'Trois enveloppes',
-    intro: 'Le capital initial de LOKAMBE est structuré autour de trois grandes enveloppes.',
-    items: [
-      {
-        title: 'A. Capital d’investissement',
-        intro: 'Destiné directement aux :',
-        items: ['PME', 'Microentreprises', 'Activités génératrices de revenus', 'Entreprises créées par LOKAMBE'],
-      },
-      {
-        title: 'B. Capital opérationnel',
-        intro: 'Destiné notamment à :',
-        items: [
-          'L’équipe',
-          'La gestion',
-          'Les déplacements',
-          'Les outils',
-          'Les études',
-          'Le juridique',
-          'La comptabilité',
-          'La communication',
-          'Les due diligences',
-        ],
-      },
-      {
-        title: 'C. Réserve stratégique',
-        intro: 'Destinée notamment :',
-        items: [
-          'Aux opportunités',
-          'Au suivi des investissements',
-          'Au refinancement des entreprises performantes',
-          'Aux imprévus',
-          'Aux besoins de liquidité',
-        ],
-      },
-    ],
-    principle: 'La majorité du capital mobilisé doit être orientée vers la création directe de valeur économique.',
-  },
   network: {
     eyebrow: 'Nous rejoindre',
     title: 'Plusieurs façons de s’engager',

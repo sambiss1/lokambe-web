@@ -4,7 +4,7 @@ export const sectors: SectorsContent = {
   meta: {
     title: 'Secteurs et critères',
     description:
-      'La thèse d’investissement de LOKAMBE, ses secteurs prioritaires et le profil des entreprises ciblées pendant la phase pilote.',
+      'La thèse d’investissement de LOKAMBE, ses secteurs prioritaires et le profil des entreprises ciblées.',
   },
   hero: {
     eyebrow: 'Secteurs et critères',
@@ -46,9 +46,9 @@ export const sectors: SectorsContent = {
   },
   sectors: {
     eyebrow: 'Secteurs prioritaires',
-    title: 'Cinq secteurs pour la phase pilote',
+    title: 'Cinq secteurs prioritaires',
     intro:
-      'La phase pilote sera volontairement concentrée sur un nombre limité de secteurs afin de permettre à LOKAMBE de développer une véritable expertise sectorielle.',
+      'LOKAMBE concentre ses interventions sur un nombre limité de secteurs, afin d’y développer une véritable expertise.',
     items: [
       {
         title: 'Restauration',

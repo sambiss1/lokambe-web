@@ -1,4 +1,5 @@
 import type {HomeContent} from '@/content/types';
+import {cx} from '@/lib/cx';
 import {CountUp} from '../motion/CountUp';
 import {Reveal} from '../motion/Reveal';
 import {Container} from '../ui/Container';
@@ -33,9 +34,8 @@ export function Statement({statement, facts}: {statement: HomeContent['statement
               <Eyebrow className="text-ink-soft">{facts.eyebrow}</Eyebrow>
               <h2 className="display mt-3 text-[clamp(1.45rem,2.46vw,2.05rem)] text-lokambe-blue">{facts.title}</h2>
             </div>
-            <p className="max-w-sm text-base text-ink-soft">{facts.note}</p>
           </Reveal>
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-4">
+          <ul className={cx('grid sm:grid-cols-2', facts.items.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4')}>
             {facts.items.map((fact, index) => (
               <Reveal
                 as="li"

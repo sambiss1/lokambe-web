@@ -14,7 +14,6 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
             <Eyebrow className="text-ink-soft">{support.eyebrow}</Eyebrow>
             <h2 className="display mt-5 text-[clamp(1.95rem,4.1vw,3.7rem)] text-lokambe-blue">{support.title}</h2>
             <p className="mt-6 text-[1.0625rem] leading-relaxed text-ink-soft sm:text-lg">{support.intro}</p>
-            <p className="mt-6 border-l-4 border-lokambe-red pl-4 text-[1.0625rem] font-bold text-ink">{support.closing}</p>
           </Reveal>
         </div>
 
@@ -26,20 +25,11 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
               index={index}
               className="group border-b border-line transition-colors duration-300 hover:bg-lokambe-peach-soft"
             >
-              <div className="grid gap-4 px-1 py-7 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] sm:items-center sm:gap-8 sm:px-5 sm:py-9">
+              <div className="grid gap-2 px-1 py-7 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] sm:items-baseline sm:gap-8 sm:px-5 sm:py-9">
                 <h3 className="display text-[clamp(1.5rem,2.38vw,2.15rem)] text-ink transition-colors group-hover:text-lokambe-blue">
                   {item.title}
                 </h3>
-                <ul className="flex flex-wrap gap-2">
-                  {item.items.map((entry) => (
-                    <li
-                      key={entry}
-                      className="rounded-full bg-lokambe-peach-soft px-3.5 py-1.5 text-[0.95rem] font-medium text-ink transition-colors group-hover:bg-white"
-                    >
-                      {entry}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-[1.0625rem] leading-relaxed text-ink-soft">{item.text}</p>
               </div>
             </Reveal>
           ))}
@@ -52,7 +42,7 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
             <Image src={pilot.image.src} alt={pilot.image.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-[50%_80%]" />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-ink/40" />
             <p className="display absolute bottom-6 left-6 text-[clamp(2.45rem,6.56vw,5.35rem)] leading-none text-white lg:bottom-10 lg:left-10">
-              Kin.
+              {pilot.overlay}
             </p>
           </div>
           <div className="flex flex-col p-8 sm:p-12 lg:p-14">
@@ -67,8 +57,8 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
             </Reveal>
 
             <ol className="relative mt-10 space-y-7 before:absolute before:top-3 before:bottom-3 before:left-[0.6875rem] before:w-0.5 before:bg-white/15">
-              {pilot.phases.map((phase, index) => (
-                <Reveal as="li" key={phase.title} index={index} className="relative flex gap-5">
+              {pilot.points.map((point, index) => (
+                <Reveal as="li" key={point.title} index={index} className="relative flex gap-5">
                   <span className="relative mt-1 grid size-6 flex-none place-items-center">
                     {index === 0 && <span className="absolute size-4 animate-pulse-dot rounded-full bg-lokambe-red" />}
                     <span
@@ -79,15 +69,15 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
                     />
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-lokambe-peach">{phase.label}</p>
-                    <h3 className="text-xl font-extrabold uppercase">{phase.title}</h3>
-                    {phase.text && <p className="mt-1 text-base leading-relaxed text-white/70">{phase.text}</p>}
+                    <p className="text-sm font-medium text-lokambe-peach">{point.label}</p>
+                    <h3 className="text-xl font-extrabold uppercase">{point.title}</h3>
+                    {point.text && <p className="mt-1 text-base leading-relaxed text-white/70">{point.text}</p>}
                   </div>
                 </Reveal>
               ))}
             </ol>
 
-            <p className="mt-auto pt-10 text-lg font-bold text-lokambe-peach">{pilot.motto}</p>
+            <p className="mt-auto pt-10 text-lg font-bold text-lokambe-peach">{pilot.closing}</p>
           </div>
         </div>
       </Container>

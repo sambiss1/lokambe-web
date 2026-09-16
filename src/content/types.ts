@@ -41,12 +41,12 @@ export type HomeContent = {
   };
   marquee: string[];
   statement: {quote: string; text: string};
-  facts: SectionHeading & {items: Fact[]; note: string};
+  facts: SectionHeading & {items: Fact[]};
   functions: SectionHeading & {items: TitledText[]; cycle: string[]; cycleLabel: string};
   sectors: SectionHeading & {items: SectorCard[]; link: LinkItem};
   process: SectionHeading & {phases: ProcessPhase[]; link: LinkItem; stepLabel: string; prevLabel: string; nextLabel: string};
-  support: SectionHeading & {items: TitledList[]; closing: string};
-  pilot: SectionHeading & {paragraphs: string[]; image: ImageRef; phases: Phase[]; motto: string};
+  support: SectionHeading & {items: TitledText[]};
+  pilot: SectionHeading & {paragraphs: string[]; image: ImageRef; overlay: string; points: Phase[]; closing: string};
   faq: SectionHeading & {items: FaqItem[]; contactText: string; contact: LinkItem};
   cta: CtaContent & {image: ImageRef};
 };
@@ -72,9 +72,6 @@ export type ModelContent = {
   hero: PageHeroContent;
   roles: SectionHeading & {items: TitledText[]; closing: string};
   pillars: SectionHeading & {items: Pillar[]};
-  instruments: SectionHeading & {items: TitledText[]; criteria: TitledList};
-  portfolio: SectionHeading & {paragraphs: string[]; dimensions: TitledList};
-  economics: SectionHeading & {items: TitledList[]; cycleTitle: string; cycle: string[]};
   cta: CtaContent;
 };
 
@@ -147,7 +144,6 @@ export type InvestorsContent = {
   meta: PageMeta;
   hero: PageHeroContent;
   why: SectionHeading & {items: TitledText[]};
-  capital: SectionHeading & {items: TitledList[]; principle: string};
   network: SectionHeading & {items: TitledText[]};
   form: {title: string};
 };
