@@ -6,6 +6,7 @@ import type {ReactNode} from 'react';
 import {Footer} from '@/components/layout/Footer';
 import {Header} from '@/components/layout/Header';
 import {routing} from '@/i18n/routing';
+import {siteUrl} from '@/lib/seo';
 import {cabinetGrotesk} from '../fonts';
 import '../globals.css';
 
@@ -20,7 +21,7 @@ export async function generateMetadata({params}: Omit<Props, 'children'>): Promi
   const t = await getTranslations({locale, namespace: 'metadata'});
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+    metadataBase: new URL(siteUrl()),
     title: {default: t('defaultTitle'), template: `%s | ${t('siteName')}`},
     description: t('defaultDescription'),
   };

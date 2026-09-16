@@ -2,9 +2,17 @@ import type {Metadata} from 'next';
 import type {PageMeta} from '@/content/types';
 import {DEFAULT_LOCALE, enabledLocales} from '@/i18n/locales';
 
-/** URL publique du site, sans barre oblique finale. */
+/**
+ * URL publique du site, sans barre oblique finale.
+ * À défaut de `NEXT_PUBLIC_SITE_URL`, on retombe sur le domaine fourni par
+ * l'hébergeur (Vercel) pour que les liens canoniques restent justes.
+ */
 export function siteUrl(): string {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+  const vercelDomain =
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL;
+  const configured = process.env.NEXT_PUBLIC_SITE_URL ?? (vercelDomain ? `https://${vercelDomain}` : undefined);
+
+  return (configured ?? 'http://localhost:3000').replace(/\/$/, '');
 }
 
 /** Liens canoniques et alternates par langue pour une page. */
