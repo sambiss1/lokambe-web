@@ -63,7 +63,7 @@ export function SectorsBento({sectors}: {sectors: HomeContent['sectors']}) {
                     </li>
                   ))}
                 </ul>
-                <h3 className={cx('display text-[1.9rem] leading-none', index === 0 && 'lg:text-[3.25rem]')}>
+                <h3 className={cx('display text-[1.6rem] leading-none', index === 0 && 'lg:text-[2.6rem]')}>
                   {sector.title}
                 </h3>
                 <p

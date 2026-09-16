@@ -57,7 +57,7 @@ export function ContactForm({title, labels, defaultKind}: Props) {
   return (
     <Reveal>
       <form noValidate onSubmit={onSubmit} className="relative rounded-[2rem] bg-white p-6 ring-1 ring-line ring-inset sm:p-9">
-        <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)] text-lokambe-blue">{title}</h2>
+        <h2 className="display text-[clamp(1.3rem,2.46vw,1.85rem)] text-lokambe-blue">{title}</h2>
         <Honeypot label={labels.common.honeypotLabel} {...register('website')} />
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2">

@@ -10,7 +10,7 @@ export function Chain({items, tone = 'light'}: {items: string[]; tone?: 'light' 
         <Reveal as="li" key={item} index={Math.min(index, 6)} className="flex items-center gap-3">
           <span
             className={cx(
-              'rounded-full px-5 py-2.5 text-lg font-bold whitespace-nowrap',
+              'rounded-full px-4 py-2 text-base font-bold whitespace-nowrap',
               index === items.length - 1
                 ? 'bg-lokambe-blue text-white'
                 : dark

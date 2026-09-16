@@ -9,7 +9,7 @@ export function PageHeader({eyebrow, title, description, actions}: Props) {
     <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
       <div className="min-w-0">
         <Eyebrow className="text-sm text-ink-soft">{eyebrow}</Eyebrow>
-        <h1 className="display mt-2 text-[clamp(1.9rem,4vw,2.6rem)]">{title}</h1>
+        <h1 className="display mt-2 text-[clamp(1.55rem,3.28vw,2.15rem)]">{title}</h1>
         {description ? <p className="mt-2 max-w-2xl text-sm text-ink-soft">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-3">{actions}</div> : null}

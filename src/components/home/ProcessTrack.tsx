@@ -79,14 +79,14 @@ export function ProcessTrack({process}: {process: HomeContent['process']}) {
                 >
                   <span
                     className={cx(
-                      'text-6xl leading-none font-extrabold tabular-nums transition-colors',
+                      'text-5xl leading-none font-extrabold tabular-nums transition-colors',
                       last ? 'text-lokambe-red' : 'text-lokambe-peach group-hover:text-lokambe-red',
                     )}
                   >
                     <span className="sr-only">{process.stepLabel} </span>
                     {String(number).padStart(2, '0')}
                   </span>
-                  <h3 className="mt-auto pt-10 text-[1.7rem] leading-none font-extrabold uppercase">{step.title}</h3>
+                  <h3 className="mt-auto pt-8 text-[1.4rem] leading-none font-extrabold uppercase">{step.title}</h3>
                   <p
                     className={cx(
                       'mt-3 text-base leading-snug transition-colors',

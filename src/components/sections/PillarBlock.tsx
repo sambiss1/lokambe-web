@@ -9,7 +9,7 @@ export function PillarBlock({pillar}: {pillar: Pillar}) {
       <Reveal className="grid gap-6 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <p className="text-sm font-medium text-lokambe-red">{pillar.label}</p>
-          <h3 className="display mt-3 text-[clamp(1.9rem,3.4vw,3rem)] text-lokambe-blue">{pillar.title}</h3>
+          <h3 className="display mt-3 text-[clamp(1.55rem,2.79vw,2.45rem)] text-lokambe-blue">{pillar.title}</h3>
         </div>
         <p className="text-lg leading-relaxed text-ink-soft lg:col-span-7">{pillar.text}</p>
       </Reveal>

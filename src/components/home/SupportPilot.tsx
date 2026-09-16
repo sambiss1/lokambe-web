@@ -12,9 +12,9 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
         <div className="lg:col-span-4">
           <Reveal className="lg:sticky lg:top-32">
             <Eyebrow className="text-ink-soft">{support.eyebrow}</Eyebrow>
-            <h2 className="display mt-5 text-[clamp(2.4rem,5vw,4.5rem)] text-lokambe-blue">{support.title}</h2>
-            <p className="mt-6 text-lg leading-relaxed text-ink-soft sm:text-xl">{support.intro}</p>
-            <p className="mt-6 border-l-4 border-lokambe-red pl-4 text-lg font-bold text-ink">{support.closing}</p>
+            <h2 className="display mt-5 text-[clamp(1.95rem,4.1vw,3.7rem)] text-lokambe-blue">{support.title}</h2>
+            <p className="mt-6 text-[1.0625rem] leading-relaxed text-ink-soft sm:text-lg">{support.intro}</p>
+            <p className="mt-6 border-l-4 border-lokambe-red pl-4 text-[1.0625rem] font-bold text-ink">{support.closing}</p>
           </Reveal>
         </div>
 
@@ -27,7 +27,7 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
               className="group border-b border-line transition-colors duration-300 hover:bg-lokambe-peach-soft"
             >
               <div className="grid gap-4 px-1 py-7 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] sm:items-center sm:gap-8 sm:px-5 sm:py-9">
-                <h3 className="display text-[clamp(1.8rem,2.9vw,2.6rem)] text-ink transition-colors group-hover:text-lokambe-blue">
+                <h3 className="display text-[clamp(1.5rem,2.38vw,2.15rem)] text-ink transition-colors group-hover:text-lokambe-blue">
                   {item.title}
                 </h3>
                 <ul className="flex flex-wrap gap-2">
@@ -51,16 +51,16 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
           <div className="relative min-h-[22rem] lg:min-h-[40rem]">
             <Image src={pilot.image.src} alt={pilot.image.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-[50%_80%]" />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-ink/40" />
-            <p className="display absolute bottom-6 left-6 text-[clamp(3rem,8vw,6.5rem)] leading-none text-white lg:bottom-10 lg:left-10">
+            <p className="display absolute bottom-6 left-6 text-[clamp(2.45rem,6.56vw,5.35rem)] leading-none text-white lg:bottom-10 lg:left-10">
               Kin.
             </p>
           </div>
           <div className="flex flex-col p-8 sm:p-12 lg:p-14">
             <Reveal>
               <Eyebrow className="text-white/75">{pilot.eyebrow}</Eyebrow>
-              <h2 className="display mt-5 text-[clamp(2.2rem,4.2vw,3.75rem)]">{pilot.title}</h2>
+              <h2 className="display mt-5 text-[clamp(1.8rem,3.44vw,3.05rem)]">{pilot.title}</h2>
               {pilot.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="mt-6 text-lg leading-relaxed text-white/75">
+                <p key={paragraph} className="mt-6 text-[1.0625rem] leading-relaxed text-white/75">
                   {paragraph}
                 </p>
               ))}
@@ -80,14 +80,14 @@ export function SupportPilot({support, pilot}: {support: HomeContent['support'];
                   </span>
                   <div>
                     <p className="text-sm font-medium text-lokambe-peach">{phase.label}</p>
-                    <h3 className="text-2xl font-extrabold uppercase">{phase.title}</h3>
+                    <h3 className="text-xl font-extrabold uppercase">{phase.title}</h3>
                     {phase.text && <p className="mt-1 text-base leading-relaxed text-white/70">{phase.text}</p>}
                   </div>
                 </Reveal>
               ))}
             </ol>
 
-            <p className="mt-auto pt-10 text-xl font-bold text-lokambe-peach">{pilot.motto}</p>
+            <p className="mt-auto pt-10 text-lg font-bold text-lokambe-peach">{pilot.motto}</p>
           </div>
         </div>
       </Container>

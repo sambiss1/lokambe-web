@@ -20,14 +20,14 @@ export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: s
       <Container className="relative grid gap-12 pt-32 pb-16 sm:pt-40 lg:grid-cols-12 lg:gap-8 lg:pt-44 lg:pb-24">
         <div className="lg:col-span-7 xl:col-span-7">
           <Eyebrow className="fade-up text-white/85">{hero.eyebrow}</Eyebrow>
-          <h1 className="display mt-6 text-[clamp(2.1rem,9.4vw,3.6rem)] sm:text-[clamp(3.4rem,7.6vw,5rem)] lg:text-[clamp(3.2rem,4.85vw,5.1rem)]">
+          <h1 className="display mt-6 text-[clamp(1.7rem,7.71vw,2.95rem)] sm:text-[clamp(2.8rem,6.23vw,4.1rem)] lg:text-[clamp(2.6rem,3.98vw,4.2rem)]">
             {hero.titleLines.map((line, index) => (
               <span key={line} className="line-mask" style={{'--i': index} as CSSProperties}>
                 <span>{line}</span>
               </span>
             ))}
           </h1>
-          <p className="fade-up mt-8 max-w-[34rem] text-lg leading-relaxed text-white/85 sm:text-xl" style={{'--i': 2} as CSSProperties}>
+          <p className="fade-up mt-7 max-w-[33rem] text-[1.0625rem] leading-relaxed text-white/85 sm:text-lg" style={{'--i': 2} as CSSProperties}>
             {hero.intro}
           </p>
           <div className="fade-up mt-10 flex flex-wrap gap-3" style={{'--i': 3} as CSSProperties}>
@@ -122,7 +122,7 @@ export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: s
       <Marquee label={hero.tagline} className="border-t border-white/10 bg-lokambe-peach py-5 text-lokambe-blue sm:py-7">
         {marquee.map((word) => (
           <span key={word} className="flex items-center">
-            <span className="display px-6 text-[clamp(2.25rem,6vw,4.75rem)] leading-none whitespace-nowrap sm:px-10">
+            <span className="display px-6 text-[clamp(1.85rem,4.92vw,3.9rem)] leading-none whitespace-nowrap sm:px-10">
               {word}.
             </span>
             <span aria-hidden="true" className="h-3 w-7 rounded-full bg-lokambe-red sm:h-4 sm:w-10" />

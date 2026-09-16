@@ -127,7 +127,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       aria-current={pathname === item.href ? 'page' : undefined}
-                      className="flex items-center justify-between py-2 text-[clamp(2rem,9vw,3.25rem)] leading-none font-extrabold uppercase"
+                      className="flex items-center justify-between py-2 text-[clamp(1.65rem,7.38vw,2.65rem)] leading-none font-extrabold uppercase"
                     >
                       {t(item.key)}
                       {pathname === item.href && <span className="h-3 w-6 rounded-full bg-lokambe-red" />}

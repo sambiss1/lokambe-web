@@ -21,12 +21,12 @@ export function PageHero({hero, marquee}: {hero: PageHeroContent; marquee?: stri
       <Container className="grid gap-12 pt-32 pb-16 sm:pt-40 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-44 lg:pb-24">
         <div className={hero.image ? 'lg:col-span-7' : 'lg:col-span-9'}>
           <Eyebrow className="fade-up text-white/85">{hero.eyebrow}</Eyebrow>
-          <h1 className="display mt-6 text-[clamp(2.3rem,7.6vw,4.5rem)] lg:text-[clamp(3rem,4.6vw,5rem)]">
+          <h1 className="display mt-6 text-[clamp(1.9rem,6.23vw,3.7rem)] lg:text-[clamp(2.45rem,3.77vw,4.1rem)]">
             <span className="line-mask">
               <span>{hero.title}</span>
             </span>
           </h1>
-          <p className="fade-up mt-7 max-w-[38rem] text-lg leading-relaxed text-white/85 sm:text-xl" style={{'--i': 1} as CSSProperties}>
+          <p className="fade-up mt-6 max-w-[36rem] text-[1.0625rem] leading-relaxed text-white/85 sm:text-lg" style={{'--i': 1} as CSSProperties}>
             {hero.intro}
           </p>
         </div>
@@ -50,7 +50,7 @@ export function PageHero({hero, marquee}: {hero: PageHeroContent; marquee?: stri
         <Marquee label={marquee.join(' ')} className="bg-lokambe-peach py-4 text-lokambe-blue">
           {marquee.map((word) => (
             <span key={word} className="flex items-center">
-              <span className="display px-6 text-[clamp(1.5rem,3.5vw,2.75rem)] leading-none whitespace-nowrap sm:px-8">
+              <span className="display px-6 text-[clamp(1.25rem,2.87vw,2.25rem)] leading-none whitespace-nowrap sm:px-8">
                 {word}
               </span>
               <span aria-hidden="true" className="h-2.5 w-6 rounded-full bg-lokambe-red" />

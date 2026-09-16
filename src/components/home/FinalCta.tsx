@@ -13,8 +13,8 @@ export function FinalCta({cta}: {cta: HomeContent['cta']}) {
       />
       <Container className="grid items-center gap-14 lg:grid-cols-12">
         <Reveal className="lg:col-span-8">
-          <h2 className="display text-[clamp(2.75rem,7vw,7rem)] leading-[0.9]">{cta.title}</h2>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">{cta.text}</p>
+          <h2 className="display text-[clamp(2.25rem,5.74vw,5.75rem)] leading-[0.9]">{cta.title}</h2>
+          <p className="mt-8 max-w-2xl text-[1.0625rem] leading-relaxed text-white/85 sm:text-lg">{cta.text}</p>
           <div className="mt-10 flex flex-wrap gap-3">
             <ButtonLink href={cta.primary.href} variant="white" size="lg">
               {cta.primary.label}

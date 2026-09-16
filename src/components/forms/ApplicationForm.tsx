@@ -116,7 +116,7 @@ export function ApplicationForm({content, labels}: Props) {
           notice={labels.application.success.demoNotice}
         >
           <p className="text-base font-medium text-ink-soft">{labels.application.success.referenceLabel}</p>
-          <p className="mt-1 text-[clamp(2rem,6vw,3rem)] font-extrabold tracking-tight text-lokambe-blue tabular-nums">
+          <p className="mt-1 text-[clamp(1.65rem,4.92vw,2.45rem)] font-extrabold tracking-tight text-lokambe-blue tabular-nums">
             {reference}
           </p>
           <p className="mt-6 max-w-[55ch] text-lg leading-relaxed text-ink-soft">{labels.application.success.next}</p>
@@ -136,7 +136,7 @@ export function ApplicationForm({content, labels}: Props) {
 
       <Reveal className="lg:col-span-8">
         <form noValidate onSubmit={onSubmit} className="relative rounded-[2rem] bg-white p-6 ring-1 ring-line ring-inset sm:p-9">
-          <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)] text-lokambe-blue">{content.title}</h2>
+          <h2 className="display text-[clamp(1.3rem,2.46vw,1.85rem)] text-lokambe-blue">{content.title}</h2>
           <Honeypot label={labels.common.honeypotLabel} {...register('website')} />
 
           {step === 0 && (

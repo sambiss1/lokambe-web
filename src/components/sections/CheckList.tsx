@@ -13,7 +13,7 @@ export function CheckList({items, tone = 'light', columns = 2}: {items: string[]
           key={item}
           index={Math.min(index, 5)}
           className={cx(
-            'flex items-center gap-4 border-b py-4 text-lg',
+            'flex items-center gap-4 border-b py-4 text-[1.0625rem]',
             dark ? 'border-white/15 text-white/85' : 'border-line text-ink',
           )}
         >

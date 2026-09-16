@@ -7,8 +7,8 @@ export function TeamGrid({members}: {members: TeamRole[]}) {
     <ul className="grid gap-4 lg:grid-cols-2">
       {members.map((member, index) => (
         <Reveal as="li" key={member.title} index={index % 2} className="flex flex-col rounded-[1.75rem] bg-white p-7 ring-1 ring-line ring-inset">
-          <h3 className="text-2xl leading-tight font-extrabold text-lokambe-blue uppercase">{member.title}</h3>
-          <p className="mt-4 text-lg leading-relaxed text-ink-soft">{member.summary}</p>
+          <h3 className="text-xl leading-tight font-extrabold text-lokambe-blue uppercase">{member.title}</h3>
+          <p className="mt-4 text-[1.0625rem] leading-relaxed text-ink-soft">{member.summary}</p>
           <details className="faq-item group mt-6 border-t border-line pt-5">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-bold text-ink">
               {member.responsibilitiesTitle}

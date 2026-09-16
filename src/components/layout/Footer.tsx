@@ -16,10 +16,10 @@ export function Footer() {
       <Container className="pt-20 pb-10 sm:pt-28">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
           <div>
-            <p lang="ln" className="display max-w-[12ch] text-[clamp(2.25rem,5vw,4rem)] text-lokambe-peach">
+            <p lang="ln" className="display max-w-[12ch] text-[clamp(1.85rem,4.1vw,3.3rem)] text-lokambe-peach">
               {SLOGAN}
             </p>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-white/70">{tf('description')}</p>
+            <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-white/70">{tf('description')}</p>
             <ButtonLink href={APPLY_HREF} variant="white" size="lg" className="mt-8">
               {t('apply')}
             </ButtonLink>
@@ -56,7 +56,7 @@ export function Footer() {
               <h2 className="text-sm font-medium text-white/50">{tf('contactTitle')}</h2>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="mt-3 inline-block text-[clamp(1.5rem,3vw,2.25rem)] font-bold underline decoration-white/25 decoration-2 underline-offset-8 transition-colors hover:text-lokambe-peach hover:decoration-lokambe-peach"
+                className="mt-3 inline-block text-[clamp(1.25rem,2.46vw,1.85rem)] font-bold underline decoration-white/25 decoration-2 underline-offset-8 transition-colors hover:text-lokambe-peach hover:decoration-lokambe-peach"
               >
                 {CONTACT_EMAIL}
               </a>
@@ -103,7 +103,7 @@ function FooterLink({href, children, small}: {href: string; children: React.Reac
       className={
         small
           ? 'transition-colors hover:text-white'
-          : 'group inline-flex items-center gap-2 text-lg font-medium text-white/85 transition-colors hover:text-white'
+          : 'group inline-flex items-center gap-2 text-base font-medium text-white/85 transition-colors hover:text-white'
       }
     >
       {children}

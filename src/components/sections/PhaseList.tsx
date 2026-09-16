@@ -30,9 +30,9 @@ export function PhaseList({phases, tone = 'light'}: {phases: Phase[]; tone?: 'li
               {phase.label}
             </span>
           </span>
-          <h3 className="mt-3 text-2xl font-extrabold uppercase">{phase.title}</h3>
+          <h3 className="mt-3 text-xl font-extrabold uppercase">{phase.title}</h3>
           {phase.text && (
-            <p className={cx('mt-3 text-lg leading-relaxed', index === 0 ? 'text-white/80' : dark ? 'text-white/75' : 'text-ink-soft')}>
+            <p className={cx('mt-3 text-[1.0625rem] leading-relaxed', index === 0 ? 'text-white/80' : dark ? 'text-white/75' : 'text-ink-soft')}>
               {phase.text}
             </p>
           )}

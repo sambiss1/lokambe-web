@@ -88,7 +88,7 @@ export function ApplicationDetail({application}: {application: AdminApplication}
         </Link>
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <h1 className="display text-[clamp(1.9rem,4vw,2.6rem)] tabular-nums">{application.reference}</h1>
+          <h1 className="display text-[clamp(1.55rem,3.28vw,2.15rem)] tabular-nums">{application.reference}</h1>
           <StatusBadge status={status} />
         </div>
 

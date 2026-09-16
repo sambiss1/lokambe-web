@@ -31,7 +31,7 @@ export function SectionHeader({eyebrow, title, intro, tone = 'light', align = 's
       <Reveal>
         {eyebrow && <Eyebrow className={cx('mb-5', dark ? 'text-white/80' : 'text-ink-soft')}>{eyebrow}</Eyebrow>}
         <Heading
-          className={cx('display text-[clamp(2.4rem,5.2vw,4.75rem)]', dark ? 'text-white' : 'text-lokambe-blue')}
+          className={cx('display text-[clamp(1.95rem,4.26vw,3.9rem)]', dark ? 'text-white' : 'text-lokambe-blue')}
         >
           {title}
         </Heading>
@@ -39,7 +39,7 @@ export function SectionHeader({eyebrow, title, intro, tone = 'light', align = 's
       {(intro || aside) && (
         <Reveal index={1} className={cx('max-w-xl', align === 'split' && 'lg:justify-self-end lg:pb-2')}>
           {intro && (
-            <p className={cx('text-lg leading-relaxed sm:text-xl', dark ? 'text-white/80' : 'text-ink-soft')}>{intro}</p>
+            <p className={cx('text-[1.0625rem] leading-relaxed sm:text-lg', dark ? 'text-white/80' : 'text-ink-soft')}>{intro}</p>
           )}
           {aside}
         </Reveal>

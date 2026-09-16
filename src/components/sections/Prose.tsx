@@ -16,8 +16,8 @@ export function Prose({paragraphs, tone = 'light', lead = false, className}: Pro
           className={cx(
             'leading-relaxed',
             lead && index === 0
-              ? cx('text-xl font-medium sm:text-2xl', dark ? 'text-white' : 'text-ink')
-              : cx('text-lg', dark ? 'text-white/75' : 'text-ink-soft'),
+              ? cx('text-lg font-medium sm:text-xl', dark ? 'text-white' : 'text-ink')
+              : cx('text-[1.0625rem]', dark ? 'text-white/75' : 'text-ink-soft'),
           )}
         >
           {paragraph}

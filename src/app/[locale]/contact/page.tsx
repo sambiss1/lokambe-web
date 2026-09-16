@@ -27,7 +27,7 @@ export default async function ContactPage({params}: Props) {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-4">
             <div className="lg:sticky lg:top-32">
-              <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)] text-lokambe-blue">{contact.details.title}</h2>
+              <h2 className="display text-[clamp(1.3rem,2.46vw,1.85rem)] text-lokambe-blue">{contact.details.title}</h2>
               <dl className="mt-8 space-y-7">
                 {contact.details.items.map((item) => (
                   <div key={item.label}>

@@ -20,8 +20,8 @@ export function CapitalCycle({functions}: {functions: HomeContent['functions']})
         <div>
           <Reveal>
             <Eyebrow className="text-ink-soft">{functions.eyebrow}</Eyebrow>
-            <h2 className="display mt-5 text-[clamp(2.4rem,5.2vw,4.75rem)] text-lokambe-blue">{functions.title}</h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">{functions.intro}</p>
+            <h2 className="display mt-5 text-[clamp(1.95rem,4.26vw,3.9rem)] text-lokambe-blue">{functions.title}</h2>
+            <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-ink-soft sm:text-lg">{functions.intro}</p>
           </Reveal>
 
           <ul className="mt-12 space-y-3">
@@ -32,11 +32,11 @@ export function CapitalCycle({functions}: {functions: HomeContent['functions']})
                 index={index}
                 className="group rounded-[1.75rem] bg-white p-6 transition-colors duration-300 hover:bg-lokambe-blue sm:p-7"
               >
-                <h3 className="flex items-center gap-3 text-2xl font-extrabold text-lokambe-blue uppercase transition-colors group-hover:text-white">
+                <h3 className="flex items-center gap-3 text-xl font-extrabold text-lokambe-blue uppercase transition-colors group-hover:text-white">
                   <span className="h-2.5 w-2.5 rounded-full bg-lokambe-red transition-[width] duration-300 group-hover:w-6" />
                   {item.title}
                 </h3>
-                <p className="mt-2 text-lg leading-relaxed text-ink-soft transition-colors group-hover:text-white/85">
+                <p className="mt-2 text-[1.0625rem] leading-relaxed text-ink-soft transition-colors group-hover:text-white/85">
                   {item.text}
                 </p>
               </Reveal>

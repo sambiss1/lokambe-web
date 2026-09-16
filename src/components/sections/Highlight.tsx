@@ -11,7 +11,7 @@ export function Highlight({children, tone = 'peach'}: {children: ReactNode; tone
         <Reveal>
           <p
             className={cx(
-              'display max-w-[22ch] text-[clamp(1.9rem,4.6vw,3.75rem)]',
+              'display max-w-[22ch] text-[clamp(1.55rem,3.77vw,3.05rem)]',
               tone === 'peach' ? 'text-lokambe-blue' : 'text-white',
             )}
           >

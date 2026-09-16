@@ -20,17 +20,17 @@ export function StepList({steps, tone = 'light'}: {steps: TitledText[]; tone?: '
         >
           <span
             className={cx(
-              'text-4xl leading-none font-extrabold tabular-nums transition-colors sm:text-5xl',
+              'text-3xl leading-none font-extrabold tabular-nums transition-colors sm:text-4xl',
               dark ? 'text-white/35 group-hover:text-lokambe-peach' : 'text-lokambe-peach group-hover:text-lokambe-red',
             )}
           >
             {String(index + 1).padStart(2, '0')}
           </span>
           <span className="pt-1">
-            <h3 className={cx('text-xl font-extrabold uppercase sm:text-2xl', dark ? 'text-white' : 'text-lokambe-blue')}>
+            <h3 className={cx('text-lg font-extrabold uppercase sm:text-xl', dark ? 'text-white' : 'text-lokambe-blue')}>
               {step.title}
             </h3>
-            <p className={cx('mt-2 text-lg leading-relaxed', dark ? 'text-white/75' : 'text-ink-soft')}>{step.text}</p>
+            <p className={cx('mt-2 text-[1.0625rem] leading-relaxed', dark ? 'text-white/75' : 'text-ink-soft')}>{step.text}</p>
           </span>
         </Reveal>
       ))}

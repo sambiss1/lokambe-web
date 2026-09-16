@@ -118,7 +118,7 @@ export function Header() {
 
 function navItemClasses(solid: boolean, active: boolean) {
   return cx(
-    'relative inline-flex h-11 items-center gap-1 rounded-full px-4 text-[1.0625rem] font-medium transition-colors duration-200',
+    'relative inline-flex h-11 items-center gap-1 rounded-full px-4 text-[0.975rem] font-medium transition-colors duration-200',
     solid ? 'text-ink hover:bg-lokambe-peach-soft hover:text-lokambe-blue' : 'text-white hover:bg-white/12',
     active && (solid ? 'text-lokambe-blue' : 'text-white'),
     active &&

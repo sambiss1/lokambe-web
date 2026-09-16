@@ -12,8 +12,8 @@ export function Faq({faq}: {faq: HomeContent['faq']}) {
         <Reveal className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
             <Eyebrow className="text-lokambe-blue">{faq.eyebrow}</Eyebrow>
-            <h2 className="display mt-5 text-[clamp(2.4rem,5vw,4.5rem)] text-lokambe-blue">{faq.title}</h2>
-            <p className="mt-6 text-lg text-ink sm:text-xl">{faq.contactText}</p>
+            <h2 className="display mt-5 text-[clamp(1.95rem,4.1vw,3.7rem)] text-lokambe-blue">{faq.title}</h2>
+            <p className="mt-6 text-[1.0625rem] text-ink sm:text-lg">{faq.contactText}</p>
             <ButtonLink href={faq.contact.href} variant="blue" size="lg" className="mt-6">
               {faq.contact.label}
             </ButtonLink>
@@ -24,13 +24,13 @@ export function Faq({faq}: {faq: HomeContent['faq']}) {
           {faq.items.map((item, index) => (
             <Reveal key={item.question} index={index}>
               <details className="faq-item group rounded-[1.75rem] bg-white transition-shadow duration-300 open:shadow-[0_24px_60px_-30px_rgba(0,18,168,0.5)]">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 rounded-[1.75rem] p-6 text-xl font-bold text-ink sm:p-7 sm:text-[1.375rem]">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 rounded-[1.75rem] p-6 text-lg font-bold text-ink sm:p-7 sm:text-xl">
                   {item.question}
                   <span className="grid size-11 flex-none place-items-center rounded-full bg-lokambe-peach-soft text-lokambe-blue transition-[rotate,background-color,color] duration-500 ease-(--ease-out-expo) group-open:rotate-45 group-open:bg-lokambe-blue group-open:text-white">
                     <Plus aria-hidden="true" className="size-5" strokeWidth={2.6} />
                   </span>
                 </summary>
-                <p className="px-6 pb-7 text-lg leading-relaxed text-ink-soft sm:px-7">{item.answer}</p>
+                <p className="px-6 pb-7 text-[1.0625rem] leading-relaxed text-ink-soft sm:px-7">{item.answer}</p>
               </details>
             </Reveal>
           ))}

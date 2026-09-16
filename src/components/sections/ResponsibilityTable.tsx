@@ -22,10 +22,10 @@ export function ResponsibilityTable({stageLabel, ownerLabel, rows}: Props) {
           <tbody>
             {rows.map((row) => (
               <tr key={row.stage} className="border-t border-line align-top max-sm:grid max-sm:gap-1 max-sm:p-5 sm:hover:bg-lokambe-peach-soft">
-                <th scope="row" className="text-left text-lg font-extrabold text-lokambe-blue sm:w-2/5 sm:px-6 sm:py-5">
+                <th scope="row" className="text-left text-[1.0625rem] font-extrabold text-lokambe-blue sm:w-2/5 sm:px-6 sm:py-5">
                   {row.stage}
                 </th>
-                <td className="text-lg text-ink-soft sm:px-6 sm:py-5">{row.owner}</td>
+                <td className="text-[1.0625rem] text-ink-soft sm:px-6 sm:py-5">{row.owner}</td>
               </tr>
             ))}
           </tbody>
