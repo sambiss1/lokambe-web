@@ -87,7 +87,7 @@ export function Header() {
                   active={entry.items.some((item) => pathname === item.href)}
                   onOpen={() => setOpenGroup(entry.key)}
                   onClose={() => setOpenGroup(null)}
-                  onToggle={() => setOpenGroup(entry.key)}
+                  onToggle={() => setOpenGroup((current) => (current === entry.key ? null : entry.key))}
                 />
               ) : (
                 <li key={entry.key} onMouseEnter={() => setOpenGroup(null)}>

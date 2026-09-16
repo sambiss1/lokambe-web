@@ -15,13 +15,16 @@ type RevealProps = {
 /** Fait apparaître son contenu quand il entre dans l'écran (une seule fois). */
 export function Reveal({children, as: Tag = 'div', className, index = 0, id}: RevealProps) {
   const ref = useRef<HTMLElement>(null);
-  // Sans IntersectionObserver (très vieux navigateurs), le contenu s'affiche directement.
-  const [shown, setShown] = useState(() => typeof IntersectionObserver === 'undefined');
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    if (typeof IntersectionObserver === 'undefined') return;
+    // Sans IntersectionObserver (très vieux navigateurs), on affiche tout de suite.
+    if (typeof IntersectionObserver === 'undefined') {
+      const frame = requestAnimationFrame(() => setShown(true));
+      return () => cancelAnimationFrame(frame);
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {

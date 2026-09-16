@@ -12,15 +12,20 @@ describe('Header', () => {
     expect(screen.getByRole('button', {name: /Le fonds/})).toHaveAttribute('aria-expanded', 'false');
   });
 
-  it('ouvre le menu déroulant « Le fonds » au clic', async () => {
+  it('ouvre le menu déroulant « Le fonds » au survol puis le referme au clic', async () => {
     const user = userEvent.setup();
     renderWithIntl(<Header />);
     const trigger = screen.getByRole('button', {name: /Le fonds/});
-    await user.click(trigger);
+
+    await user.hover(trigger);
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
     const panel = document.getElementById(trigger.getAttribute('aria-controls') ?? '');
     expect(panel).not.toBeNull();
     expect(within(panel as HTMLElement).getByRole('link', {name: /^À propos/})).toHaveAttribute('href', '/fr/a-propos');
+
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('ouvre et ferme le menu mobile', async () => {
