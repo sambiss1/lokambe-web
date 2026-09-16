@@ -1,10 +1,11 @@
 'use client';
 
+import {ChevronRight, Menu, X} from 'lucide-react';
 import {useTranslations} from 'next-intl';
-import {type CSSProperties, useEffect, useRef, useState, useSyncExternalStore} from 'react';
+import {useCallback, useEffect, useRef, useState, useSyncExternalStore} from 'react';
 import {createPortal} from 'react-dom';
-import {SLOGAN} from '@/lib/brand';
 import {Link, usePathname} from '@/i18n/navigation';
+import {SLOGAN} from '@/lib/brand';
 import {cx} from '@/lib/cx';
 import {ButtonLink} from '../ui/Button';
 import {Logo} from '../ui/Logo';
@@ -12,35 +13,60 @@ import {APPLY_HREF, MAIN_NAV, type NavLeaf} from './nav';
 
 const subscribeNoop = () => () => {};
 
+/**
+ * Menu mobile : panneau plein écran qui glisse depuis la droite, rendu hors de
+ * l'en-tête pour recouvrir la page au lieu de la pousser. Le panneau reste
+ * monté (rendu inerte quand il est fermé) pour que la transition joue aussi à
+ * la fermeture.
+ */
 export function MobileMenu({solid}: {solid: boolean}) {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const openButtonRef = useRef<HTMLButtonElement>(null);
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Menu ouvert : défilement bloqué, focus enfermé dans le panneau, Échap pour fermer.
+  const close = useCallback(() => setOpen(false), []);
+
+  // Verrouille le défilement de la page. La largeur de la barre de défilement
+  // est compensée, sinon la mise en page sursaute à l'ouverture.
   useEffect(() => {
     if (!open) return;
-    const dialog = dialogRef.current;
-    const openButton = openButtonRef.current;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    dialog?.querySelector<HTMLElement>('a, button')?.focus();
+    const {body, documentElement} = document;
+    const gap = window.innerWidth - documentElement.clientWidth;
+    const previousOverflow = body.style.overflow;
+    const previousPadding = body.style.paddingRight;
 
-    const onKey = (event: KeyboardEvent) => {
+    body.style.overflow = 'hidden';
+    if (gap > 0) body.style.paddingRight = `${gap}px`;
+
+    return () => {
+      body.style.overflow = previousOverflow;
+      body.style.paddingRight = previousPadding;
+    };
+  }, [open]);
+
+  // Échap ferme ; le focus est piégé dans le panneau tant qu'il est ouvert.
+  useEffect(() => {
+    if (!open) return;
+    const openButton = openButtonRef.current;
+    closeButtonRef.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
+        openButton?.focus();
         return;
       }
-      if (event.key !== 'Tab' || !dialog) return;
-      const focusable = Array.from(
-        dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
-      ).filter((element) => element.offsetParent !== null);
-      const first = focusable[0];
-      const last = focusable.at(-1);
+      if (event.key !== 'Tab') return;
+
+      const focusable = panelRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+      const first = focusable?.[0];
+      const last = focusable?.[focusable.length - 1];
       if (!first || !last) return;
+
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last.focus();
@@ -50,12 +76,8 @@ export function MobileMenu({solid}: {solid: boolean}) {
       }
     };
 
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = previous;
-      window.removeEventListener('keydown', onKey);
-      openButton?.focus();
-    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
   const leaves: NavLeaf[] = MAIN_NAV.flatMap((entry) => (entry.kind === 'group' ? [...entry.items] : [entry]));
@@ -66,84 +88,81 @@ export function MobileMenu({solid}: {solid: boolean}) {
         ref={openButtonRef}
         type="button"
         aria-expanded={open}
-        aria-controls="mobile-menu"
+        aria-controls="menu-mobile"
         aria-label={t('openMenu')}
         onClick={() => setOpen(true)}
         className={cx(
-          'grid size-12 place-items-center rounded-full transition-colors xl:hidden',
+          'inline-flex size-11 items-center justify-center rounded-full transition-colors xl:hidden',
           solid ? 'bg-lokambe-blue text-white' : 'bg-white text-lokambe-blue',
         )}
       >
-        <span aria-hidden="true" className="flex w-5 flex-col gap-1.5">
-          <span className="h-0.5 w-full rounded-full bg-current" />
-          <span className="h-0.5 w-3/5 rounded-full bg-current" />
-        </span>
+        <Menu aria-hidden="true" className="size-5" strokeWidth={2.5} />
       </button>
 
       {mounted &&
         createPortal(
-          <div
-            ref={dialogRef}
-            id="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label={t('mainNavigation')}
-            className={cx(
-              'fixed inset-0 z-[60] flex flex-col bg-lokambe-blue text-white transition-[clip-path,visibility] duration-700 ease-(--ease-out-expo) xl:hidden',
-              open
-                ? 'visible [clip-path:circle(150%_at_calc(100%-3rem)_2.5rem)]'
-                : 'invisible [clip-path:circle(0%_at_calc(100%-3rem)_2.5rem)]',
-            )}
-          >
-            <div className="flex h-18 items-center justify-between px-5 sm:h-20 sm:px-8">
-              <Link href="/" onClick={() => setOpen(false)} aria-label={t('homeLink')} className="block w-32 sm:w-40">
-                <Logo tone="white" className="w-full" />
-              </Link>
-              <button
-                type="button"
-                aria-label={t('closeMenu')}
-                onClick={() => setOpen(false)}
-                className="grid size-12 place-items-center rounded-full bg-white text-lokambe-blue"
-              >
-                <span aria-hidden="true" className="relative block size-4">
-                  <span className="absolute top-1/2 left-0 h-0.5 w-full rotate-45 rounded-full bg-current" />
-                  <span className="absolute top-1/2 left-0 h-0.5 w-full -rotate-45 rounded-full bg-current" />
-                </span>
-              </button>
-            </div>
+          <div className="xl:hidden" {...(open ? {} : {inert: true})}>
+            <div
+              ref={panelRef}
+              id="menu-mobile"
+              role="dialog"
+              aria-modal="true"
+              aria-label={t('mainNavigation')}
+              className={cx(
+                'fixed inset-0 z-[70] flex h-dvh w-full flex-col overscroll-contain bg-lokambe-blue text-white',
+                'transition-transform duration-300 ease-(--ease-out-expo)',
+                open ? 'translate-x-0' : 'translate-x-full',
+              )}
+            >
+              <div className="flex h-18 shrink-0 items-center justify-between border-b border-white/15 px-5 sm:h-20 sm:px-8">
+                <Link href="/" onClick={close} aria-label={t('homeLink')} className="block w-32 sm:w-36">
+                  <Logo tone="white" className="w-full" />
+                </Link>
+                <button
+                  ref={closeButtonRef}
+                  type="button"
+                  aria-label={t('closeMenu')}
+                  onClick={() => {
+                    close();
+                    openButtonRef.current?.focus();
+                  }}
+                  className="inline-flex size-11 items-center justify-center rounded-full bg-white text-lokambe-blue"
+                >
+                  <X aria-hidden="true" className="size-5" strokeWidth={2.5} />
+                </button>
+              </div>
 
-            <nav className="flex-1 overflow-y-auto px-5 pt-6 pb-8 sm:px-8">
-              <ul className="space-y-1">
-                {leaves.map((item, index) => (
-                  <li
+              <nav className="flex min-h-0 w-full flex-1 flex-col items-start gap-0.5 overflow-y-auto px-5 py-6 sm:px-8">
+                {leaves.map((item) => (
+                  <Link
                     key={item.key}
-                    style={{'--i': index} as CSSProperties}
+                    href={item.href}
+                    onClick={close}
+                    aria-current={pathname === item.href ? 'page' : undefined}
                     className={cx(
-                      'transition-[opacity,translate] duration-700 ease-(--ease-out-expo) [transition-delay:calc(var(--i)*45ms+150ms)]',
-                      open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+                      'group -mx-3 flex w-[calc(100%+1.5rem)] items-center justify-between gap-3 rounded-2xl px-3 py-2.5',
+                      'text-2xl font-extrabold uppercase transition-colors hover:bg-white/10',
+                      pathname === item.href && 'text-lokambe-peach',
                     )}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      aria-current={pathname === item.href ? 'page' : undefined}
-                      className="flex items-center justify-between py-2 text-[clamp(1.65rem,7.38vw,2.65rem)] leading-none font-extrabold uppercase"
-                    >
-                      {t(item.key)}
-                      {pathname === item.href && <span className="h-3 w-6 rounded-full bg-lokambe-red" />}
-                    </Link>
-                  </li>
+                    {t(item.key)}
+                    <ChevronRight
+                      aria-hidden="true"
+                      className="size-5 text-lokambe-peach transition-transform duration-200 group-hover:translate-x-1"
+                      strokeWidth={2.5}
+                    />
+                  </Link>
                 ))}
-              </ul>
-            </nav>
+              </nav>
 
-            <div className="space-y-5 border-t border-white/15 px-5 pt-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8">
-              <p lang="ln" className="text-lg font-bold text-lokambe-peach uppercase">
-                {SLOGAN}
-              </p>
-              <ButtonLink href={APPLY_HREF} variant="white" size="lg" className="w-full" onClick={() => setOpen(false)}>
-                {t('apply')}
-              </ButtonLink>
+              <div className="shrink-0 space-y-4 border-t border-white/15 px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-8">
+                <p lang="ln" className="text-base font-bold text-lokambe-peach uppercase">
+                  {SLOGAN}
+                </p>
+                <ButtonLink href={APPLY_HREF} variant="white" size="lg" className="w-full" onClick={close}>
+                  {t('apply')}
+                </ButtonLink>
+              </div>
             </div>
           </div>,
           document.body,

@@ -106,9 +106,13 @@ export function Header() {
 
         <div className="ml-auto flex items-center gap-3 xl:ml-2">
           <LanguageSwitcher tone={solid ? 'blue' : 'white'} />
-          <ButtonLink href={APPLY_HREF} variant={solid ? 'blue' : 'white'} className="hidden md:inline-flex">
-            {t('apply')}
-          </ButtonLink>
+          {/* Enveloppe : `hidden` sur le bouton lui-même perdrait contre son
+              propre `inline-flex` dans la feuille de styles générée. */}
+          <div className="hidden md:block">
+            <ButtonLink href={APPLY_HREF} variant={solid ? 'blue' : 'white'}>
+              {t('apply')}
+            </ButtonLink>
+          </div>
           <MobileMenu solid={solid} />
         </div>
       </div>
