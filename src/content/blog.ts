@@ -334,7 +334,7 @@ const ARTICLES: BlogArticle[] = [
     slug: 'commerce-de-proximite-calculer-sa-marge',
     title: 'Calculer sa marge avant d’ouvrir un second point de vente',
     excerpt:
-      'Ouvrir un deuxième point de vente sans connaître sa marge par famille de produits, c’est doubler un problème plutôt qu’un résultat.',
+      'Dans le commerce de détail, dupliquer un magasin sans connaître sa marge par famille de produits revient à doubler un problème plutôt qu’un résultat.',
     category: 'commerce',
     publishedAt: '2026-06-18',
     readingMinutes: 5,
