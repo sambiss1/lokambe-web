@@ -9,13 +9,13 @@ describe('Header', () => {
     renderWithIntl(<Header />);
     expect(screen.getAllByRole('link', {name: 'LOKAMBE — retour à l’accueil'}).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', {name: 'Soumettre un projet'}).length).toBeGreaterThan(0);
-    expect(screen.getByRole('button', {name: /Le fonds/})).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('button', {name: /Nous découvrir/})).toHaveAttribute('aria-expanded', 'false');
   });
 
-  it('ouvre le menu déroulant « Le fonds » au survol puis le referme au clic', async () => {
+  it('ouvre le menu déroulant « Nous découvrir » au survol puis le referme au clic', async () => {
     const user = userEvent.setup();
     renderWithIntl(<Header />);
-    const trigger = screen.getByRole('button', {name: /Le fonds/});
+    const trigger = screen.getByRole('button', {name: /Nous découvrir/});
 
     await user.hover(trigger);
     expect(trigger).toHaveAttribute('aria-expanded', 'true');

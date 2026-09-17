@@ -28,6 +28,8 @@ const FRAMING = {
   'apply-hero': LANDSCAPE,
   'investors-hero': LANDSCAPE,
   'contact-hero': LANDSCAPE,
+  'sector-medias': {...PORTRAIT, fx: 0.85},
+  'sector-education': {...PORTRAIT, fy: 1},
   'sector-restauration': {...PORTRAIT, fy: 0.45},
   'sector-metiers-de-bouche': {...PORTRAIT, fy: 0.6},
   'sector-commerce': {...PORTRAIT, fx: 0.47},

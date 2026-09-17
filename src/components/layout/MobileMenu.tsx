@@ -114,8 +114,8 @@ export function MobileMenu({solid}: {solid: boolean}) {
                 open ? 'translate-x-0' : 'translate-x-full',
               )}
             >
-              <div className="flex h-18 shrink-0 items-center justify-between border-b border-white/15 px-5 sm:h-20 sm:px-8">
-                <Link href="/" onClick={close} aria-label={t('homeLink')} className="block w-32 sm:w-36">
+              <div className="flex h-20 shrink-0 items-center justify-between border-b border-white/15 px-5 sm:h-24 sm:px-8">
+                <Link href="/" onClick={close} aria-label={t('homeLink')} className="block w-40 sm:w-44">
                   <Logo tone="white" className="w-full" />
                 </Link>
                 <button
@@ -159,7 +159,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
                 <p lang="ln" className="text-base font-bold text-lokambe-peach uppercase">
                   {SLOGAN}
                 </p>
-                <ButtonLink href={APPLY_HREF} variant="white" size="lg" className="w-full" onClick={close}>
+                <ButtonLink href={APPLY_HREF} variant="red" size="lg" className="w-full" onClick={close}>
                   {t('apply')}
                 </ButtonLink>
               </div>

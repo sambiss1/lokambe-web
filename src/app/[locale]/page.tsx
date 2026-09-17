@@ -3,8 +3,9 @@ import {setRequestLocale} from 'next-intl/server';
 import {CapitalCycle} from '@/components/home/CapitalCycle';
 import {Faq} from '@/components/home/Faq';
 import {FinalCta} from '@/components/home/FinalCta';
+import {Formalisation} from '@/components/home/Formalisation';
+import {LogoWall} from '@/components/home/LogoWall';
 import {HomeHero} from '@/components/home/HomeHero';
-import {ProcessSection} from '@/components/home/ProcessSection';
 import {SectorsBento} from '@/components/home/SectorsBento';
 import {Statement} from '@/components/home/Statement';
 import {SupportPilot} from '@/components/home/SupportPilot';
@@ -29,12 +30,14 @@ export default async function HomePage({params}: Props) {
 
   return (
     <>
-      <HomeHero hero={home.hero} marquee={home.marquee} />
+      <HomeHero hero={home.hero} />
       <Statement statement={home.statement} facts={home.facts} />
       <CapitalCycle functions={home.functions} />
       <SectorsBento sectors={home.sectors} />
-      <ProcessSection process={home.process} />
+      <LogoWall content={home.portfolio} tone="peach" />
+      <Formalisation formalisation={home.formalisation} />
       <SupportPilot support={home.support} pilot={home.pilot} />
+      <LogoWall content={home.partners} />
       <Faq faq={home.faq} />
       <FinalCta cta={home.cta} />
     </>

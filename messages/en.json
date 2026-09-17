@@ -10,9 +10,7 @@
     "model": "Our model",
     "process": "Process",
     "sectors": "Sectors & criteria",
-    "governance": "Governance",
     "impact": "Impact",
-    "investors": "Investors",
     "contact": "Contact",
     "apply": "Submit a project",
     "mainNavigation": "Main navigation",
@@ -20,9 +18,12 @@
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content",
     "homeLink": "LOKAMBE — back to home",
-    "fund": "The fund",
+    "fund": "Discover us",
     "invest": "Invest",
-    "menuTitle": "Menu"
+    "menuTitle": "Menu",
+    "team": "Our team",
+    "blog": "Blog",
+    "careers": "Careers"
   },
   "language": {
     "label": "Language selection",
@@ -47,12 +48,13 @@
   },
   "navDesc": {
     "about": "Why LOKAMBE exists and what we believe in.",
-    "model": "Two pillars, fitting instruments, capital that circulates.",
-    "governance": "A team, a committee and collective decisions.",
+    "model": "Invest, create, support: how we work.",
     "process": "The 12 steps, from sourcing to reinvestment.",
     "sectors": "Our 5 priority sectors and our criteria.",
     "impact": "Jobs, income and territorial rollout.",
-    "investors": "Invest with us or join our network."
+    "team": "The four roles that run the fund.",
+    "blog": "Entrepreneurship, financing and the real economy in the DRC.",
+    "careers": "Join LOKAMBE."
   },
   "navPromo": {
     "title": "Running a business that deserves to grow?",

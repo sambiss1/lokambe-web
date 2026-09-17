@@ -16,7 +16,7 @@ export function FinalCta({cta}: {cta: HomeContent['cta']}) {
           <h2 className="display text-[clamp(2.25rem,5.74vw,5.75rem)] leading-[0.9]">{cta.title}</h2>
           <p className="mt-8 max-w-2xl text-[1.0625rem] leading-relaxed text-white/85 sm:text-lg">{cta.text}</p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href={cta.primary.href} variant="white" size="lg">
+            <ButtonLink href={cta.primary.href} variant="red" size="lg">
               {cta.primary.label}
             </ButtonLink>
             {cta.secondary && (

@@ -64,8 +64,8 @@ export function Header() {
       >
         {t('skipToContent')}
       </a>
-      <div className="mx-auto flex h-18 max-w-[1320px] items-center gap-6 px-5 sm:h-20 sm:px-8 lg:px-12">
-        <Link href="/" aria-label={t('homeLink')} className="relative block w-32 flex-none sm:w-40">
+      <div className="mx-auto flex h-20 max-w-[1320px] items-center gap-6 px-5 sm:h-24 sm:px-8 lg:px-12">
+        <Link href="/" aria-label={t('homeLink')} className="relative block w-40 flex-none sm:w-48">
           <Logo tone="white" priority className={cx('w-full transition-opacity duration-300', solid && 'opacity-0')} />
           <Logo
             tone="blue"
@@ -109,7 +109,7 @@ export function Header() {
           {/* Enveloppe : `hidden` sur le bouton lui-même perdrait contre son
               propre `inline-flex` dans la feuille de styles générée. */}
           <div className="hidden md:block">
-            <ButtonLink href={APPLY_HREF} variant={solid ? 'blue' : 'white'}>
+            <ButtonLink href={APPLY_HREF} variant="red">
               {t('apply')}
             </ButtonLink>
           </div>
@@ -202,7 +202,7 @@ function NavGroup({groupKey, items, open, solid, active, onOpen, onClose, onTogg
           <Link
             href={APPLY_HREF}
             onClick={onClose}
-            className="group/promo relative flex min-h-44 flex-col justify-between overflow-hidden rounded-3xl bg-lokambe-blue p-6 text-white"
+            className="group/promo relative flex min-h-44 flex-col justify-between overflow-hidden rounded-3xl bg-lokambe-red p-6 text-white"
           >
             <span
               aria-hidden="true"

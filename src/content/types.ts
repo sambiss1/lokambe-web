@@ -22,6 +22,24 @@ export type FaqItem = {question: string; answer: string};
 export type SectorCard = TitledText & {image: ImageRef; tags: string[]};
 export type ProcessPhase = {title: string; steps: TitledText[]};
 
+/** Une entreprise du portefeuille ou un partenaire. Le logo arrive plus tard. */
+export type LogoEntry = {
+  id: string;
+  name: string;
+  logo?: string;
+  sector?: string;
+  status?: string;
+  text?: string;
+  href?: string;
+};
+
+export type LogoWallContent = SectionHeading & {
+  items: LogoEntry[];
+  /** Libellés de la fiche qui s'ouvre au clic. */
+  detail: {sectorLabel: string; statusLabel: string; pending: string; close: string};
+  empty: string;
+};
+
 export type HomeContent = {
   meta: PageMeta;
   hero: {
@@ -44,6 +62,9 @@ export type HomeContent = {
   facts: SectionHeading & {items: Fact[]};
   functions: SectionHeading & {items: TitledText[]; cycle: string[]; cycleLabel: string};
   sectors: SectionHeading & {items: SectorCard[]; link: LinkItem};
+  portfolio: LogoWallContent;
+  partners: LogoWallContent;
+  formalisation: SectionHeading & {items: TitledText[]};
   process: SectionHeading & {phases: ProcessPhase[]; link: LinkItem; stepLabel: string; prevLabel: string; nextLabel: string};
   support: SectionHeading & {items: TitledText[]};
   pilot: SectionHeading & {paragraphs: string[]; image: ImageRef; overlay: string; points: Phase[]; closing: string};
@@ -124,9 +145,6 @@ export type ImpactContent = {
   hero: PageHeroContent;
   performance: SectionHeading & {groups: TitledList[]};
   impact: SectionHeading & {groups: TitledList[]; closing: string};
-  deployment: SectionHeading & {phases: Phase[]; motto: string};
-  pilot: SectionHeading & {questionsTitle: string; questions: string[]; tests: TitledList};
-  strategy: SectionHeading & {phases: Phase[]};
   vision: SectionHeading & {items: TitledText[]; ecosystemTitle: string; ecosystem: string[]; closing: string};
   cta: CtaContent;
 };

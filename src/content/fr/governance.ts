@@ -228,7 +228,7 @@ export const governance: GovernanceContent = {
   cta: {
     title: 'Vous êtes expert ou partenaire ?',
     text: 'Rejoignez le réseau LOKAMBE et mettez vos compétences au service des entreprises congolaises.',
-    primary: {label: 'Nous rejoindre', href: '/investisseurs-et-partenaires'},
+    primary: {label: 'Nous rejoindre', href: '/carrieres'},
     secondary: {label: 'Nous contacter', href: '/contact'},
   },
 };

@@ -73,6 +73,6 @@ export const investmentProcess: ProcessContent = {
     title: 'Prêt à engager la première étape ?',
     text: 'Chaque dossier commence par une identification. Présentez-nous votre activité.',
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Notre gouvernance', href: '/gouvernance'},
+    secondary: {label: 'Notre équipe', href: '/notre-equipe'},
   },
 };

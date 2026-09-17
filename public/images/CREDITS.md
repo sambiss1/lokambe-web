@@ -20,4 +20,6 @@ Photos libres de droits utilisées sur lokambe.com.
 | sector-commerce.webp | Omotayo Tajudeen | https://unsplash.com/photos/zlZnNIS7eDk | Unsplash License |
 | sector-evenementiel.webp | McFollis | https://www.pexels.com/photo/elegant-indoor-banquet-table-setup-for-celebrations-38635223/ | Pexels License |
 | sector-services.webp | illustrate Digital Ug | https://www.pexels.com/photo/smiling-man-holding-wheel-in-workshop-28100861/ | Pexels License |
+| sector-medias.webp | Isaiah Ekele | https://www.pexels.com/photo/man-behind-a-video-camera-14699461/ | Pexels License |
+| sector-education.webp | illustrate Digital Ug | https://www.pexels.com/photo/a-group-of-people-standing-in-a-workshop-20853660/ | Pexels License |
 | cta-entrepreneur.webp | Etty Fidele | https://unsplash.com/photos/AzVexpHvuKY | Unsplash License |

@@ -1,15 +1,16 @@
 import type {PublicPath} from '@/lib/site-paths';
 
-export type NavKey = 'about' | 'model' | 'process' | 'sectors' | 'governance' | 'impact' | 'investors' | 'contact';
+export type NavKey = 'about' | 'model' | 'team' | 'process' | 'sectors' | 'impact' | 'blog' | 'careers' | 'contact';
 
 export const NAV_ITEMS: readonly {key: NavKey; href: PublicPath}[] = [
   {key: 'about', href: '/a-propos'},
   {key: 'model', href: '/notre-modele'},
   {key: 'process', href: '/processus'},
   {key: 'sectors', href: '/secteurs-et-criteres'},
-  {key: 'governance', href: '/gouvernance'},
+  {key: 'team', href: '/notre-equipe'},
   {key: 'impact', href: '/impact'},
-  {key: 'investors', href: '/investisseurs-et-partenaires'},
+  {key: 'blog', href: '/blog'},
+  {key: 'careers', href: '/carrieres'},
   {key: 'contact', href: '/contact'},
 ];
 
@@ -25,7 +26,7 @@ export const MAIN_NAV: readonly NavEntry[] = [
     items: [
       {key: 'about', href: '/a-propos'},
       {key: 'model', href: '/notre-modele'},
-      {key: 'governance', href: '/gouvernance'},
+      {key: 'team', href: '/notre-equipe'},
     ],
   },
   {
@@ -37,7 +38,7 @@ export const MAIN_NAV: readonly NavEntry[] = [
     ],
   },
   {kind: 'link', key: 'impact', href: '/impact'},
-  {kind: 'link', key: 'investors', href: '/investisseurs-et-partenaires'},
+  {kind: 'link', key: 'blog', href: '/blog'},
   {kind: 'link', key: 'contact', href: '/contact'},
 ];
 

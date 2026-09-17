@@ -113,6 +113,6 @@ export const about: AboutContent = {
     title: 'Construisons ensemble',
     text: 'Entrepreneur, investisseur, partenaire ou expert : rejoignez la dynamique LOKAMBE.',
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Investisseurs et partenaires', href: '/investisseurs-et-partenaires'},
+    secondary: {label: 'Notre équipe', href: '/notre-equipe'},
   },
 };

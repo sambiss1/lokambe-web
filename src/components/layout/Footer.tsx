@@ -1,6 +1,6 @@
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
-import {CONTACT_EMAIL, SITE_DOMAIN, SLOGAN} from '@/lib/brand';
+import {CONTACT_EMAIL, SITE_DOMAIN} from '@/lib/brand';
 import {ButtonLink} from '../ui/Button';
 import {Container} from '../ui/Container';
 import {Logo} from '../ui/Logo';
@@ -16,11 +16,9 @@ export function Footer() {
       <Container className="pt-20 pb-10 sm:pt-28">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
           <div>
-            <p lang="ln" className="display max-w-[12ch] text-[clamp(1.85rem,4.1vw,3.3rem)] text-lokambe-peach">
-              {SLOGAN}
-            </p>
+            <Logo tone="white" className="w-56 sm:w-72" />
             <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-white/70">{tf('description')}</p>
-            <ButtonLink href={APPLY_HREF} variant="white" size="lg" className="mt-8">
+            <ButtonLink href={APPLY_HREF} variant="red" size="lg" className="mt-8">
               {t('apply')}
             </ButtonLink>
           </div>
@@ -45,7 +43,10 @@ export function Footer() {
                   <FooterLink href="/impact">{t('impact')}</FooterLink>
                 </li>
                 <li>
-                  <FooterLink href="/investisseurs-et-partenaires">{t('investors')}</FooterLink>
+                  <FooterLink href="/blog">{t('blog')}</FooterLink>
+                </li>
+                <li>
+                  <FooterLink href="/carrieres">{t('careers')}</FooterLink>
                 </li>
                 <li>
                   <FooterLink href="/contact">{t('contact')}</FooterLink>
@@ -70,10 +71,6 @@ export function Footer() {
             </div>
           </div>
         </div>
-      </Container>
-
-      <Container className="pt-6">
-        <Logo tone="white" className="w-full opacity-[0.97]" />
       </Container>
 
       <Container className="flex flex-col gap-4 py-8 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">

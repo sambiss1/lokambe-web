@@ -7,14 +7,14 @@ export const home: HomeContent = {
       'LOKAMBE investit dans les PME, microentreprises et activités génératrices de revenus en RDC, crée des entreprises et les accompagne pour les faire grandir.',
   },
   hero: {
-    eyebrow: 'Fonds privé congolais d’investissement',
-    titleLines: ['Le capital privé', 'au service de', 'l’entrepreneuriat', 'congolais.'],
+    eyebrow: 'Le capital privé au service de l’entrepreneuriat congolais',
+    titleLines: ['Musapi moko', 'esokolaka', 'elongi te.'],
     tagline: 'Investir. Créer. Accompagner. Faire grandir. Réinvestir.',
     intro:
-      'LOKAMBE investit dans les petites et moyennes entreprises et les activités génératrices de revenus, en crée de nouvelles et les accompagne jusqu’à ce qu’elles grandissent.',
+      'Fonds privé congolais d’investissement, de création et d’accompagnement des petites et moyennes entreprises, microentreprises et activités génératrices de revenus.',
     image: {src: '/images/home-hero.webp', alt: 'Commerçant souriant derrière le comptoir de son épicerie'},
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Investir avec nous', href: '/investisseurs-et-partenaires'},
+    secondary: {label: 'Nous découvrir', href: '/a-propos'},
     cards: {
       step: {label: 'Étape 3 sur 12', title: 'Visiter', text: 'Vérification de terrain et compréhension de l’activité.'},
       sector: {label: 'Secteur prioritaire', title: 'Métiers de bouche'},
@@ -30,7 +30,7 @@ export const home: HomeContent = {
     eyebrow: 'LOKAMBE en bref',
     title: 'Un fonds pensé pour durer',
     items: [
-      {value: 5, label: 'secteurs prioritaires', text: 'Restauration, métiers de bouche, commerce, événementiel et services.'},
+      {value: 7, label: 'secteurs prioritaires', text: 'De la restauration aux médias, en passant par le commerce, les services et la formation.'},
       {value: 3, label: 'façons d’intervenir', text: 'Investir dans une activité, en créer une nouvelle, accompagner sa croissance.'},
       {value: 5, label: 'domaines d’accompagnement', text: 'Finance, commercial, marketing, opérations et ressources humaines.'},
     ],
@@ -93,8 +93,70 @@ export const home: HomeContent = {
         tags: ['Maintenance', 'Nettoyage', 'Logistique'],
         image: {src: '/images/sector-services.webp', alt: 'Réparateur souriant tenant une roue de vélo dans son atelier'},
       },
+      {
+        title: 'Médias et divertissement',
+        text: 'Production audiovisuelle, médias numériques, création de contenu, production musicale, studios et équipements, agences créatives et formats culturels reproductibles.',
+        tags: ['Audiovisuel', 'Musique', 'Création de contenu'],
+        image: {src: '/images/sector-medias.webp', alt: 'Cadreur derrière sa caméra et ses moniteurs dans un studio de production'},
+      },
+      {
+        title: 'Éducation et formation',
+        text: 'Centres de formation professionnelle, formation technique et métiers, formation entrepreneuriale et gestion, édition pédagogique, équipements pour établissements scolaires.',
+        tags: ['Formation', 'Métiers', 'Édition pédagogique'],
+        image: {src: '/images/sector-education.webp', alt: 'Formateur expliquant à ses apprenants dans un atelier de menuiserie'},
+      },
     ],
     link: {label: 'Secteurs et critères', href: '/secteurs-et-criteres'},
+  },
+  portfolio: {
+    eyebrow: 'Portefeuille',
+    title: 'Les entreprises que nous accompagnons',
+    intro:
+      'Chaque entreprise financée ou créée par LOKAMBE rejoint ce portefeuille. Cliquez sur une entreprise pour voir son secteur et l’avancement du projet.',
+    items: [
+      {id: 'entreprise-1', name: 'Entreprise 1'},
+      {id: 'entreprise-2', name: 'Entreprise 2'},
+      {id: 'entreprise-3', name: 'Entreprise 3'},
+      {id: 'entreprise-4', name: 'Entreprise 4'},
+      {id: 'entreprise-5', name: 'Entreprise 5'},
+      {id: 'entreprise-6', name: 'Entreprise 6'},
+    ],
+    detail: {sectorLabel: 'Secteur', statusLabel: 'Statut du projet', pending: 'À renseigner', close: 'Fermer'},
+    empty: 'Les premières entreprises du portefeuille seront présentées ici.',
+  },
+  partners: {
+    eyebrow: 'Partenaires',
+    title: 'Ceux qui avancent avec nous',
+    intro: 'Partenaires financiers, techniques et institutionnels. Cliquez sur un partenaire pour voir son rôle.',
+    items: [
+      {id: 'partenaire-1', name: 'Partenaire 1'},
+      {id: 'partenaire-2', name: 'Partenaire 2'},
+      {id: 'partenaire-3', name: 'Partenaire 3'},
+      {id: 'partenaire-4', name: 'Partenaire 4'},
+      {id: 'partenaire-5', name: 'Partenaire 5'},
+    ],
+    detail: {sectorLabel: 'Type de partenariat', statusLabel: 'Depuis', pending: 'À renseigner', close: 'Fermer'},
+    empty: 'Les partenaires de LOKAMBE seront présentés ici.',
+  },
+  formalisation: {
+    eyebrow: 'Formalisation',
+    title: 'Faire entrer l’économie réelle dans le formel',
+    intro:
+      'Une grande partie de l’activité économique congolaise reste informelle. Investir, c’est aussi aider une activité à se structurer, et rendre sa croissance mesurable.',
+    items: [
+      {
+        title: 'Structurer avant de financer',
+        text: 'Comptabilité, caisse, stocks et procédures : nous aidons l’entrepreneur à mettre de l’ordre dans son activité, condition d’un capital bien utilisé.',
+      },
+      {
+        title: 'Accompagner l’enregistrement',
+        text: 'RCCM, identification fiscale, contrats et statuts : la formalisation devient une étape du plan de croissance, pas un obstacle à l’entrée.',
+      },
+      {
+        title: 'Rendre l’activité finançable',
+        text: 'Une entreprise structurée accède plus facilement au crédit, aux fournisseurs, aux marchés publics et privés, et peut recruter durablement.',
+      },
+    ],
   },
   process: {
     eyebrow: 'Processus d’investissement',
@@ -213,7 +275,7 @@ export const home: HomeContent = {
     title: 'Vous portez une activité qui mérite de grandir ?',
     text: 'Présentez-nous votre projet : nous étudions chaque dossier avec rigueur, sur le terrain comme dans les chiffres.',
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Devenir partenaire', href: '/investisseurs-et-partenaires'},
+    secondary: {label: 'Nous découvrir', href: '/a-propos'},
     image: {src: '/images/cta-entrepreneur.webp', alt: 'Jeune femme entrepreneure en blazer orange'},
   },
 };

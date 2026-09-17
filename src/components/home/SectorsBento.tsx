@@ -14,6 +14,8 @@ const SPANS = [
   'lg:col-span-3',
   'lg:col-span-3',
   'lg:col-span-4',
+  'lg:col-span-6',
+  'lg:col-span-6',
 ];
 
 export function SectorsBento({sectors}: {sectors: HomeContent['sectors']}) {

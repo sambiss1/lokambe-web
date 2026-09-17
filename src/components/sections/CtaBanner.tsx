@@ -16,7 +16,7 @@ export function CtaBanner({cta}: {cta: CtaContent}) {
           <h2 className="display text-[clamp(1.95rem,4.92vw,4.1rem)]">{cta.title}</h2>
           <p className="mx-auto mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-white/85 sm:text-lg">{cta.text}</p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <ButtonLink href={cta.primary.href} variant="white" size="lg">
+            <ButtonLink href={cta.primary.href} variant="red" size="lg">
               {cta.primary.label}
             </ButtonLink>
             {cta.secondary && (

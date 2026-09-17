@@ -3,14 +3,13 @@ import Image from 'next/image';
 import type {CSSProperties} from 'react';
 import type {HomeContent} from '@/content/types';
 import {cx} from '@/lib/cx';
-import {Marquee} from '../motion/Marquee';
 import {ButtonLink} from '../ui/Button';
 import {Container} from '../ui/Container';
 import {Eyebrow} from '../ui/Eyebrow';
 
 const FLOAT = 'animate-float motion-reduce:animate-none';
 
-export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: string[]}) {
+export function HomeHero({hero}: {hero: HomeContent['hero']}) {
   const {cards} = hero;
 
   return (
@@ -20,7 +19,7 @@ export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: s
       <Container className="relative grid gap-12 pt-32 pb-16 sm:pt-40 lg:grid-cols-12 lg:gap-8 lg:pt-44 lg:pb-24">
         <div className="lg:col-span-7 xl:col-span-7">
           <Eyebrow className="fade-up text-white/85">{hero.eyebrow}</Eyebrow>
-          <h1 className="display mt-6 text-[clamp(1.7rem,7.71vw,2.95rem)] sm:text-[clamp(2.8rem,6.23vw,4.1rem)] lg:text-[clamp(2.6rem,3.98vw,4.2rem)]">
+          <h1 lang="ln" className="display mt-6 text-[clamp(1.7rem,7.71vw,2.95rem)] sm:text-[clamp(2.8rem,6.23vw,4.1rem)] lg:text-[clamp(2.6rem,3.98vw,4.2rem)]">
             {hero.titleLines.map((line, index) => (
               <span key={line} className="line-mask" style={{'--i': index} as CSSProperties}>
                 <span>{line}</span>
@@ -31,7 +30,7 @@ export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: s
             {hero.intro}
           </p>
           <div className="fade-up mt-10 flex flex-wrap gap-3" style={{'--i': 3} as CSSProperties}>
-            <ButtonLink href={hero.primary.href} variant="white" size="lg">
+            <ButtonLink href={hero.primary.href} variant="red" size="lg">
               {hero.primary.label}
             </ButtonLink>
             <ButtonLink href={hero.secondary.href} variant="outline-white" size="lg">
@@ -119,16 +118,6 @@ export function HomeHero({hero, marquee}: {hero: HomeContent['hero']; marquee: s
         </div>
       </Container>
 
-      <Marquee label={hero.tagline} className="border-t border-white/10 bg-lokambe-peach py-5 text-lokambe-blue sm:py-7">
-        {marquee.map((word) => (
-          <span key={word} className="flex items-center">
-            <span className="display px-6 text-[clamp(1.85rem,4.92vw,3.9rem)] leading-none whitespace-nowrap sm:px-10">
-              {word}.
-            </span>
-            <span aria-hidden="true" className="h-3 w-7 rounded-full bg-lokambe-red sm:h-4 sm:w-10" />
-          </span>
-        ))}
-      </Marquee>
     </section>
   );
 }

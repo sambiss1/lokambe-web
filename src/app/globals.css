@@ -185,6 +185,37 @@
   }
 }
 
+
+/* Bande de logos : elle défile toute seule au pointeur, et devient un simple
+   défilement horizontal sur écran tactile, où viser une cible mouvante est
+   impossible. */
+@utility logo-track {
+  display: flex;
+  width: max-content;
+  animation: lk-marquee 52s linear infinite;
+
+  &:hover,
+  &:focus-within {
+    animation-play-state: paused;
+  }
+}
+
+@media (hover: none) {
+  .logo-track {
+    animation: none;
+    width: auto;
+  }
+
+  .logo-rail {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .logo-rail .logo-track > .logo-copy:last-child {
+    display: none;
+  }
+}
+
 @utility no-scrollbar {
   scrollbar-width: none;
 
