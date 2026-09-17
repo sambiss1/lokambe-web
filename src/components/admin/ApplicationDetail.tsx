@@ -1,34 +1,58 @@
 'use client';
 
 import Link from 'next/link';
-import {type FormEvent, useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {type FormEvent, useState, useTransition} from 'react';
 import {Button} from '@/components/ui/Button';
 import {
-  type AdminApplication,
-  APPLICATION_STATUSES,
-  type ApplicationNote,
-  type ApplicationStatus,
   formatBytes,
   formatDateTime,
   formatUsd,
-  MOCK_NOW,
   NEED_TYPE_LABELS,
-  SECTOR_LABELS,
-  type StatusEntry,
+  sectorLabel,
   STATUS_LABELS,
-} from '@/lib/admin-mock';
+} from '@/lib/admin-format';
+import {addApplicationNote, changeApplicationStatus, type ActionFailure} from '@/lib/api/admin-actions';
+import type {AdminApplication} from '@/lib/api/admin-types';
+import {APPLICATION_STATUSES, type ApplicationStatus} from '@/lib/constants';
 import {Field, controlClass, selectChevronStyle, selectClass} from './Field';
 import {StatusBadge} from './StatusBadge';
 import {DataRow, Panel} from './Surface';
 
-const CURRENT_USER = 'Équipe LOKAMBE';
+/** Message montré à l'équipe pour chaque refus de l'API. */
+function messageFor(reason: ActionFailure): string {
+  switch (reason) {
+    case 'introuvable':
+      return 'Ce dossier n’existe plus.';
+    case 'invalid':
+      return 'L’API a refusé cette modification.';
+    default:
+      return 'La modification n’a pas abouti. Réessayez dans un instant.';
+  }
+}
 
 export function ApplicationDetail({application}: {application: AdminApplication}) {
-  const {applicant, business, need} = application;
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
 
-  const [status, setStatus] = useState<ApplicationStatus>(application.status);
-  const [history, setHistory] = useState<StatusEntry[]>(application.statusHistory);
-  const [notes, setNotes] = useState<ApplicationNote[]>(application.notes);
+  /**
+   * Les routes d'écriture renvoient le dossier entier : on affiche leur réponse
+   * sans attendre que la page serveur se rafraîchisse, plutôt que de recomposer
+   * l'historique à la main.
+   *
+   * La réponse ne vaut que pour la version du dossier qu'on avait sous les yeux :
+   * dès que le serveur en envoie une nouvelle, on la reprend. C'est l'ajustement
+   * d'état pendant le rendu, préféré à un effet qui appellerait `setState`.
+   */
+  const [saved, setSaved] = useState<AdminApplication | null>(null);
+  const [rendered, setRendered] = useState(application);
+  if (rendered !== application) {
+    setRendered(application);
+    setSaved(null);
+  }
+  const document = saved ?? application;
+
+  const {applicant, business, need} = document;
 
   const [nextStatus, setNextStatus] = useState<ApplicationStatus>(application.status);
   const [comment, setComment] = useState('');
@@ -40,23 +64,27 @@ export function ApplicationDetail({application}: {application: AdminApplication}
   function onSubmitStatus(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (nextStatus === status && !comment.trim()) {
+    if (nextStatus === document.status && !comment.trim()) {
       setStatusFeedback({kind: 'error', text: 'Choisissez un nouveau statut ou ajoutez un commentaire.'});
       return;
     }
 
-    const entry: StatusEntry = {
-      status: nextStatus,
-      changedAt: MOCK_NOW,
-      changedBy: CURRENT_USER,
-      ...(comment.trim() ? {comment: comment.trim()} : {}),
-    };
-
-    // TODO(api) : PATCH /admin/applications/<id>/status puis revalidation de la page.
-    setStatus(nextStatus);
-    setHistory((previous) => [...previous, entry]);
-    setComment('');
-    setStatusFeedback({kind: 'ok', text: `Statut mis à jour : ${STATUS_LABELS[nextStatus]}.`});
+    setStatusFeedback(null);
+    startTransition(async () => {
+      const outcome = await changeApplicationStatus(document.id, nextStatus, comment);
+      if (outcome.ok) {
+        setSaved(outcome.data);
+        setComment('');
+        setStatusFeedback({kind: 'ok', text: `Statut mis à jour : ${STATUS_LABELS[nextStatus]}.`});
+        router.refresh();
+        return;
+      }
+      if (outcome.reason === 'session') {
+        router.replace('/admin/login?expiree=1');
+        return;
+      }
+      setStatusFeedback({kind: 'error', text: messageFor(outcome.reason)});
+    });
   }
 
   function onSubmitNote(event: FormEvent<HTMLFormElement>) {
@@ -68,13 +96,21 @@ export function ApplicationDetail({application}: {application: AdminApplication}
       return;
     }
 
-    // TODO(api) : POST /admin/applications/<id>/notes.
-    setNotes((previous) => [
-      ...previous,
-      {id: `note-${previous.length + 1}-${application.id}`, text, author: CURRENT_USER, createdAt: MOCK_NOW},
-    ]);
-    setNoteText('');
     setNoteError(null);
+    startTransition(async () => {
+      const outcome = await addApplicationNote(document.id, text);
+      if (outcome.ok) {
+        setSaved(outcome.data);
+        setNoteText('');
+        router.refresh();
+        return;
+      }
+      if (outcome.reason === 'session') {
+        router.replace('/admin/login?expiree=1');
+        return;
+      }
+      setNoteError(messageFor(outcome.reason));
+    });
   }
 
   return (
@@ -88,12 +124,12 @@ export function ApplicationDetail({application}: {application: AdminApplication}
         </Link>
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <h1 className="display text-[clamp(1.55rem,3.28vw,2.15rem)] tabular-nums">{application.reference}</h1>
-          <StatusBadge status={status} />
+          <h1 className="display text-[clamp(1.55rem,3.28vw,2.15rem)] tabular-nums">{document.reference}</h1>
+          <StatusBadge status={document.status} />
         </div>
 
         <p className="text-sm text-ink-soft">
-          Reçue le {formatDateTime(application.createdAt)} · formulaire en {application.locale.toUpperCase()} ·{' '}
+          Reçue le {formatDateTime(document.createdAt)} · formulaire en {document.locale.toUpperCase()} ·{' '}
           {business.name}
         </p>
       </div>
@@ -121,26 +157,30 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                   ) : undefined
                 }
               />
-              <DataRow label="Localisation" value={`${applicant.city} — ${applicant.commune}`} />
+              <DataRow
+                label="Localisation"
+                // La commune est facultative dans le formulaire public.
+                value={applicant.commune ? `${applicant.city} — ${applicant.commune}` : applicant.city}
+              />
             </dl>
           </Panel>
 
           <Panel title="Activité">
             <dl>
               <DataRow label="Nom" value={business.name} />
-              <DataRow
-                label="Secteur"
-                value={
-                  business.sector === 'autre'
-                    ? `Autre — ${business.sectorOther ?? 'non précisé'}`
-                    : SECTOR_LABELS[business.sector]
-                }
-              />
+              <DataRow label="Secteur" value={sectorLabel(business.sector, business.sectorOther)} />
               <DataRow
                 label="Formalisée"
                 value={business.isFormal ? `Oui${business.rccm ? ` · RCCM ${business.rccm}` : ''}` : 'Non'}
               />
-              <DataRow label="Année de démarrage" value={<span className="tabular-nums">{business.foundedYear}</span>} />
+              <DataRow
+                label="Année de démarrage"
+                value={
+                  business.foundedYear === undefined ? undefined : (
+                    <span className="tabular-nums">{business.foundedYear}</span>
+                  )
+                }
+              />
               <DataRow label="Employés" value={<span className="tabular-nums">{business.employeesCount}</span>} />
               <DataRow
                 label="Chiffre d’affaires mensuel"
@@ -165,36 +205,30 @@ export function ApplicationDetail({application}: {application: AdminApplication}
             </dl>
           </Panel>
 
-          <Panel title={`Pièces jointes (${application.files.length})`}>
-            {application.files.length === 0 ? (
+          <Panel title={`Pièces jointes (${document.files.length})`}>
+            {document.files.length === 0 ? (
               <p className="text-sm text-ink-soft">Aucun document joint à cette candidature.</p>
             ) : (
-              <>
-                <ul className="flex flex-col gap-2">
-                  {application.files.map((file) => (
-                    <li
-                      key={file.fileId}
-                      className="flex flex-col gap-2 rounded-2xl bg-lokambe-peach-soft/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
-                    >
-                      <span className="min-w-0 truncate text-sm font-bold">{file.filename}</span>
-                      <span className="flex flex-none items-center justify-between gap-4 sm:justify-end">
-                        <span className="text-xs text-ink-soft tabular-nums">{formatBytes(file.size)}</span>
-                        {/* TODO(api) : lien vers GET /api/admin/files/<applicationId>/<fileId>. */}
-                        <button
-                          type="button"
-                          disabled
-                          className="rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-bold text-ink-soft"
-                        >
-                          Télécharger
-                        </button>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-xs text-ink-soft">
-                  Les fichiers sont fictifs : le téléchargement sera branché sur l’API.
-                </p>
-              </>
+              <ul className="flex flex-col gap-2">
+                {document.files.map((file) => (
+                  <li
+                    key={file.fileId}
+                    className="flex flex-col gap-2 rounded-2xl bg-lokambe-peach-soft/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
+                  >
+                    <span className="min-w-0 truncate text-sm font-bold">{file.filename}</span>
+                    <span className="flex flex-none items-center justify-between gap-4 sm:justify-end">
+                      <span className="text-xs text-ink-soft tabular-nums">{formatBytes(file.size)}</span>
+                      {/* Le fichier passe par le site, qui signe l'appel : le jeton reste au serveur. */}
+                      <a
+                        href={`/api/admin/files/${document.id}/${file.fileId}`}
+                        className="rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-bold text-lokambe-blue transition-colors duration-200 hover:border-lokambe-blue"
+                      >
+                        Télécharger
+                      </a>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             )}
           </Panel>
         </div>
@@ -246,15 +280,16 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                 </p>
               ) : null}
 
-              <Button type="submit" className="w-full">
-                Enregistrer le statut
+              <Button type="submit" disabled={pending} className="w-full">
+                {pending ? 'Enregistrement…' : 'Enregistrer le statut'}
               </Button>
             </form>
           </Panel>
 
-          <Panel title={`Historique (${history.length})`}>
+          <Panel title={`Historique (${document.statusHistory.length})`}>
             <ol aria-label="Historique des statuts" className="flex flex-col gap-4 border-l-2 border-lokambe-peach pl-5">
-              {[...history].reverse().map((entry, index) => (
+              {[...document.statusHistory].reverse().map((entry, index) => (
+                // Les sous-documents de l'API n'ont pas d'identifiant.
                 <li key={`${entry.changedAt}-${entry.status}-${index}`} className="relative">
                   <span
                     aria-hidden="true"
@@ -262,7 +297,9 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                   />
                   <p className="text-sm font-extrabold">{STATUS_LABELS[entry.status]}</p>
                   <p className="text-xs text-ink-soft tabular-nums">
-                    {formatDateTime(entry.changedAt)} · {entry.changedBy}
+                    {formatDateTime(entry.changedAt)}
+                    {/* L'entrée créée par le formulaire public n'a pas d'auteur. */}
+                    {entry.changedBy ? ` · ${entry.changedBy}` : ' · Formulaire public'}
                   </p>
                   {entry.comment ? <p className="mt-1.5 text-sm whitespace-pre-line">{entry.comment}</p> : null}
                 </li>
@@ -270,11 +307,11 @@ export function ApplicationDetail({application}: {application: AdminApplication}
             </ol>
           </Panel>
 
-          <Panel title={`Notes internes (${notes.length})`}>
-            {notes.length > 0 ? (
+          <Panel title={`Notes internes (${document.notes.length})`}>
+            {document.notes.length > 0 ? (
               <ul className="mb-5 flex flex-col gap-3">
-                {notes.map((note) => (
-                  <li key={note.id} className="rounded-2xl bg-[#f7f6f9] p-4">
+                {document.notes.map((note, index) => (
+                  <li key={`${note.createdAt}-${index}`} className="rounded-2xl bg-[#f7f6f9] p-4">
                     <p className="text-sm whitespace-pre-line">{note.text}</p>
                     <p className="mt-2 text-xs text-ink-soft tabular-nums">
                       {note.author} · {formatDateTime(note.createdAt)}
@@ -308,7 +345,7 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                 </p>
               ) : null}
 
-              <Button type="submit" variant="outline-blue" className="w-full">
+              <Button type="submit" variant="outline-blue" disabled={pending} className="w-full">
                 Ajouter la note
               </Button>
             </form>

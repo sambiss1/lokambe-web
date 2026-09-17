@@ -68,9 +68,6 @@ export function AdminNav({onNavigate}: {onNavigate?: () => void}) {
       </nav>
 
       <div className="mt-auto flex flex-col gap-4">
-        <p className="rounded-2xl bg-white/10 px-4 py-3 text-xs leading-relaxed text-white/75">
-          Maquette : les données affichées sont fictives et ne sont enregistrées nulle part.
-        </p>
         <button
           type="button"
           onClick={signOut}

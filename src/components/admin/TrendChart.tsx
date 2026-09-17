@@ -1,4 +1,4 @@
-import {formatDate} from '@/lib/admin-mock';
+import {formatDate} from '@/lib/admin-format';
 
 type Props = {data: {date: string; count: number}[]};
 
