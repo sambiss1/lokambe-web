@@ -95,6 +95,38 @@ describe('ApplicationsBrowser', () => {
     expect(replace).toHaveBeenCalledWith('/admin/candidatures');
   });
 
+  /**
+   * La recherche différée et les autres filtres écrivent dans la même URL. Si
+   * la minuterie en attente part avec les filtres d'avant, elle écrase le choix
+   * que la personne vient de faire.
+   */
+  it('ne laisse pas la recherche différée écraser un filtre choisi entre-temps', async () => {
+    const user = userEvent.setup();
+    renderBrowser({status: 'recu'});
+
+    await user.type(screen.getByLabelText('Recherche'), 'Kin');
+    // Sans attendre la pause : on change de statut.
+    await user.selectOptions(screen.getByLabelText('Statut'), 'finance');
+
+    await new Promise((resolve) => setTimeout(resolve, 600));
+
+    const last = replace.mock.calls.at(-1)?.[0] as string;
+    expect(last).toContain('status=finance');
+    expect(last).not.toContain('status=recu');
+    // La frappe n'est pas perdue pour autant.
+    expect(last).toContain('q=Kin');
+  });
+
+  it('ne réapplique pas les filtres après une réinitialisation', async () => {
+    const user = userEvent.setup();
+    renderBrowser({status: 'recu', q: 'Kin'});
+
+    await user.click(screen.getByRole('button', {name: 'Réinitialiser'}));
+    await new Promise((resolve) => setTimeout(resolve, 600));
+
+    expect(replace).toHaveBeenLastCalledWith('/admin/candidatures');
+  });
+
   it('propose l’export sur la route relais, filtres compris', () => {
     renderBrowser({status: 'recu', q: 'Kin'});
 

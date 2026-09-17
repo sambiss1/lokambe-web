@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {usePathname, useRouter} from 'next/navigation';
-import {useEffect, useState, useTransition} from 'react';
+import {useEffect, useRef, useState, useTransition} from 'react';
 import {formatDate, formatUsd, sectorLabel, SECTOR_LABELS, STATUS_LABELS, totalPages} from '@/lib/admin-format';
 import type {AdminApplicationSummary, ApplicationFilters, Page} from '@/lib/api/admin-types';
 import {APPLICATION_STATUSES, SECTORS} from '@/lib/constants';
@@ -32,37 +32,71 @@ export function ApplicationsBrowser({result, filters, pageSize}: Props) {
   // La frappe reste locale ; l'URL ne suit qu'après une pause.
   const [search, setSearch] = useState(filters.q ?? '');
 
+  /**
+   * La recherche différée et les autres filtres écrivent dans la même URL. Une
+   * minuterie déjà lancée doit donc partir avec l'état du moment où elle se
+   * déclenche, jamais avec celui du rendu qui l'a programmée : sinon elle écrase
+   * le filtre choisi entre-temps. D'où ces références, relues à l'échéance.
+   */
+  const filtersRef = useRef(filters);
+  const searchRef = useRef(search);
+  /** Recherche effectivement portée par l'URL, pour savoir s'il reste à écrire. */
+  const committedSearch = useRef((filters.q ?? '').trim());
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Mises à jour après le rendu, jamais pendant : les gestionnaires et la
+  // minuterie s'exécutent ensuite, ils y trouveront l'état du moment.
+  useEffect(() => {
+    filtersRef.current = filters;
+    searchRef.current = search;
+  });
+
   const pages = totalPages(result.total, pageSize);
   const hasFilters = Boolean(filters.status || filters.sector || (filters.q ?? '').trim());
 
+  function cancelPendingSearch() {
+    if (searchTimer.current !== null) {
+      clearTimeout(searchTimer.current);
+      searchTimer.current = null;
+    }
+  }
+
   /** Réécrit l'URL : c'est elle qui porte l'état, le serveur refait la requête. */
-  function apply(patch: Partial<ApplicationFilters>, options: {keepPage?: boolean} = {}) {
-    const next = {...filters, ...patch};
+  function apply(patch: Partial<ApplicationFilters> = {}, options: {keepPage?: boolean} = {}) {
+    // Toute navigation explicite emporte la recherche en attente avec elle.
+    cancelPendingSearch();
+    const next = {...filtersRef.current, q: searchRef.current, ...patch};
+
     const params = new URLSearchParams();
     if (next.status) params.set('status', next.status);
     if (next.sector) params.set('sector', next.sector);
-    if (next.q?.trim()) params.set('q', next.q.trim());
+    const q = (next.q ?? '').trim();
+    if (q) params.set('q', q);
     // Tout changement de filtre renvoie à la première page : la page 4 d'un
     // autre filtre n'existe probablement pas.
     const page = options.keepPage ? (next.page ?? 1) : 1;
     if (page > 1) params.set('page', String(page));
 
+    committedSearch.current = q;
     const rendered = params.toString();
     startTransition(() => router.replace(rendered === '' ? pathname : `${pathname}?${rendered}`));
   }
 
   useEffect(() => {
-    const current = filters.q ?? '';
-    if (search.trim() === current.trim()) return;
-    const timer = setTimeout(() => apply({q: search}), SEARCH_DEBOUNCE_MS);
-    return () => clearTimeout(timer);
-    // `apply` se reconstruit à chaque rendu : on suit la saisie et l'URL.
+    if (search.trim() === committedSearch.current) return;
+    searchTimer.current = setTimeout(() => {
+      searchTimer.current = null;
+      apply();
+    }, SEARCH_DEBOUNCE_MS);
+    return cancelPendingSearch;
+    // `apply` lit ses références : la reconstruire à chaque rendu ne change rien.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, filters.q]);
+  }, [search]);
 
   function reset() {
     setSearch('');
-    startTransition(() => router.replace(pathname));
+    searchRef.current = '';
+    apply({status: undefined, sector: undefined, q: ''});
   }
 
   /** L'export passe par le site, qui signe l'appel : le jeton reste au serveur. */
