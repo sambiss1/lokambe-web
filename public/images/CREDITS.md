@@ -4,7 +4,7 @@ Photos libres de droits utilisées sur lokambe.com.
 
 | Fichier | Auteur | Source | Licence |
 |---|---|---|---|
-| home-hero.webp | Carmel Nsenga | https://www.pexels.com/photo/a-woman-in-plaid-gray-blazer-holding-a-magazine-10146137/ | Pexels License |
+| home-hero.webp | Hashtag Melvin | https://www.pexels.com/photo/19838484/ | Pexels License |
 | home-kinshasa.webp | Kaysha | https://unsplash.com/photos/cars-on-road-under-blue-sky-and-white-clouds-during-daytime-StJWD4ci8wY | Unsplash License |
 | about-hero.webp | Muhammad-Taha Ibrahim | https://www.pexels.com/photo/a-man-sewing-a-cloth-12672102/ | Pexels License |
 | model-hero.webp | Gustavo Fring | https://www.pexels.com/photo/man-working-in-bakery-by-display-window-7447281/ | Pexels License |
@@ -23,8 +23,11 @@ Photos libres de droits utilisées sur lokambe.com.
 | sector-medias.webp | Isaiah Ekele | https://www.pexels.com/photo/man-behind-a-video-camera-14699461/ | Pexels License |
 | sector-education.webp | illustrate Digital Ug | https://www.pexels.com/photo/a-group-of-people-standing-in-a-workshop-20853660/ | Pexels License |
 | cta-entrepreneur.webp | Etty Fidele | https://unsplash.com/photos/AzVexpHvuKY | Unsplash License |
+| home-hero-alt-1.webp | Safari Consoler | https://www.pexels.com/photo/11588303/ | Pexels License |
+| home-hero-alt-2.webp | Hakim LEVEL | https://www.pexels.com/photo/33251084/ | Pexels License |
+| home-hero-office.webp | Carmel Nsenga | https://www.pexels.com/photo/a-woman-in-plaid-gray-blazer-holding-a-magazine-10146137/ | Pexels License |
 | home-hero-previous.webp | Muhammad-Taha Ibrahim | https://www.pexels.com/photo/nigerian-shopkeeper-in-local-grocery-store-30020992/ | Pexels License |
 
 > `home-hero-previous.webp` est l'ancienne photo de la hero (commerçant à Abuja, Nigeria), conservée pour pouvoir revenir en arrière. La source haute résolution est dans `images-raw/candidates/home-hero-previous-source.jpg`.
 >
-> Cadrage de `home-hero.webp` (4:5, 1400 px) : `{ratio: 4 / 5, maxWidth: 1400, zoom: 0.84, fx: 0.55, fy: 0.04}` — à reporter dans `FRAMING['home-hero']` de `scripts/optimize-images.mjs` (l'ancien cadrage `zoom: 0.9, fx: 0, fy: 0.25` correspondait à l'ancienne photo).
+> `home-hero.webp` : commerçante derrière son comptoir. Deux variantes du même parti pris sont conservées pour le choix du client — `home-hero-alt-1.webp` (artisan dans son atelier de sandales) et `home-hero-alt-2.webp` (commerçante dans son étal de marché). `home-hero-office.webp` et `home-hero-previous.webp` sont les deux versions écartées (portrait de bureau, commerçant à Abuja).
