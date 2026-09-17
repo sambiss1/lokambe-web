@@ -28,13 +28,7 @@ export const MAIN_NAV: readonly NavEntry[] = [
       {key: 'team', href: '/notre-equipe'},
     ],
   },
-  {
-    kind: 'group',
-    key: 'invest',
-    items: [
-          {key: 'sectors', href: '/secteurs-et-criteres'},
-    ],
-  },
+  {kind: 'link', key: 'sectors', href: '/secteurs-et-criteres'},
   {kind: 'link', key: 'impact', href: '/impact'},
   {kind: 'link', key: 'blog', href: '/blog'},
   {kind: 'link', key: 'contact', href: '/contact'},
