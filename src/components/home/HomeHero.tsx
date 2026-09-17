@@ -1,4 +1,4 @@
-import {Briefcase, HeartHandshake} from 'lucide-react';
+import {HeartHandshake, Store} from 'lucide-react';
 import Image from 'next/image';
 import type {CSSProperties} from 'react';
 import type {HomeContent} from '@/content/types';
@@ -85,7 +85,7 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
               )}
             >
               <span className="grid size-10 place-items-center rounded-full bg-lokambe-blue text-white">
-                <Briefcase className="size-5" strokeWidth={2.2} />
+                <Store className="size-5" strokeWidth={2.2} />
               </span>
               <span className="leading-tight">
                 <span className="block text-xs font-medium">{cards.sector.label}</span>

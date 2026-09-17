@@ -17,7 +17,7 @@ const PORTRAIT = {ratio: 4 / 5, maxWidth: 1400};
  * (0.5 = centré) ; `zoom` (< 1) réduit la zone pour écarter un élément gênant en bordure.
  */
 const FRAMING = {
-  'home-hero': {...PORTRAIT, zoom: 0.84, fx: 0.55, fy: 0.04},
+  'home-hero': {...PORTRAIT, zoom: 0.9, fx: 0, fy: 0.25},
   'home-kinshasa': LANDSCAPE,
   'about-hero': {...LANDSCAPE, fx: 0.3},
   'model-hero': {...LANDSCAPE, fx: 0.75},
