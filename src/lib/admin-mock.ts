@@ -11,35 +11,24 @@
  * valeurs de maquette.
  */
 
+import {
+  APPLICATION_STATUSES,
+  type ApplicationStatus,
+  CONTACT_KINDS,
+  type ContactKind,
+  NEED_TYPES,
+  type NeedType,
+  SECTORS,
+  type Sector,
+} from './constants';
+
 /* ------------------------------------------------------------------ énumérations */
 
-export const SECTORS = [
-  'restauration',
-  'metiers_de_bouche',
-  'commerce_distribution',
-  'evenementiel',
-  'services',
-  'autre',
-] as const;
-export type Sector = (typeof SECTORS)[number];
-
-export const APPLICATION_STATUSES = [
-  'recu',
-  'preselection',
-  'visite',
-  'analyse',
-  'due_diligence',
-  'comite',
-  'finance',
-  'rejete',
-] as const;
-export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number];
-
-export const CONTACT_KINDS = ['investisseur', 'partenaire', 'expert', 'entrepreneur', 'autre'] as const;
-export type ContactKind = (typeof CONTACT_KINDS)[number];
-
-export const NEED_TYPES = ['equipement', 'stock', 'amenagement', 'fonds_de_roulement', 'autre'] as const;
-export type NeedType = (typeof NEED_TYPES)[number];
+// Une seule source de vérité : `./constants`, miroir des enums de l'API. Les
+// redéclarer ici a déjà produit deux décalages (secteurs manquants, types de
+// besoin sans rapport avec ceux que le formulaire public envoie).
+export {APPLICATION_STATUSES, CONTACT_KINDS, NEED_TYPES, SECTORS};
+export type {ApplicationStatus, ContactKind, NeedType, Sector};
 
 /* ---------------------------------------------------------------------- libellés */
 
@@ -49,6 +38,8 @@ export const SECTOR_LABELS: Record<Sector, string> = {
   commerce_distribution: 'Commerce & distribution',
   evenementiel: 'Événementiel',
   services: 'Services',
+  medias_divertissement: 'Médias & divertissement',
+  education_formation: 'Éducation & formation',
   autre: 'Autre',
 };
 
@@ -72,10 +63,9 @@ export const CONTACT_KIND_LABELS: Record<ContactKind, string> = {
 };
 
 export const NEED_TYPE_LABELS: Record<NeedType, string> = {
-  equipement: 'Équipement',
-  stock: 'Stock',
-  amenagement: 'Aménagement',
-  fonds_de_roulement: 'Fonds de roulement',
+  croissance: 'Capital de croissance',
+  equipements: 'Équipements productifs',
+  expansion: 'Expansion',
   autre: 'Autre',
 };
 
@@ -171,7 +161,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Maquis de quartier ouvert midi et soir, spécialisé dans le poulet mayo et le pondu. Deux salles, terrasse de 24 couverts sur l'avenue Kasa-Vubu.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 4500,
       useOfFunds:
         "Achat d'un congélateur horizontal, de deux réchauds professionnels et remplacement du groupe électrogène hors service depuis juin.",
@@ -209,7 +199,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Boulangerie-pâtisserie livrant six boutiques de la 7e rue. Production de nuit, deux fournées quotidiennes, clientèle d'habitués et de revendeuses.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 9800,
       useOfFunds:
         "Four rotatif d'occasion importé de Dubaï, pétrin de 50 kg et réfection du circuit électrique de l'atelier.",
@@ -263,7 +253,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Dépôt de fruits et légumes approvisionné au marché de la Liberté, revente en demi-gros aux restaurants et aux vendeuses du quartier Sans-fil.",
     },
     need: {
-      type: 'stock',
+      type: 'croissance',
       amountUsd: 6200,
       useOfFunds:
         "Constitution d'un stock tampon de produits secs et location d'une chambre froide partagée pour réduire les pertes sur les légumes.",
@@ -314,7 +304,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Décoration et organisation de mariages, dots et anniversaires. Équipe de neuf personnes en intermittence, stock de mobilier et de tentures.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 7400,
       useOfFunds: "Achat de 200 chaises Napoléon, de deux tentes 6×12 m et d'un kit d'éclairage sur batterie.",
     },
@@ -374,7 +364,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Société de nettoyage de bureaux et de résidences, sous contrat avec quatre immeubles de la Gombe. Quatorze agents, deux équipes de nuit.",
     },
     need: {
-      type: 'fonds_de_roulement',
+      type: 'croissance',
       amountUsd: 12_000,
       useOfFunds:
         "Avance de trésorerie pour couvrir les salaires pendant les délais de paiement clients (60 à 90 jours) et achat de deux autolaveuses.",
@@ -431,7 +421,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Menuiserie sur mesure : lits, armoires et comptoirs pour particuliers et petits commerces. Atelier de 90 m² loué le long de l'avenue de l'Université.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 5600,
       useOfFunds: "Scie à ruban, raboteuse et aspirateur à copeaux pour arrêter la sous-traitance des découpes.",
     },
@@ -484,7 +474,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Point de vente de poulet braisé et de brochettes en bord de route, ouvert de 16h à minuit. Forte clientèle de sortie de bureau.",
     },
     need: {
-      type: 'amenagement',
+      type: 'expansion',
       amountUsd: 3800,
       useOfFunds: "Couverture de la terrasse, comptoir en inox et raccordement à l'eau courante.",
     },
@@ -538,7 +528,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Projet de charcuterie artisanale à domicile. Activité démarrée il y a quatre mois, pas encore de local ni de clientèle régulière.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 14_500,
       useOfFunds: "Chambre froide, trancheuse professionnelle et véhicule réfrigéré.",
     },
@@ -587,7 +577,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Boutique de cosmétiques et de produits capillaires au marché de Kintambo Magasin. Vente au comptoir et livraison par moto-taxi.",
     },
     need: {
-      type: 'stock',
+      type: 'croissance',
       amountUsd: 2800,
       useOfFunds: "Réassort de stock avant la période des fêtes et achat d'une vitrine sécurisée.",
     },
@@ -620,7 +610,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Location de sonorisation et animation DJ pour mariages, deuils et fêtes de quartier. Matériel transporté en tricycle.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 3200,
       useOfFunds: "Deux enceintes amplifiées, une table de mixage et un onduleur pour les coupures de courant.",
     },
@@ -661,7 +651,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Atelier de couture et de broderie sur pagne, avec formation de six apprenties. Commandes d'uniformes pour deux écoles du quartier.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 4100,
       useOfFunds: "Trois machines industrielles, une surjeteuse et un stock initial de tissu pour les uniformes.",
     },
@@ -714,7 +704,7 @@ export const MOCK_APPLICATIONS: AdminApplication[] = [
         "Poissonnerie approvisionnée au port de Kinkole : poisson frais et fumé, vente au détail et aux restaurants du centre-ville.",
     },
     need: {
-      type: 'equipement',
+      type: 'equipements',
       amountUsd: 5900,
       useOfFunds: "Congélateur vitrine, bacs isothermes et fumoir maçonné pour remplacer le fumage à l'air libre.",
     },

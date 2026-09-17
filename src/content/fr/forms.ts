@@ -51,6 +51,8 @@ export const forms: FormsContent = {
       commerce_distribution: 'Commerce et distribution',
       evenementiel: 'Événementiel',
       services: 'Services',
+      medias_divertissement: 'Médias et divertissement',
+      education_formation: 'Éducation et formation',
       autre: 'Autre secteur',
     },
     needTypes: {

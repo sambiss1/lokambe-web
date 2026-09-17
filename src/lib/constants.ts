@@ -1,5 +1,14 @@
 /** Miroir des enums de l'API (`lokambe-api/src/common/constants.ts`). */
-export const SECTORS = ['restauration', 'metiers_de_bouche', 'commerce_distribution', 'evenementiel', 'services', 'autre'] as const;
+export const SECTORS = [
+  'restauration',
+  'metiers_de_bouche',
+  'commerce_distribution',
+  'evenementiel',
+  'services',
+  'medias_divertissement',
+  'education_formation',
+  'autre',
+] as const;
 export const NEED_TYPES = ['croissance', 'equipements', 'expansion', 'autre'] as const;
 export const APPLICATION_STATUSES = [
   'recu',

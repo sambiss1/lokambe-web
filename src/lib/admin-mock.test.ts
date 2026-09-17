@@ -10,6 +10,7 @@ import {
   formatUsd,
   MOCK_APPLICATIONS,
   MOCK_CONTACTS,
+  NEED_TYPES,
   paginate,
   recentApplications,
   SECTORS,
@@ -21,6 +22,9 @@ describe('mock dataset', () => {
     for (const application of MOCK_APPLICATIONS) {
       expect(APPLICATION_STATUSES).toContain(application.status);
       expect(SECTORS).toContain(application.business.sector);
+      // Le back-office affichait des types de besoin que le formulaire public
+      // n'envoie jamais : c'est cette assertion qui manquait.
+      expect(NEED_TYPES).toContain(application.need.type);
     }
     for (const contact of MOCK_CONTACTS) {
       expect(CONTACT_KINDS).toContain(contact.kind);
