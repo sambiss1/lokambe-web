@@ -6,7 +6,6 @@ import {CheckList} from '@/components/sections/CheckList';
 import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
-import {StepList} from '@/components/sections/StepList';
 import {getContent} from '@/content';
 import {pageMetadata} from '@/lib/seo';
 
@@ -53,9 +52,6 @@ export default async function ApplyPage({params}: Props) {
         <ApplicationForm content={apply.form} labels={forms} />
       </Section>
 
-      <Section tone="blue" eyebrow={apply.nextSteps.eyebrow} title={apply.nextSteps.title}>
-        <StepList steps={apply.nextSteps.steps} tone="dark" />
-      </Section>
     </>
   );
 }

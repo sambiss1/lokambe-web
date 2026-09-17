@@ -94,6 +94,6 @@ export const sectors: SectorsContent = {
     title: 'Votre activité coche ces critères ?',
     text: 'Présentez-nous votre projet, même si votre activité n’est pas encore formalisée.',
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Voir le processus', href: '/processus'},
+    secondary: {label: 'Nous découvrir', href: '/a-propos'},
   },
 };

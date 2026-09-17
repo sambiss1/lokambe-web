@@ -1,11 +1,10 @@
 import type {PublicPath} from '@/lib/site-paths';
 
-export type NavKey = 'about' | 'model' | 'team' | 'process' | 'sectors' | 'impact' | 'blog' | 'careers' | 'contact';
+export type NavKey = 'about' | 'model' | 'team' | 'sectors' | 'impact' | 'blog' | 'careers' | 'contact';
 
 export const NAV_ITEMS: readonly {key: NavKey; href: PublicPath}[] = [
   {key: 'about', href: '/a-propos'},
   {key: 'model', href: '/notre-modele'},
-  {key: 'process', href: '/processus'},
   {key: 'sectors', href: '/secteurs-et-criteres'},
   {key: 'team', href: '/notre-equipe'},
   {key: 'impact', href: '/impact'},
@@ -33,8 +32,7 @@ export const MAIN_NAV: readonly NavEntry[] = [
     kind: 'group',
     key: 'invest',
     items: [
-      {key: 'process', href: '/processus'},
-      {key: 'sectors', href: '/secteurs-et-criteres'},
+          {key: 'sectors', href: '/secteurs-et-criteres'},
     ],
   },
   {kind: 'link', key: 'impact', href: '/impact'},

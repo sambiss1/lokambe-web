@@ -9,14 +9,12 @@ import {impact} from './impact';
 import {investors} from './investors';
 import {legalNotice, privacy} from './legal';
 import {model} from './model';
-import {investmentProcess} from './process';
 import {sectors} from './sectors';
 
 export const fr: SiteContent = {
   home,
   about,
   model,
-  process: investmentProcess,
   sectors,
   governance,
   impact,

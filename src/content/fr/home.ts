@@ -16,7 +16,7 @@ export const home: HomeContent = {
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
     secondary: {label: 'Nous découvrir', href: '/a-propos'},
     cards: {
-      step: {label: 'Étape 3 sur 12', title: 'Visiter', text: 'Vérification de terrain et compréhension de l’activité.'},
+      step: {label: 'Sur le terrain', title: 'Visiter', text: 'Nous venons voir et comprendre l’activité avant d’investir.'},
       sector: {label: 'Secteur prioritaire', title: 'Commerce et distribution'},
       place: {label: 'Au-delà du capital', title: 'Accompagnement'},
     },
@@ -157,52 +157,6 @@ export const home: HomeContent = {
         text: 'Une entreprise structurée accède plus facilement au crédit, aux fournisseurs, aux marchés publics et privés, et peut recruter durablement.',
       },
     ],
-  },
-  process: {
-    eyebrow: 'Processus d’investissement',
-    title: 'Douze étapes, aucune improvisation',
-    intro: 'Aucune décision d’investissement significative ne repose sur la seule intuition ou appréciation d’un individu.',
-    stepLabel: 'Étape',
-    prevLabel: 'Étapes précédentes',
-    nextLabel: 'Étapes suivantes',
-    phases: [
-      {
-        title: 'Repérer',
-        steps: [
-          {title: 'Identifier', text: 'Recherche proactive et réception de projets.'},
-          {title: 'Présélectionner', text: 'Premier filtre selon les critères d’investissement.'},
-          {title: 'Visiter', text: 'Vérification de terrain et compréhension de l’activité.'},
-        ],
-      },
-      {
-        title: 'Analyser',
-        steps: [
-          {title: 'Analyser', text: 'Analyse commerciale, financière, opérationnelle et entrepreneuriale.'},
-          {title: 'Due diligence', text: 'Vérification des informations essentielles.'},
-          {title: 'Structurer', text: 'Détermination du montant, de l’instrument et des conditions d’intervention.'},
-        ],
-      },
-      {
-        title: 'Investir',
-        steps: [
-          {title: 'Décider', text: 'Validation selon les règles de gouvernance et les seuils établis.'},
-          {title: 'Investir', text: 'Déploiement du capital.'},
-          {title: 'Accompagner', text: 'Mise en œuvre du plan de croissance.'},
-        ],
-      },
-      {
-        title: 'Faire fructifier',
-        steps: [
-          {title: 'Suivre', text: 'Reporting, indicateurs et contrôle.'},
-          {
-            title: 'Valoriser',
-            text: 'Remboursement, dividendes, cession, plus-value ou autre mécanisme de retour selon l’investissement.',
-          },
-          {title: 'Réinvestir', text: 'Réallocation du capital récupéré vers de nouvelles opportunités.'},
-        ],
-      },
-    ],
-    link: {label: 'Découvrir le processus', href: '/processus'},
   },
   support: {
     eyebrow: 'Accompagnement',

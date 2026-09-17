@@ -50,7 +50,14 @@ export function TeamRoles({members}: {members: TeamRoleCard[]}) {
         >
           <RolePortrait role={role} />
           <div className="flex flex-col p-6">
-            <h3 className="text-[1.0625rem] leading-tight font-extrabold text-lokambe-blue uppercase">{role.title}</h3>
+            {role.name ? (
+              <>
+                <h3 className="text-xl leading-tight font-extrabold text-ink">{role.name}</h3>
+                <p className="mt-1 text-[0.9375rem] leading-tight font-bold text-lokambe-blue uppercase">{role.title}</p>
+              </>
+            ) : (
+              <h3 className="text-[1.0625rem] leading-tight font-extrabold text-lokambe-blue uppercase">{role.title}</h3>
+            )}
             <p className="mt-3 text-base leading-relaxed text-ink-soft">{role.summary}</p>
           </div>
         </Reveal>

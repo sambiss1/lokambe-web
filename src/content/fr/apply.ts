@@ -36,19 +36,6 @@ export const apply: ApplyContent = {
     ],
     formats: 'Formats acceptés : PDF, JPG, PNG ou WEBP — 5 fichiers maximum, 10 Mo par fichier.',
   },
-  nextSteps: {
-    eyebrow: 'Après votre envoi',
-    title: 'Comment votre dossier est étudié',
-    steps: [
-      {title: 'Réception', text: 'Vous recevez une référence de dossier. Conservez-la pour tout échange avec nous.'},
-      {title: 'Présélection', text: 'Un premier filtre est réalisé selon nos critères d’investissement.'},
-      {title: 'Visite', text: 'Si votre dossier est présélectionné, nous venons vérifier et comprendre votre activité sur le terrain.'},
-      {
-        title: 'Analyse et décision',
-        text: 'Analyse commerciale, financière et opérationnelle, puis décision collégiale du Comité d’investissement.',
-      },
-    ],
-  },
   form: {
     title: 'Votre candidature',
     privacyText: 'Vos informations sont utilisées uniquement pour l’étude de votre dossier par l’équipe LOKAMBE.',

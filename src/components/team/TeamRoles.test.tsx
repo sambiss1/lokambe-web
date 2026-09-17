@@ -18,7 +18,9 @@ describe('TeamRoles', () => {
     renderWithIntl(<TeamRoles members={team.roles.members} />);
     expect(screen.getAllByRole('heading', {level: 3})).toHaveLength(4);
     for (const member of teamRoles) {
-      expect(screen.getByRole('heading', {level: 3, name: member.title})).toBeInTheDocument();
+      // Un rôle nommé affiche le nom en titre et l'intitulé du poste en dessous.
+      expect(screen.getByRole('heading', {level: 3, name: member.name ?? member.title})).toBeInTheDocument();
+      if (member.name) expect(screen.getByText(member.title)).toBeInTheDocument();
       expect(screen.getByText(member.summary)).toBeInTheDocument();
     }
   });

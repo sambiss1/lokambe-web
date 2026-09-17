@@ -2,7 +2,6 @@ export const PUBLIC_PATHS = [
   '/',
   '/a-propos',
   '/notre-modele',
-  '/processus',
   '/secteurs-et-criteres',
   '/notre-equipe',
   '/impact',

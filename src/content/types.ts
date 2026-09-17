@@ -20,8 +20,6 @@ export type TeamRole = {
 export type Fact = {value: number; label: string; text: string};
 export type FaqItem = {question: string; answer: string};
 export type SectorCard = TitledText & {image: ImageRef; tags: string[]};
-export type ProcessPhase = {title: string; steps: TitledText[]};
-
 /** Une entreprise du portefeuille ou un partenaire. Le logo arrive plus tard. */
 export type LogoEntry = {
   id: string;
@@ -65,7 +63,6 @@ export type HomeContent = {
   portfolio: LogoWallContent;
   partners: LogoWallContent;
   formalisation: SectionHeading & {items: TitledText[]};
-  process: SectionHeading & {phases: ProcessPhase[]; link: LinkItem; stepLabel: string; prevLabel: string; nextLabel: string};
   support: SectionHeading & {items: TitledText[]};
   pilot: SectionHeading & {paragraphs: string[]; image: ImageRef; overlay: string; points: Phase[]; closing: string};
   faq: SectionHeading & {items: FaqItem[]; contactText: string; contact: LinkItem};
@@ -93,15 +90,6 @@ export type ModelContent = {
   hero: PageHeroContent;
   roles: SectionHeading & {items: TitledText[]; closing: string};
   pillars: SectionHeading & {items: Pillar[]};
-  cta: CtaContent;
-};
-
-export type ProcessContent = {
-  meta: PageMeta;
-  hero: PageHeroContent;
-  investment: SectionHeading & {steps: TitledText[]};
-  creation: SectionHeading & {paragraphs: string[]; stepsTitle: string; steps: string[]};
-  support: SectionHeading & {items: TitledList[]; closing: string};
   cta: CtaContent;
 };
 
@@ -154,7 +142,6 @@ export type ApplyContent = {
   hero: PageHeroContent;
   eligibility: SectionHeading & {items: string[]; note: string};
   documents: SectionHeading & {items: string[]; formats: string};
-  nextSteps: SectionHeading & {steps: TitledText[]};
   form: {title: string; privacyText: string; privacyLink: LinkItem};
 };
 
@@ -220,7 +207,6 @@ export type SiteContent = {
   home: HomeContent;
   about: AboutContent;
   model: ModelContent;
-  process: ProcessContent;
   sectors: SectorsContent;
   governance: GovernanceContent;
   impact: ImpactContent;

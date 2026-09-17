@@ -6,7 +6,7 @@
  * du Comité d’investissement, les seuils de décision, la répartition détaillée
  * des responsabilités et les contrôles de risques restent internes.
  *
- * Aucun nom n’est publié : les postes sont présentés par rôle.
+ * Les postes sont présentés par rôle ; un nom n’apparaît que lorsqu’il est fourni.
  */
 
 type LinkItem = {label: string; href: string};
@@ -28,6 +28,8 @@ export type TeamPhoto = {src: string; alt: string; ready?: boolean};
 /** Rôle permanent présenté publiquement : intitulé, résumé, portrait. */
 export type TeamRoleCard = {
   slug: string;
+  /** Nom publié, quand la personne est nommée. */
+  name?: string;
   title: string;
   /** Monogramme affiché tant que le portrait n’est pas disponible. */
   initials: string;
@@ -55,13 +57,15 @@ export type TeamPageContent = {
 export const teamRoles: TeamRoleCard[] = [
   {
     slug: 'president-directeur-general',
+    name: 'Olivier M. Fwamba',
     title: 'Fondateur & Président Directeur général',
     initials: 'PDG',
     summary:
       'Assure la direction générale et le pilotage stratégique de LOKAMBE. Il définit la vision, les orientations stratégiques et les priorités de développement, supervise les activités, développe les relations avec les investisseurs et partenaires, et représente LOKAMBE.',
     photo: {
       src: '/images/team/president-directeur-general.webp',
-      alt: 'Portrait du Fondateur & Président Directeur général de LOKAMBE',
+      alt: 'Olivier M. Fwamba, fondateur et président directeur général de LOKAMBE',
+      ready: true,
     },
   },
   {

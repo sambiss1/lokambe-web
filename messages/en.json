@@ -8,7 +8,6 @@
     "home": "Home",
     "about": "About",
     "model": "Our model",
-    "process": "Process",
     "sectors": "Sectors & criteria",
     "impact": "Impact",
     "contact": "Contact",
@@ -19,7 +18,6 @@
     "skipToContent": "Skip to content",
     "homeLink": "LOKAMBE — back to home",
     "fund": "Discover us",
-    "invest": "Invest",
     "menuTitle": "Menu",
     "team": "Our team",
     "blog": "Blog",
@@ -49,7 +47,6 @@
   "navDesc": {
     "about": "Why LOKAMBE exists and what we believe in.",
     "model": "Invest, create, support: how we work.",
-    "process": "The 12 steps, from sourcing to reinvestment.",
     "sectors": "Our 5 priority sectors and our criteria.",
     "impact": "Jobs, income and territorial rollout.",
     "team": "The four roles that run the fund.",
