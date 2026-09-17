@@ -12,12 +12,12 @@ export const home: HomeContent = {
     tagline: 'Investir. Créer. Accompagner. Faire grandir. Réinvestir.',
     intro:
       'Fonds privé congolais d’investissement, de création et d’accompagnement des petites et moyennes entreprises, microentreprises et activités génératrices de revenus.',
-    image: {src: '/images/home-hero.webp', alt: 'Commerçant souriant derrière le comptoir de son épicerie'},
+    image: {src: '/images/home-hero.webp', alt: 'Entrepreneure congolaise souriante dans son bureau à Kinshasa, un rapport d’activité à la main'},
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
     secondary: {label: 'Nous découvrir', href: '/a-propos'},
     cards: {
       step: {label: 'Étape 3 sur 12', title: 'Visiter', text: 'Vérification de terrain et compréhension de l’activité.'},
-      sector: {label: 'Secteur prioritaire', title: 'Métiers de bouche'},
+      sector: {label: 'Secteur prioritaire', title: 'Services'},
       place: {label: 'Au-delà du capital', title: 'Accompagnement'},
     },
   },
