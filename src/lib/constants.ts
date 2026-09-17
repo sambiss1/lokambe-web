@@ -25,6 +25,14 @@ export const ALLOWED_FILE_TYPES = ['application/pdf', 'image/jpeg', 'image/png',
 export const MAX_FILES = 5;
 export const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
+/**
+ * Copie exacte de `PHONE_REGEX` côté API. Le site doit refuser ce que l'API
+ * refuse : sa regex acceptait le point et le `+` en milieu de chaîne, si bien
+ * qu'un numéro saisi « +243 810.000.141 » passait le formulaire et revenait
+ * en 400.
+ */
+export const PHONE_REGEX = /^\+?[0-9 ()-]{6,20}$/;
+
 export type Sector = (typeof SECTORS)[number];
 export type NeedType = (typeof NEED_TYPES)[number];
 export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number];

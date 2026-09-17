@@ -1,12 +1,20 @@
 import {z} from 'zod';
-import {ALLOWED_FILE_TYPES, CONTACT_KINDS, MAX_FILE_SIZE_BYTES, MAX_FILES, NEED_TYPES, SECTORS} from '@/lib/constants';
+import {
+  ALLOWED_FILE_TYPES,
+  CONTACT_KINDS,
+  MAX_FILE_SIZE_BYTES,
+  MAX_FILES,
+  NEED_TYPES,
+  PHONE_REGEX,
+  SECTORS,
+} from '@/lib/constants';
 
 const required = (message: string) => z.string().trim().min(1, message);
 
 export const applicantSchema = z.object({
   firstName: required('Indiquez votre prénom.'),
   lastName: required('Indiquez votre nom.'),
-  phone: required('Indiquez un numéro de téléphone.').regex(/^[+0-9 ().-]{8,20}$/, 'Numéro de téléphone invalide.'),
+  phone: required('Indiquez un numéro de téléphone.').regex(PHONE_REGEX, 'Numéro de téléphone invalide.'),
   email: z.union([z.literal(''), z.string().trim().email('Adresse email invalide.')]).optional(),
   city: required('Indiquez votre ville.'),
   commune: z.string().trim().optional(),
@@ -54,18 +62,23 @@ export const applicationSchema = z.object({
 });
 
 export type ApplicationValues = z.input<typeof applicationSchema>;
+/** Ce que le formulaire produit une fois validé : c'est cela qu'on envoie à l'API. */
+export type ApplicationParsed = z.output<typeof applicationSchema>;
 
 export const contactSchema = z.object({
   kind: z.enum(CONTACT_KINDS, {message: 'Choisissez un objet.'}),
   fullName: required('Indiquez votre nom.'),
   organization: z.string().trim().optional(),
   email: required('Indiquez votre email.').email('Adresse email invalide.'),
-  phone: z.string().trim().optional(),
+  phone: z
+    .union([z.literal(''), z.string().trim().regex(PHONE_REGEX, 'Numéro de téléphone invalide.')])
+    .optional(),
   message: required('Écrivez votre message.').min(20, 'Votre message doit contenir au moins 20 caractères.'),
   website: z.literal('').optional(),
 });
 
 export type ContactValues = z.input<typeof contactSchema>;
+export type ContactParsed = z.output<typeof contactSchema>;
 
 export type FileError = {name: string; reason: string};
 
