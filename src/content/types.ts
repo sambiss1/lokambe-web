@@ -102,32 +102,6 @@ export type SectorsContent = {
   cta: CtaContent;
 };
 
-export type GovernanceContent = {
-  meta: PageMeta;
-  hero: PageHeroContent;
-  team: SectionHeading & {members: TeamRole[]};
-  committee: SectionHeading & {
-    paragraphs: string[];
-    membersTitle: string;
-    members: string[];
-    note: string;
-    powers: TitledList;
-    criteria: TitledList;
-    closing: string;
-  };
-  separation: SectionHeading & {
-    stageLabel: string;
-    ownerLabel: string;
-    rows: {stage: string; owner: string}[];
-    closing: string;
-  };
-  principles: SectionHeading & {paragraphs: string[]; values: string[]};
-  evolution: SectionHeading & {paragraphs: string[]};
-  risks: SectionHeading & {risks: TitledList; controls: TitledList};
-  experts: SectionHeading & {items: string[]; closing: string};
-  cta: CtaContent;
-};
-
 export type ImpactContent = {
   meta: PageMeta;
   hero: PageHeroContent;
@@ -143,14 +117,6 @@ export type ApplyContent = {
   eligibility: SectionHeading & {items: string[]; note: string};
   documents: SectionHeading & {items: string[]; formats: string};
   form: {title: string; privacyText: string; privacyLink: LinkItem};
-};
-
-export type InvestorsContent = {
-  meta: PageMeta;
-  hero: PageHeroContent;
-  why: SectionHeading & {items: TitledText[]};
-  network: SectionHeading & {items: TitledText[]};
-  form: {title: string};
 };
 
 export type ContactContent = {
@@ -216,10 +182,8 @@ export type SiteContent = {
   about: AboutContent;
   model: ModelContent;
   sectors: SectorsContent;
-  governance: GovernanceContent;
   impact: ImpactContent;
   apply: ApplyContent;
-  investors: InvestorsContent;
   contact: ContactContent;
   forms: FormsContent;
   legalNotice: LegalContent;

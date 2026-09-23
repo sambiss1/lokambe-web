@@ -18,7 +18,7 @@ const sources = Array.from(new Set(collectImageSources(fr)));
 
 describe('images', () => {
   it('chaque image référencée dans le contenu existe dans public/', () => {
-    expect(sources.length).toBeGreaterThanOrEqual(17);
+    expect(sources.length).toBeGreaterThanOrEqual(16);
     expect(sources.filter((src) => !existsSync(publicFile(src)))).toEqual([]);
   });
 

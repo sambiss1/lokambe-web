@@ -4,7 +4,7 @@ export const model: ModelContent = {
   meta: {
     title: 'Notre modèle',
     description:
-      'Investisseur, créateur et accompagnateur : les deux piliers d’intervention, les instruments et le modèle économique de LOKAMBE.',
+      'Investisseur, créateur et accompagnateur : les deux piliers d’intervention de LOKAMBE.',
   },
   hero: {
     eyebrow: 'Notre modèle',
@@ -95,8 +95,8 @@ export const model: ModelContent = {
   },
   cta: {
     title: 'Votre activité correspond à notre modèle ?',
-    text: 'Découvrez nos critères d’investissement puis présentez-nous votre projet.',
+    text: 'Découvrez nos secteurs prioritaires puis présentez-nous votre projet.',
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Secteurs et critères', href: '/secteurs-et-criteres'},
+    secondary: {label: 'Secteurs', href: '/secteurs-et-criteres'},
   },
 };
