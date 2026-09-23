@@ -700,8 +700,8 @@ export function getLatestArticles(limit = 3, excludeSlug?: string): BlogArticle[
 }
 
 /** Catégories effectivement utilisées, dans l’ordre de `blogCategories`. */
-export function getUsedCategories(): BlogCategory[] {
-  const used = new Set(blogArticles.map((article) => article.category));
+export function getUsedCategories(categories: readonly BlogCategoryId[]): BlogCategory[] {
+  const used = new Set(categories);
   return blogCategories.filter((category) => used.has(category.id));
 }
 

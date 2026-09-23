@@ -1,8 +1,10 @@
 'use server';
 
-import {revalidatePath} from 'next/cache';
+import {revalidatePath, updateTag} from 'next/cache';
 import {headers} from 'next/headers';
 import type {ApplicationStatus} from '@/lib/constants';
+import type {ApiArticle} from '@/lib/blog/article';
+import {ARTICLES_TAG} from './articles';
 import {AdminApiError, fetchAdminJson} from './server';
 import {readSessionToken} from './session';
 import type {AdminApplication, AdminContact} from './admin-types';
@@ -107,4 +109,74 @@ export async function setContactRead(id: string, isRead: boolean): Promise<Actio
     revalidatePath('/admin');
   }
   return result;
+}
+
+/* ---------------------------------------------------------------- articles */
+
+/** Ce que le formulaire d'article envoie. Les champs vides sont omis, jamais vides. */
+export type ArticleInput = {
+  title: string;
+  slug?: string;
+  excerpt: string;
+  /** HTML de l'éditeur. L'API le nettoie avant de l'enregistrer. */
+  content: string;
+  category: string;
+  author?: string;
+  status?: 'brouillon' | 'publie';
+  coverFileId?: string | null;
+  coverAlt?: string;
+};
+
+/**
+ * Le blog public est mis en cache sous l'étiquette `articles`. `updateTag` —
+ * et non `revalidateTag` — parce que la personne qui vient de publier doit voir
+ * son article tout de suite, pas une version encore en cache.
+ */
+function revalidateArticles(id?: string): void {
+  updateTag(ARTICLES_TAG);
+  revalidatePath('/admin/articles');
+  if (id) revalidatePath(`/admin/articles/${id}`);
+}
+
+export async function createArticle(input: ArticleInput): Promise<ActionResult<ApiArticle>> {
+  const result = await write<ApiArticle>('/admin/articles', 'POST', clean(input));
+  if (result.ok) revalidateArticles();
+  return result;
+}
+
+export async function updateArticle(id: string, input: Partial<ArticleInput>): Promise<ActionResult<ApiArticle>> {
+  const result = await write<ApiArticle>(`/admin/articles/${encodeURIComponent(id)}`, 'PATCH', clean(input));
+  if (result.ok) revalidateArticles(id);
+  return result;
+}
+
+/** Publier ou repasser en brouillon, sans toucher au reste. */
+export async function setArticleStatus(
+  id: string,
+  status: 'brouillon' | 'publie',
+): Promise<ActionResult<ApiArticle>> {
+  const result = await write<ApiArticle>(`/admin/articles/${encodeURIComponent(id)}`, 'PATCH', {status});
+  if (result.ok) revalidateArticles(id);
+  return result;
+}
+
+export async function deleteArticle(id: string): Promise<ActionResult<{ok: true}>> {
+  const result = await write<{ok: true}>(`/admin/articles/${encodeURIComponent(id)}`, 'DELETE', undefined);
+  if (result.ok) revalidateArticles();
+  return result;
+}
+
+/**
+ * L'API refuse les champs qu'elle ne déclare pas et les chaînes vides : on
+ * n'envoie que ce qui est renseigné. `coverFileId: null` fait exception, c'est
+ * ainsi qu'on retire une couverture.
+ */
+function clean(input: Partial<ArticleInput>): Record<string, unknown> {
+  const payload: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(input)) {
+    if (value === undefined) continue;
+    if (typeof value === 'string' && value.trim() === '') continue;
+    payload[key] = typeof value === 'string' ? value.trim() : value;
+  }
+  return payload;
 }

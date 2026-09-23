@@ -10,6 +10,7 @@ export const ADMIN_LINKS = [
   {href: '/admin', label: 'Tableau de bord', exact: true},
   {href: '/admin/candidatures', label: 'Candidatures', exact: false},
   {href: '/admin/messages', label: 'Messages', exact: false},
+  {href: '/admin/articles', label: 'Articles', exact: false},
 ] as const;
 
 export function isActive(pathname: string, href: string, exact: boolean): boolean {

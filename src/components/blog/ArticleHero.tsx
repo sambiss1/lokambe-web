@@ -2,12 +2,12 @@ import {ArrowLeft} from 'lucide-react';
 import type {CSSProperties} from 'react';
 import {
   BLOG_BASE_PATH,
-  type BlogArticle,
   blogPage,
   formatArticleDate,
   formatReadingTime,
   getCategory,
 } from '@/content/blog';
+import type {Article} from '@/lib/blog/article';
 import {Link} from '@/i18n/navigation';
 import {Container} from '../ui/Container';
 import {Eyebrow} from '../ui/Eyebrow';
@@ -17,7 +17,7 @@ const SEPARATED =
   "flex items-center gap-4 before:block before:size-1.5 before:flex-none before:rounded-full before:bg-lokambe-peach before:content-['']";
 
 /** Bandeau bleu d’un article : thème, titre, date, durée de lecture. */
-export function ArticleHero({article}: {article: BlogArticle}) {
+export function ArticleHero({article}: {article: Article}) {
   const category = getCategory(article.category);
 
   return (
@@ -67,9 +67,11 @@ export function ArticleHero({article}: {article: BlogArticle}) {
             {formatArticleDate(article.publishedAt)}
           </time>
           <span className={SEPARATED}>{formatReadingTime(article.readingMinutes)}</span>
-          <span className="basis-full sm:basis-auto">
-            <ExampleBadge tone="dark" />
-          </span>
+          {article.isExample && (
+            <span className="basis-full sm:basis-auto">
+              <ExampleBadge tone="dark" />
+            </span>
+          )}
         </div>
       </Container>
     </section>

@@ -2,12 +2,14 @@ import {headers} from 'next/headers';
 import {redirect} from 'next/navigation';
 import {AdminApiError, callAdminApi, fetchAdminJson} from './server';
 import {readSessionToken} from './session';
+import type {ApiArticle} from '@/lib/blog/article';
 import type {
   AdminApplication,
   AdminApplicationSummary,
   AdminContact,
   AdminStats,
   ApplicationFilters,
+  ArticleFilters,
   ContactFilters,
   Page,
 } from './admin-types';
@@ -114,6 +116,31 @@ export async function listContacts(
       limit,
     })}`,
   );
+}
+
+/** Liste des articles, brouillons compris : le back-office voit tout. */
+export async function listAdminArticles(
+  filters: ArticleFilters = {},
+  limit: number = PAGE_SIZE,
+): Promise<Page<ApiArticle>> {
+  return read<Page<ApiArticle>>(
+    `/admin/articles${query({
+      status: filters.status,
+      category: filters.category,
+      page: filters.page,
+      limit,
+    })}`,
+  );
+}
+
+/** `null` quand l'article n'existe plus : au rendu, `notFound()`. */
+export async function getAdminArticle(id: string): Promise<ApiArticle | null> {
+  try {
+    return await read<ApiArticle>(`/admin/articles/${encodeURIComponent(id)}`);
+  } catch (error) {
+    if (error instanceof AdminApiError && error.kind === 'not-found') return null;
+    throw error;
+  }
 }
 
 /** Réponse brute de l'API, pour les routes relais (téléchargement, export). */

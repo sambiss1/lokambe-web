@@ -1,11 +1,12 @@
-import {type BlogArticle, BLOG_BASE_PATH, blogPage} from '@/content/blog';
+import {BLOG_BASE_PATH, blogPage} from '@/content/blog';
+import type {Article} from '@/lib/blog/article';
 import {Reveal} from '../motion/Reveal';
 import {Section} from '../sections/Section';
 import {ButtonLink} from '../ui/Button';
 import {BlogCard} from './BlogCard';
 
 /** Bloc de fin d’article : les publications les plus récentes. */
-export function LatestArticles({articles}: {articles: BlogArticle[]}) {
+export function LatestArticles({articles}: {articles: Article[]}) {
   if (articles.length === 0) return null;
 
   return (

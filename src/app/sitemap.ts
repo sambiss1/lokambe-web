@@ -1,13 +1,15 @@
 import type {MetadataRoute} from 'next';
-import {blogArticles} from '@/content/blog';
+import {listArticles} from '@/lib/api/articles';
 import {enabledLocales} from '@/i18n/locales';
 import {siteUrl} from '@/lib/seo';
 import {PUBLIC_PATHS} from '@/lib/site-paths';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const {articles} = await listArticles();
+
   const pages: {path: string; lastModified: Date}[] = [
     ...PUBLIC_PATHS.map((path) => ({path, lastModified: new Date()})),
-    ...blogArticles.map((article) => ({
+    ...articles.map((article) => ({
       path: `/blog/${article.slug}`,
       lastModified: new Date(article.publishedAt),
     })),

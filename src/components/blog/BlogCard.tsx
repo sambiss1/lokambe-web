@@ -1,12 +1,13 @@
 import {ArrowUpRight} from 'lucide-react';
 import Image from 'next/image';
-import {type BlogArticle, articlePath, formatArticleDate, formatReadingTime, getCategory} from '@/content/blog';
+import {articlePath, formatArticleDate, formatReadingTime, getCategory} from '@/content/blog';
+import type {Article} from '@/lib/blog/article';
 import {Link} from '@/i18n/navigation';
 import {cx} from '@/lib/cx';
 import {ExampleBadge} from './ExampleBadge';
 
 type Props = {
-  article: BlogArticle;
+  article: Article;
   /** Carte large « à la une » : image à gauche, texte à droite sur grand écran. */
   featured?: boolean;
   /** Niveau de titre, pour rester cohérent avec le plan de la page. */
@@ -45,7 +46,7 @@ export function BlogCard({article, featured = false, headingLevel: Heading = 'h3
       </div>
 
       <div className={cx('flex flex-1 flex-col p-6 sm:p-7', featured && 'lg:justify-center lg:p-10')}>
-        <ExampleBadge className="self-start" />
+        {article.isExample && <ExampleBadge className="self-start" />}
 
         <Heading
           className={cx(

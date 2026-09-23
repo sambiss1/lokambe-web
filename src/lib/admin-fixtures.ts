@@ -1,4 +1,5 @@
 import type {AdminApplication, AdminApplicationSummary, AdminContact, Page} from '@/lib/api/admin-types';
+import type {ApiArticle} from '@/lib/blog/article';
 
 /**
  * Jeu d'essai du back-office, pour les tests d'interface.
@@ -78,4 +79,25 @@ export function aContact(overrides: Partial<AdminContact> = {}): AdminContact {
 /** Enveloppe paginée, telle que l'API la renvoie. */
 export function aPage<T>(items: T[], overrides: Partial<Page<T>> = {}): Page<T> {
   return {items, total: items.length, page: 1, limit: 20, ...overrides};
+}
+
+/** Article tel que l'API le renvoie au back-office. */
+export function anArticle(overrides: Partial<ApiArticle> = {}): ApiArticle {
+  return {
+    id: 'article-01',
+    slug: 'tenir-un-livre-de-caisse',
+    title: 'Tenir un livre de caisse qui tient la route',
+    excerpt: 'Un cahier, une règle, et la même minute chaque soir.',
+    content: '<p>Écrire ce qui entre et ce qui sort.</p>',
+    category: 'entrepreneuriat',
+    author: 'L’équipe LOKAMBE',
+    status: 'publie',
+    publishedAt: '2026-02-10T09:00:00.000Z',
+    readingMinutes: 5,
+    isExample: false,
+    locale: 'fr',
+    createdAt: '2026-02-08T09:00:00.000Z',
+    updatedAt: '2026-02-10T09:00:00.000Z',
+    ...overrides,
+  };
 }

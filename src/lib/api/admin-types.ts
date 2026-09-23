@@ -1,3 +1,4 @@
+import type {BlogCategoryId} from '@/content/blog';
 import type {ApplicationStatus, ContactKind, NeedType, Sector} from '@/lib/constants';
 
 /**
@@ -119,5 +120,12 @@ export type ApplicationFilters = {
 export type ContactFilters = {
   kind?: ContactKind;
   isRead?: boolean;
+  page?: number;
+};
+
+/** Filtres de la liste des articles du back-office. */
+export type ArticleFilters = {
+  status?: 'brouillon' | 'publie';
+  category?: BlogCategoryId;
   page?: number;
 };
