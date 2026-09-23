@@ -333,6 +333,14 @@
   color: var(--color-ink-soft);
 }
 
+/* TipTap enveloppe le contenu d'une puce dans un paragraphe : il ne doit pas
+   hériter de la marge des paragraphes du corps. */
+.article-rich li > p {
+  margin-top: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 .article-rich ul > li::before {
   content: '';
   position: absolute;
