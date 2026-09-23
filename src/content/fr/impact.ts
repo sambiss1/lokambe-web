@@ -20,16 +20,10 @@ export const impact: ImpactContent = {
       {
         title: 'Performance financière',
         items: [
-          'Capital engagé',
-          'Capital déployé',
-          'Capital récupéré',
-          'Rendement',
-          'Taux de remboursement',
-          'Taux de défaut',
-          'Valeur du portefeuille',
+          'Capital investi',
           'Chiffre d’affaires des participations',
           'Rentabilité',
-          'Cash-flow',
+          'Croissance des entreprises financées',
         ],
       },
       {
@@ -68,7 +62,6 @@ export const impact: ImpactContent = {
           'Amélioration de la gestion financière',
         ],
       },
-      {title: 'Impact territorial', items: ['Quartiers couverts', 'Communes', 'Villes', 'Provinces']},
     ],
     closing:
       'L’objectif est de démontrer que la rentabilité financière et la création de valeur économique locale peuvent progresser ensemble.',
@@ -79,7 +72,7 @@ export const impact: ImpactContent = {
     items: [
       {
         title: 'À 5 ans',
-        text: 'Un portefeuille diversifié d’entreprises, plusieurs entreprises créées ou détenues, un historique de performance, une équipe renforcée, un réseau d’experts, des partenaires financiers et stratégiques, et une présence dans plusieurs pôles économiques.',
+        text: 'Un portefeuille diversifié d’entreprises, plusieurs entreprises créées ou détenues, une équipe renforcée, un réseau d’experts et des partenaires financiers et stratégiques.',
       },
       {
         title: 'À 10 ans',

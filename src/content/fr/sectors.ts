@@ -2,12 +2,12 @@ import type {SectorsContent} from '../types';
 
 export const sectors: SectorsContent = {
   meta: {
-    title: 'Secteurs et critères',
+    title: 'Secteurs',
     description:
-      'La thèse d’investissement de LOKAMBE, ses secteurs prioritaires et le profil des entreprises ciblées.',
+      'Les sept secteurs prioritaires de LOKAMBE et le profil des entreprises que nous recherchons.',
   },
   hero: {
-    eyebrow: 'Secteurs et critères',
+    eyebrow: 'Secteurs',
     title: 'Comment cette entreprise gagne-t-elle de l’argent ?',
     intro: 'C’est la question fondamentale à laquelle LOKAMBE doit pouvoir répondre clairement avant chaque investissement.',
     image: {src: '/images/sectors-hero.webp', alt: 'Cuisinière préparant des pâtisseries dans une cuisine professionnelle'},
@@ -46,7 +46,7 @@ export const sectors: SectorsContent = {
   },
   sectors: {
     eyebrow: 'Secteurs prioritaires',
-    title: 'Cinq secteurs prioritaires',
+    title: 'Sept secteurs prioritaires',
     intro:
       'LOKAMBE concentre ses interventions sur un nombre limité de secteurs, afin d’y développer une véritable expertise.',
     items: [
@@ -69,6 +69,27 @@ export const sectors: SectorsContent = {
       {
         title: 'Services',
         items: ['Maintenance', 'Nettoyage', 'Logistique', 'Services aux entreprises', 'Services spécialisés'],
+      },
+      {
+        title: 'Médias et divertissement',
+        items: [
+          'Production audiovisuelle',
+          'Médias numériques',
+          'Création de contenu',
+          'Production musicale',
+          'Studios et équipements',
+          'Agences créatives',
+        ],
+      },
+      {
+        title: 'Éducation et formation',
+        items: [
+          'Centres de formation professionnelle',
+          'Formation technique et métiers',
+          'Formation entrepreneuriale et gestion',
+          'Édition pédagogique',
+          'Équipements pour établissements scolaires',
+        ],
       },
     ],
     closing:

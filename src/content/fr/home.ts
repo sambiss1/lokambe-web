@@ -106,7 +106,7 @@ export const home: HomeContent = {
         image: {src: '/images/sector-education.webp', alt: 'Formateur expliquant à ses apprenants dans un atelier de menuiserie'},
       },
     ],
-    link: {label: 'Secteurs et critères', href: '/secteurs-et-criteres'},
+    link: {label: 'Voir les secteurs', href: '/secteurs-et-criteres'},
   },
   portfolio: {
     eyebrow: 'Portefeuille',

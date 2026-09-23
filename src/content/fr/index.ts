@@ -3,10 +3,8 @@ import {about} from './about';
 import {apply} from './apply';
 import {contact} from './contact';
 import {forms} from './forms';
-import {governance} from './governance';
 import {home} from './home';
 import {impact} from './impact';
-import {investors} from './investors';
 import {legalNotice, privacy} from './legal';
 import {model} from './model';
 import {sectors} from './sectors';
@@ -16,10 +14,8 @@ export const fr: SiteContent = {
   about,
   model,
   sectors,
-  governance,
   impact,
   apply,
-  investors,
   contact,
   forms,
   legalNotice,
