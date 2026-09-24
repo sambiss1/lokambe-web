@@ -11,6 +11,14 @@ export const forms: FormsContent = {
     stepLabel: 'Étape {current} sur {total}',
     errorsTitle: 'Vérifiez les informations suivantes',
     honeypotLabel: 'Laissez ce champ vide',
+    submitError: {
+      title: 'L’envoi n’a pas abouti',
+      invalid:
+        'Certaines informations n’ont pas été acceptées. Reprenez le formulaire, vérifiez vos réponses et vos pièces jointes, puis réessayez.',
+      tooMany: 'Trop d’envois depuis cet appareil. Patientez quelques minutes avant de réessayer.',
+      server: 'Le service est momentanément indisponible. Réessayez dans quelques minutes.',
+      network: 'La connexion a été interrompue. Vérifiez votre réseau, puis réessayez : rien n’a été envoyé.',
+    },
   },
   application: {
     steps: [
@@ -51,6 +59,8 @@ export const forms: FormsContent = {
       commerce_distribution: 'Commerce et distribution',
       evenementiel: 'Événementiel',
       services: 'Services',
+      medias_divertissement: 'Médias et divertissement',
+      education_formation: 'Éducation et formation',
       autre: 'Autre secteur',
     },
     needTypes: {

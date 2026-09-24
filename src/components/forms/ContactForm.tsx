@@ -4,11 +4,14 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import type {FormsContent} from '@/content/types';
+import {isApiConfigured, SubmitError, type SubmitFailure, submitContact} from '@/lib/api/client';
+import {toContactPayload} from '@/lib/api/payload';
 import {CONTACT_KINDS} from '@/lib/constants';
-import {contactSchema, type ContactValues} from '@/lib/forms/schemas';
+import {type ContactParsed, contactSchema, type ContactValues} from '@/lib/forms/schemas';
 import {Reveal} from '../motion/Reveal';
 import {Button} from '../ui/Button';
 import {Field, Honeypot, Input, Select, Textarea} from './Field';
+import {SubmitErrorNotice} from './SubmitErrorNotice';
 import {SuccessPanel} from './SuccessPanel';
 
 type Props = {title: string; labels: FormsContent; defaultKind?: ContactValues['kind']};
@@ -17,6 +20,7 @@ export function ContactForm({title, labels, defaultKind}: Props) {
   const f = labels.contact.fields;
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
+  const [failure, setFailure] = useState<SubmitFailure | null>(null);
 
   const {
     register,
@@ -29,17 +33,32 @@ export function ContactForm({title, labels, defaultKind}: Props) {
     defaultValues: {kind: defaultKind, fullName: '', organization: '', email: '', phone: '', message: '', website: ''},
   });
 
-  const onSubmit = handleSubmit(async () => {
+  const onSubmit = handleSubmit(async (values) => {
     setSending(true);
-    // TODO(api) : remplacer par POST /api/contacts.
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setSending(false);
-    setSent(true);
+    setFailure(null);
+    try {
+      if (isApiConfigured) {
+        await submitContact(toContactPayload(values as ContactParsed));
+      } else {
+        // L'API n'a pas encore d'adresse : on garde l'écran de démonstration,
+        // signalé comme tel au visiteur, plutôt qu'une erreur incompréhensible.
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      }
+      setSent(true);
+    } catch (error) {
+      setFailure(error instanceof SubmitError ? error.kind : 'server');
+    } finally {
+      setSending(false);
+    }
   });
 
   if (sent) {
     return (
-      <SuccessPanel title={labels.contact.success.title} text={labels.contact.success.text} notice={labels.contact.success.demoNotice}>
+      <SuccessPanel
+        title={labels.contact.success.title}
+        text={labels.contact.success.text}
+        notice={isApiConfigured ? undefined : labels.contact.success.demoNotice}
+      >
         <Button
           variant="blue"
           size="lg"
@@ -105,6 +124,8 @@ export function ContactForm({title, labels, defaultKind}: Props) {
             </Field>
           </div>
         </div>
+
+        {failure && <SubmitErrorNotice kind={failure} labels={labels.common.submitError} />}
 
         <div className="mt-8 border-t border-line pt-6">
           <Button type="submit" variant="blue" size="lg" disabled={sending}>

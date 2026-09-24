@@ -1,10 +1,11 @@
 import {screen} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 import {blogArticles, getCategory} from '@/content/blog';
+import {fromStatic} from '@/lib/blog/article';
 import {renderWithIntl} from '@/test/render';
 import {BlogCard} from './BlogCard';
 
-const article = blogArticles[0];
+const article = fromStatic(blogArticles[0]);
 
 describe('BlogCard', () => {
   it('affiche le titre, l’accroche et le lien vers l’article', () => {

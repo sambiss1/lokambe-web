@@ -1,4 +1,5 @@
-import {type ApplicationStatus, STATUS_LABELS} from '@/lib/admin-mock';
+import {STATUS_LABELS} from '@/lib/admin-format';
+import type {ApplicationStatus} from '@/lib/constants';
 import {cx} from '@/lib/cx';
 
 /**

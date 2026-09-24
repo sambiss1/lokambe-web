@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react';
-import {usePathname} from 'next/navigation';
+import userEvent from '@testing-library/user-event';
+import {usePathname, useRouter} from 'next/navigation';
 import {describe, expect, it, vi} from 'vitest';
 import {AdminNav, isActive} from './AdminNav';
 
@@ -25,13 +26,39 @@ describe('AdminNav', () => {
     expect(screen.getByRole('link', {name: 'Tableau de bord'})).not.toHaveAttribute('aria-current');
   });
 
-  it('exposes the three sections and the logout link', () => {
+  it('exposes the three sections and a logout control', () => {
     vi.mocked(usePathname).mockReturnValue('/admin');
     render(<AdminNav />);
 
-    for (const label of ['Tableau de bord', 'Candidatures', 'Messages', 'Déconnexion']) {
+    for (const label of ['Tableau de bord', 'Candidatures', 'Messages']) {
       expect(screen.getByRole('link', {name: label})).toBeInTheDocument();
     }
+    // La déconnexion agit, elle ne navigue pas : c'est un bouton, pas un lien.
+    expect(screen.getByRole('button', {name: 'Déconnexion'})).toBeInTheDocument();
     expect(screen.getByRole('link', {name: 'Tableau de bord'})).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('demande au serveur d’effacer la session, puis renvoie à la connexion', async () => {
+    vi.mocked(usePathname).mockReturnValue('/admin');
+    const replace = vi.fn();
+    const refresh = vi.fn();
+    vi.mocked(useRouter).mockReturnValue({
+      replace,
+      refresh,
+      push: vi.fn(),
+      prefetch: vi.fn(),
+      back: vi.fn(),
+      forward: vi.fn(),
+    } as unknown as ReturnType<typeof useRouter>);
+    const fetchMock = vi.fn().mockResolvedValue({ok: true});
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<AdminNav />);
+    await userEvent.click(screen.getByRole('button', {name: 'Déconnexion'}));
+
+    // Le cookie est httpOnly : seul le serveur peut le supprimer.
+    expect(fetchMock).toHaveBeenCalledWith('/api/admin/session', {method: 'DELETE'});
+    expect(replace).toHaveBeenCalledWith('/admin/login');
+    vi.unstubAllGlobals();
   });
 });

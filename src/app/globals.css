@@ -261,3 +261,178 @@
     animation: none !important;
   }
 }
+
+/*
+ * Corps d'un article de blog.
+ *
+ * Le HTML vient de l'éditeur du back-office : on ne peut pas y poser de classes.
+ * Ces règles redonnent aux balises nues la mise en page des articles écrits à la
+ * main — titres au tiret rouge, citations sur fond pêche, listes encadrées.
+ */
+.article-rich > *:first-child {
+  margin-top: 0;
+}
+
+.article-rich p {
+  margin-top: 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+}
+
+.article-rich h2 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  margin-top: 3.5rem;
+  display: flex;
+  gap: 0.875rem;
+  font-size: clamp(1.25rem, 3.2vw, 1.8rem);
+  line-height: 0.92;
+  color: var(--color-lokambe-blue);
+}
+
+.article-rich h2::before {
+  content: '';
+  margin-top: 0.42em;
+  height: 0.5rem;
+  width: 1.25rem;
+  flex: none;
+  border-radius: 9999px;
+  background: var(--color-lokambe-red);
+}
+
+.article-rich h3 {
+  margin-top: 2.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-lokambe-blue);
+}
+
+.article-rich ul,
+.article-rich ol {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.article-rich h3 + ul,
+.article-rich h3 + ol {
+  margin-top: 1rem;
+}
+
+.article-rich li {
+  position: relative;
+  padding-left: 2rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+}
+
+/* TipTap enveloppe le contenu d'une puce dans un paragraphe : il ne doit pas
+   hériter de la marge des paragraphes du corps. */
+.article-rich li > p {
+  margin-top: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.article-rich ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  height: 0.5rem;
+  width: 1rem;
+  border-radius: 9999px;
+  background: var(--color-lokambe-red);
+}
+
+.article-rich ol {
+  counter-reset: article-item;
+}
+
+.article-rich ol > li {
+  counter-increment: article-item;
+}
+
+.article-rich ol > li::before {
+  content: counter(article-item);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-lokambe-red);
+}
+
+.article-rich blockquote {
+  margin-top: 3rem;
+  border-radius: 1.75rem;
+  background: var(--color-lokambe-peach-soft);
+  padding: 1.75rem;
+}
+
+.article-rich blockquote p {
+  margin-top: 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--color-lokambe-blue);
+}
+
+.article-rich blockquote p:first-child {
+  margin-top: 0;
+}
+
+.article-rich blockquote p em {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--color-ink-soft);
+}
+
+.article-rich a {
+  color: var(--color-lokambe-blue);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.article-rich strong {
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.article-rich img {
+  margin-top: 2.5rem;
+  width: 100%;
+  height: auto;
+  border-radius: 1.75rem;
+}
+
+.article-rich hr {
+  margin-top: 2.5rem;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+@media (min-width: 640px) {
+  .article-rich p,
+  .article-rich li {
+    font-size: 1.125rem;
+  }
+
+  .article-rich blockquote {
+    padding: 2.25rem;
+  }
+
+  .article-rich blockquote p {
+    font-size: 1.6rem;
+  }
+}

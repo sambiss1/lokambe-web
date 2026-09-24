@@ -1,18 +1,20 @@
 import {screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
-import {BLOG_EXAMPLE_NOTICE, type BlogArticle, blogArticles, blogPage} from '@/content/blog';
+import {BLOG_EXAMPLE_NOTICE, blogArticles, blogPage} from '@/content/blog';
+import {fromStatic} from '@/lib/blog/article';
+import type {Article} from '@/lib/blog/article';
 import {renderWithIntl} from '@/test/render';
 import {ArticleBody} from './ArticleBody';
 
-const sample: BlogArticle = {
-  ...blogArticles[0],
-  body: [
-    {kind: 'paragraph', text: 'Un paragraphe d’introduction.'},
-    {kind: 'heading', text: 'Un intertitre'},
-    {kind: 'list', title: 'Une liste titrée', items: ['Premier point', 'Deuxième point']},
-    {kind: 'list', ordered: true, items: ['Étape une', 'Étape deux']},
-    {kind: 'quote', text: 'Une citation marquante.', attribution: 'Source'},
-  ],
+const sample: Article = {
+  ...fromStatic(blogArticles[0]),
+  html: [
+    '<p>Un paragraphe d’introduction.</p>',
+    '<h2>Un intertitre</h2>',
+    '<h3>Une liste titrée</h3><ul><li>Premier point</li><li>Deuxième point</li></ul>',
+    '<ol><li>Étape une</li><li>Étape deux</li></ol>',
+    '<blockquote><p>Une citation marquante.</p><p><em>— Source</em></p></blockquote>',
+  ].join(''),
 };
 
 describe('ArticleBody', () => {
@@ -23,7 +25,7 @@ describe('ArticleBody', () => {
     expect(screen.getByRole('img', {name: sample.image.alt})).toHaveAttribute('src', sample.image.src);
   });
 
-  it('rend chaque type de bloc avec la bonne sémantique', () => {
+  it('rend le HTML de l’article avec la bonne sémantique', () => {
     renderWithIntl(<ArticleBody article={sample} />);
 
     expect(screen.getByText('Un paragraphe d’introduction.').tagName).toBe('P');
@@ -31,8 +33,13 @@ describe('ArticleBody', () => {
     expect(screen.getByText('Une liste titrée')).toBeInTheDocument();
     expect(screen.getByText('Premier point').closest('ul')).not.toBeNull();
     expect(screen.getByText('Étape une').closest('ol')).not.toBeNull();
-    expect(screen.getByText('Une citation marquante.').tagName).toBe('BLOCKQUOTE');
-    expect(screen.getByText('Source').tagName).toBe('FIGCAPTION');
+    expect(screen.getByText('Une citation marquante.').closest('blockquote')).not.toBeNull();
+    expect(screen.getByText('— Source').tagName).toBe('EM');
+  });
+
+  it('n’annonce pas un exemple pour un article écrit dans le back-office', () => {
+    renderWithIntl(<ArticleBody article={{...sample, isExample: false}} />);
+    expect(screen.queryByText(BLOG_EXAMPLE_NOTICE)).not.toBeInTheDocument();
   });
 
   it('construit un sommaire ancré sur les intertitres', () => {

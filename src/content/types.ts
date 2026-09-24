@@ -145,6 +145,14 @@ export type FormsContent = {
     stepLabel: string;
     errorsTitle: string;
     honeypotLabel: string;
+    /** Échecs d'envoi renvoyés par l'API, ou réseau coupé. */
+    submitError: {
+      title: string;
+      invalid: string;
+      tooMany: string;
+      server: string;
+      network: string;
+    };
   };
   application: {
     steps: TitledText[];

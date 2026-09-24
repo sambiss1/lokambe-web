@@ -1,13 +1,12 @@
 'use client';
 
-import {useState} from 'react';
-import {type BlogCategoryId, blogArticles, blogPage, getUsedCategories} from '@/content/blog';
+import {useMemo, useState} from 'react';
+import {type BlogCategoryId, blogPage, getUsedCategories} from '@/content/blog';
+import type {Article} from '@/lib/blog/article';
 import {cx} from '@/lib/cx';
 import {Reveal} from '../motion/Reveal';
 import {Eyebrow} from '../ui/Eyebrow';
 import {BlogCard} from './BlogCard';
-
-const CATEGORIES = getUsedCategories();
 
 function chipClasses(active: boolean) {
   return cx(
@@ -19,10 +18,11 @@ function chipClasses(active: boolean) {
 }
 
 /** Liste filtrable des articles : thèmes en pastilles, article à la une puis grille. */
-export function BlogList() {
+export function BlogList({articles: all}: {articles: Article[]}) {
   const [active, setActive] = useState<BlogCategoryId | null>(null);
 
-  const articles = active ? blogArticles.filter((article) => article.category === active) : blogArticles;
+  const categories = useMemo(() => getUsedCategories(all.map((article) => article.category)), [all]);
+  const articles = active ? all.filter((article) => article.category === active) : all;
   const [featured, ...rest] = articles;
 
   return (
@@ -38,7 +38,7 @@ export function BlogList() {
         <button type="button" aria-pressed={active === null} className={chipClasses(active === null)} onClick={() => setActive(null)}>
           {blogPage.allLabel}
         </button>
-        {CATEGORIES.map((category) => (
+        {categories.map((category) => (
           <button
             key={category.id}
             type="button"

@@ -5,6 +5,7 @@ import {CtaBanner} from '@/components/sections/CtaBanner';
 import {PageHero} from '@/components/sections/PageHero';
 import {Container} from '@/components/ui/Container';
 import {BLOG_BASE_PATH, blogPage} from '@/content/blog';
+import {listArticles} from '@/lib/api/articles';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
@@ -18,13 +19,15 @@ export default async function BlogIndexPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
 
+  const {articles} = await listArticles();
+
   return (
     <>
       <PageHero hero={blogPage.hero} />
 
       <section className="bg-white py-20 sm:py-28">
         <Container>
-          <BlogList />
+          <BlogList articles={articles} />
         </Container>
       </section>
 

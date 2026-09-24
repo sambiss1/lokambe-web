@@ -6,12 +6,21 @@ import {useRef, useState} from 'react';
 import {useForm, useWatch} from 'react-hook-form';
 import type {ApplyContent, FormsContent} from '@/content/types';
 import {Link} from '@/i18n/navigation';
+import {isApiConfigured, SubmitError, type SubmitFailure, submitApplication} from '@/lib/api/client';
+import {toApplicationPayload} from '@/lib/api/payload';
 import {ALLOWED_FILE_TYPES, NEED_TYPES, SECTORS} from '@/lib/constants';
-import {applicationSchema, mockReference, validateFiles, type ApplicationValues} from '@/lib/forms/schemas';
+import {
+  type ApplicationParsed,
+  applicationSchema,
+  mockReference,
+  validateFiles,
+  type ApplicationValues,
+} from '@/lib/forms/schemas';
 import {Reveal} from '../motion/Reveal';
 import {Button, ButtonLink} from '../ui/Button';
 import {CheckboxCard, Field, Honeypot, Input, Select, Textarea} from './Field';
 import {FormSteps} from './FormSteps';
+import {SubmitErrorNotice} from './SubmitErrorNotice';
 import {SuccessPanel} from './SuccessPanel';
 
 type Props = {content: ApplyContent['form']; labels: FormsContent};
@@ -42,6 +51,7 @@ export function ApplicationForm({content, labels}: Props) {
   const [fileErrors, setFileErrors] = useState<string[]>([]);
   const [reference, setReference] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  const [failure, setFailure] = useState<SubmitFailure | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
   const {
@@ -98,13 +108,26 @@ export function ApplicationForm({content, labels}: Props) {
     if (fileInput.current) fileInput.current.value = '';
   };
 
-  const onSubmit = handleSubmit(async () => {
+  const onSubmit = handleSubmit(async (values) => {
     setSending(true);
-    // TODO(api) : remplacer par l'envoi multipart vers POST /api/applications.
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    setSending(false);
-    setReference(mockReference());
-    scrollToFormTop();
+    setFailure(null);
+    try {
+      let assigned: string;
+      if (isApiConfigured) {
+        assigned = await submitApplication(toApplicationPayload(values as ApplicationParsed), files);
+      } else {
+        // L'API n'a pas encore d'adresse : écran de démonstration, référence
+        // simulée, et l'avertissement correspondant reste affiché.
+        await new Promise((resolve) => setTimeout(resolve, 900));
+        assigned = mockReference();
+      }
+      setReference(assigned);
+      scrollToFormTop();
+    } catch (error) {
+      setFailure(error instanceof SubmitError ? error.kind : 'server');
+    } finally {
+      setSending(false);
+    }
   });
 
   if (reference) {
@@ -113,7 +136,7 @@ export function ApplicationForm({content, labels}: Props) {
         <SuccessPanel
           title={labels.application.success.title}
           text={labels.application.success.text}
-          notice={labels.application.success.demoNotice}
+          notice={isApiConfigured ? undefined : labels.application.success.demoNotice}
         >
           <p className="text-base font-medium text-ink-soft">{labels.application.success.referenceLabel}</p>
           <p className="mt-1 text-[clamp(1.65rem,4.92vw,2.45rem)] font-extrabold tracking-tight text-lokambe-blue tabular-nums">
@@ -326,6 +349,8 @@ export function ApplicationForm({content, labels}: Props) {
               </p>
             </div>
           )}
+
+          {failure && <SubmitErrorNotice kind={failure} labels={labels.common.submitError} />}
 
           <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-line pt-6">
             {step > 0 && (

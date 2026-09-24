@@ -1,4 +1,6 @@
 import type {Metadata} from 'next';
+import {Suspense} from 'react';
+import {isAdminApiConfigured} from '@/lib/api/server';
 import {Logo} from '@/components/ui/Logo';
 import {LoginForm} from './LoginForm';
 
@@ -16,13 +18,19 @@ export default function AdminLoginPage() {
           </p>
 
           <div className="mt-7">
-            <LoginForm />
+            {/* `LoginForm` lit la destination demandée dans l'URL : Suspense est
+                nécessaire pour que la page reste pré-rendue. */}
+            <Suspense fallback={null}>
+              <LoginForm />
+            </Suspense>
           </div>
         </div>
 
-        <p className="mt-6 px-2 text-center text-sm text-white/70">
-          Maquette d’interface — aucun identifiant n’est vérifié et aucune donnée n’est enregistrée.
-        </p>
+        {!isAdminApiConfigured && (
+          <p className="mt-6 px-2 text-center text-sm text-white/70">
+            Maquette d’interface — aucun identifiant n’est vérifié et aucune donnée n’est enregistrée.
+          </p>
+        )}
       </div>
     </main>
   );

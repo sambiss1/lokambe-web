@@ -6,24 +6,15 @@ import {StatusBadge} from '@/components/admin/StatusBadge';
 import {Panel, Surface} from '@/components/admin/Surface';
 import {TrendChart} from '@/components/admin/TrendChart';
 import {Reveal} from '@/components/motion/Reveal';
-import {
-  APPLICATION_STATUSES,
-  computeStats,
-  formatRelative,
-  formatUsd,
-  MOCK_APPLICATIONS,
-  MOCK_CONTACTS,
-  recentApplications,
-  SECTOR_LABELS,
-  STATUS_LABELS,
-} from '@/lib/admin-mock';
+import {formatRelative, formatUsd, sectorLabel, STATUS_LABELS} from '@/lib/admin-format';
+import {getStats, listApplications} from '@/lib/api/admin';
+import {APPLICATION_STATUSES} from '@/lib/constants';
 
 export const metadata: Metadata = {title: 'Tableau de bord'};
 
-export default function DashboardPage() {
-  // TODO(api) : remplacer par un appel à GET /admin/stats et GET /admin/applications?limit=5.
-  const stats = computeStats(MOCK_APPLICATIONS, MOCK_CONTACTS);
-  const recent = recentApplications(MOCK_APPLICATIONS);
+export default async function DashboardPage() {
+  // Les deux appels sont indépendants : autant les mener de front.
+  const [stats, recent] = await Promise.all([getStats(), listApplications({}, 5)]);
 
   return (
     <>
@@ -36,14 +27,14 @@ export default function DashboardPage() {
       <Reveal as="section" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard
           label="Candidatures reçues"
-          value={stats.total}
+          value={stats.applicationsTotal}
           hint="Depuis l’ouverture du formulaire"
           href="/admin/candidatures"
           tone="blue"
         />
         <StatCard
           label="Candidatures (30 derniers jours)"
-          value={stats.last30Days}
+          value={stats.applicationsLast30Days}
           hint="Nouvelles demandes sur la période"
           tone="peach"
         />
@@ -57,7 +48,7 @@ export default function DashboardPage() {
 
       <Reveal as="section" index={1}>
         <Panel title="Candidatures reçues sur 30 jours">
-          <TrendChart data={stats.perDay} />
+          <TrendChart data={stats.applicationsPerDay} />
         </Panel>
       </Reveal>
 
@@ -87,7 +78,7 @@ export default function DashboardPage() {
         </div>
 
         <Surface className="divide-y divide-line overflow-hidden">
-          {recent.map((application) => (
+          {recent.items.map((application) => (
             <Link
               key={application.id}
               href={`/admin/candidatures/${application.id}`}
@@ -100,7 +91,7 @@ export default function DashboardPage() {
                 </p>
                 <p className="mt-1 truncate text-sm text-ink-soft">
                   {application.applicant.firstName} {application.applicant.lastName} · {application.business.name} ·{' '}
-                  {SECTOR_LABELS[application.business.sector]}
+                  {sectorLabel(application.business.sector, application.business.sectorOther)}
                 </p>
               </div>
               <div className="flex w-full items-baseline justify-between gap-3 sm:w-auto sm:flex-col sm:items-end">

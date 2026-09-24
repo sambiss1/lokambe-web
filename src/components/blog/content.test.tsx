@@ -35,7 +35,9 @@ describe('contenu du blog', () => {
   });
 
   it('couvre tous les thèmes annoncés dans le filtre', () => {
-    expect(getUsedCategories().map((category) => category.id)).toEqual(CATEGORY_IDS);
+    expect(getUsedCategories(blogArticles.map((article) => article.category)).map((category) => category.id)).toEqual(
+      CATEGORY_IDS,
+    );
   });
 
   it('a des identifiants uniques et utilisables dans une URL', () => {
