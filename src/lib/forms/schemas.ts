@@ -9,95 +9,123 @@ import {
   SECTORS,
 } from '@/lib/constants';
 
+/**
+ * Règles de validation des formulaires publics.
+ *
+ * Les messages ne sont pas écrits ici : ils viennent des fichiers de messages,
+ * dans la langue de la page. Sans cela, un visiteur anglophone lirait « Indiquez
+ * votre prénom. » sous un champ « First name ». Chaque schéma est donc construit
+ * à la volée, avec le traducteur de la page.
+ */
+
+/** Ce qu'attend un schéma : la fonction `t` de next-intl, namespace `validation`. */
+export type Translate = (key: string, values?: Record<string, string | number>) => string;
+
+/** Traducteur d'attente : rend la clé. Il sert aux types et aux tests de contrat. */
+export const identityTranslate: Translate = (key) => key;
+
 const required = (message: string) => z.string().trim().min(1, message);
 
-export const applicantSchema = z.object({
-  firstName: required('Indiquez votre prénom.'),
-  lastName: required('Indiquez votre nom.'),
-  phone: required('Indiquez un numéro de téléphone.').regex(PHONE_REGEX, 'Numéro de téléphone invalide.'),
-  email: z.union([z.literal(''), z.string().trim().email('Adresse email invalide.')]).optional(),
-  city: required('Indiquez votre ville.'),
-  commune: z.string().trim().optional(),
-});
-
-export const businessSchema = z
-  .object({
-    name: required('Indiquez le nom de votre activité.'),
-    sector: z.enum(SECTORS, {message: 'Choisissez un secteur.'}),
-    sectorOther: z.string().trim().optional(),
-    isFormal: z.boolean(),
-    rccm: z.string().trim().optional(),
-    foundedYear: z
-      .union([z.literal(''), z.coerce.number().int().min(1950).max(new Date().getFullYear())])
-      .optional(),
-    employeesCount: z.coerce.number({message: 'Indiquez un nombre.'}).int().min(0, 'Indiquez un nombre.'),
-    monthlyRevenueUsd: z.union([z.literal(''), z.coerce.number().min(0)]).optional(),
-    description: required('Décrivez votre activité.').min(40, 'Décrivez votre activité en quelques phrases (40 caractères minimum).'),
-  })
-  .refine((value) => value.sector !== 'autre' || Boolean(value.sectorOther), {
-    message: 'Précisez votre secteur.',
-    path: ['sectorOther'],
+export function createApplicantSchema(t: Translate) {
+  return z.object({
+    firstName: required(t('firstName')),
+    lastName: required(t('lastName')),
+    phone: required(t('phone')).regex(PHONE_REGEX, t('phoneInvalid')),
+    email: z.union([z.literal(''), z.string().trim().email(t('emailInvalid'))]).optional(),
+    city: required(t('city')),
+    commune: z.string().trim().optional(),
   });
+}
 
-export const needSchema = z.object({
-  type: z.enum(NEED_TYPES, {message: 'Choisissez un type de besoin.'}),
-  amountUsd: z.coerce.number({message: 'Indiquez un montant en dollars.'}).positive('Indiquez un montant en dollars.'),
-  useOfFunds: required('Expliquez l’utilisation prévue du capital.').min(
-    30,
-    'Expliquez en quelques phrases comment le capital sera utilisé (30 caractères minimum).',
-  ),
-});
+export function createBusinessSchema(t: Translate) {
+  return z
+    .object({
+      name: required(t('businessName')),
+      sector: z.enum(SECTORS, {message: t('sector')}),
+      sectorOther: z.string().trim().optional(),
+      isFormal: z.boolean(),
+      rccm: z.string().trim().optional(),
+      foundedYear: z
+        .union([z.literal(''), z.coerce.number().int().min(1950).max(new Date().getFullYear())])
+        .optional(),
+      employeesCount: z.coerce.number({message: t('number')}).int().min(0, t('number')),
+      monthlyRevenueUsd: z.union([z.literal(''), z.coerce.number().min(0)]).optional(),
+      description: required(t('description')).min(40, t('descriptionShort')),
+    })
+    .refine((value) => value.sector !== 'autre' || Boolean(value.sectorOther), {
+      message: t('sectorOther'),
+      path: ['sectorOther'],
+    });
+}
 
-export const consentSchema = z.object({
-  consent: z.literal(true, {message: 'Votre accord est nécessaire pour étudier votre dossier.'}),
-  /** Piège à robots : doit rester vide. */
-  website: z.literal('').optional(),
-});
+export function createNeedSchema(t: Translate) {
+  return z.object({
+    type: z.enum(NEED_TYPES, {message: t('needType')}),
+    amountUsd: z.coerce.number({message: t('amount')}).positive(t('amount')),
+    useOfFunds: required(t('useOfFunds')).min(30, t('useOfFundsShort')),
+  });
+}
 
-export const applicationSchema = z.object({
-  applicant: applicantSchema,
-  business: businessSchema,
-  need: needSchema,
-  ...consentSchema.shape,
-});
+export function createConsentSchema(t: Translate) {
+  return z.object({
+    consent: z.literal(true, {message: t('consent')}),
+    /** Piège à robots : doit rester vide. */
+    website: z.literal('').optional(),
+  });
+}
 
-export type ApplicationValues = z.input<typeof applicationSchema>;
+export function createApplicationSchema(t: Translate) {
+  return z.object({
+    applicant: createApplicantSchema(t),
+    business: createBusinessSchema(t),
+    need: createNeedSchema(t),
+    ...createConsentSchema(t).shape,
+  });
+}
+
+export function createContactSchema(t: Translate) {
+  return z.object({
+    kind: z.enum(CONTACT_KINDS, {message: t('kind')}),
+    fullName: required(t('lastName')),
+    organization: z.string().trim().optional(),
+    email: required(t('email')).email(t('emailInvalid')),
+    phone: z
+      .union([z.literal(''), z.string().trim().regex(PHONE_REGEX, t('phoneInvalid'))])
+      .optional(),
+    message: required(t('message')).min(20, t('messageShort')),
+    website: z.literal('').optional(),
+  });
+}
+
+export type ApplicationValues = z.input<ReturnType<typeof createApplicationSchema>>;
 /** Ce que le formulaire produit une fois validé : c'est cela qu'on envoie à l'API. */
-export type ApplicationParsed = z.output<typeof applicationSchema>;
+export type ApplicationParsed = z.output<ReturnType<typeof createApplicationSchema>>;
 
-export const contactSchema = z.object({
-  kind: z.enum(CONTACT_KINDS, {message: 'Choisissez un objet.'}),
-  fullName: required('Indiquez votre nom.'),
-  organization: z.string().trim().optional(),
-  email: required('Indiquez votre email.').email('Adresse email invalide.'),
-  phone: z
-    .union([z.literal(''), z.string().trim().regex(PHONE_REGEX, 'Numéro de téléphone invalide.')])
-    .optional(),
-  message: required('Écrivez votre message.').min(20, 'Votre message doit contenir au moins 20 caractères.'),
-  website: z.literal('').optional(),
-});
-
-export type ContactValues = z.input<typeof contactSchema>;
-export type ContactParsed = z.output<typeof contactSchema>;
+export type ContactValues = z.input<ReturnType<typeof createContactSchema>>;
+export type ContactParsed = z.output<ReturnType<typeof createContactSchema>>;
 
 export type FileError = {name: string; reason: string};
 
 /** Valide une sélection de fichiers (type, taille, nombre). */
-export function validateFiles(files: File[], existing: File[] = []): {accepted: File[]; errors: FileError[]} {
+export function validateFiles(
+  files: File[],
+  existing: File[] = [],
+  t: Translate = identityTranslate,
+): {accepted: File[]; errors: FileError[]} {
   const accepted: File[] = [];
   const errors: FileError[] = [];
 
   for (const file of files) {
     if (existing.length + accepted.length >= MAX_FILES) {
-      errors.push({name: file.name, reason: `Maximum ${MAX_FILES} fichiers.`});
+      errors.push({name: file.name, reason: t('fileMax', {max: MAX_FILES})});
       continue;
     }
     if (!(ALLOWED_FILE_TYPES as readonly string[]).includes(file.type)) {
-      errors.push({name: file.name, reason: 'Format non accepté (PDF, JPG, PNG ou WEBP).'});
+      errors.push({name: file.name, reason: t('fileFormat')});
       continue;
     }
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      errors.push({name: file.name, reason: 'Fichier trop lourd (10 Mo maximum).'});
+      errors.push({name: file.name, reason: t('fileTooLarge', {max: MAX_FILE_SIZE_BYTES / (1024 * 1024)})});
       continue;
     }
     accepted.push(file);

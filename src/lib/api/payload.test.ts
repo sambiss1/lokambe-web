@@ -1,5 +1,9 @@
 import {describe, expect, it} from 'vitest';
-import {applicationSchema, contactSchema} from '@/lib/forms/schemas';
+import {createApplicationSchema, createContactSchema, identityTranslate} from '@/lib/forms/schemas';
+
+// Les messages n'ont pas d'importance ici : on teste la mise au format, pas les libellés.
+const applicationSchema = createApplicationSchema(identityTranslate);
+const contactSchema = createContactSchema(identityTranslate);
 import {toApplicationPayload, toContactPayload} from './payload';
 
 /**

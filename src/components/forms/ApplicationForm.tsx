@@ -2,7 +2,8 @@
 
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Paperclip, X} from 'lucide-react';
-import {useRef, useState} from 'react';
+import {useTranslations} from 'next-intl';
+import {useMemo, useRef, useState} from 'react';
 import {useForm, useWatch} from 'react-hook-form';
 import type {ApplyContent, FormsContent} from '@/content/types';
 import {Link} from '@/i18n/navigation';
@@ -11,7 +12,7 @@ import {toApplicationPayload} from '@/lib/api/payload';
 import {ALLOWED_FILE_TYPES, NEED_TYPES, SECTORS} from '@/lib/constants';
 import {
   type ApplicationParsed,
-  applicationSchema,
+  createApplicationSchema,
   mockReference,
   validateFiles,
   type ApplicationValues,
@@ -46,6 +47,10 @@ const STEP_FIELDS = [
 
 export function ApplicationForm({content, labels}: Props) {
   const f = labels.application.fields;
+  // Les messages de validation suivent la langue de la page.
+  const tv = useTranslations('validation');
+  const schema = useMemo(() => createApplicationSchema(tv), [tv]);
+
   const [step, setStep] = useState(0);
   const [files, setFiles] = useState<File[]>([]);
   const [fileErrors, setFileErrors] = useState<string[]>([]);
@@ -61,7 +66,7 @@ export function ApplicationForm({content, labels}: Props) {
     control,
     formState: {errors},
   } = useForm<ApplicationValues>({
-    resolver: zodResolver(applicationSchema),
+    resolver: zodResolver(schema),
     mode: 'onBlur',
     defaultValues: {
       applicant: {firstName: '', lastName: '', phone: '', email: '', city: '', commune: ''},
@@ -102,7 +107,7 @@ export function ApplicationForm({content, labels}: Props) {
 
   const addFiles = (selected: FileList | null) => {
     if (!selected) return;
-    const {accepted, errors: rejected} = validateFiles(Array.from(selected), files);
+    const {accepted, errors: rejected} = validateFiles(Array.from(selected), files, tv);
     setFiles((current) => [...current, ...accepted]);
     setFileErrors(rejected.map((error) => `${error.name} — ${error.reason}`));
     if (fileInput.current) fileInput.current.value = '';

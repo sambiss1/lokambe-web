@@ -1,13 +1,14 @@
 'use client';
 
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useState} from 'react';
+import {useTranslations} from 'next-intl';
+import {useMemo, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import type {FormsContent} from '@/content/types';
 import {isApiConfigured, SubmitError, type SubmitFailure, submitContact} from '@/lib/api/client';
 import {toContactPayload} from '@/lib/api/payload';
 import {CONTACT_KINDS} from '@/lib/constants';
-import {type ContactParsed, contactSchema, type ContactValues} from '@/lib/forms/schemas';
+import {type ContactParsed, createContactSchema, type ContactValues} from '@/lib/forms/schemas';
 import {Reveal} from '../motion/Reveal';
 import {Button} from '../ui/Button';
 import {Field, Honeypot, Input, Select, Textarea} from './Field';
@@ -18,6 +19,9 @@ type Props = {title: string; labels: FormsContent; defaultKind?: ContactValues['
 
 export function ContactForm({title, labels, defaultKind}: Props) {
   const f = labels.contact.fields;
+  // Les messages de validation suivent la langue de la page.
+  const tv = useTranslations('validation');
+  const schema = useMemo(() => createContactSchema(tv), [tv]);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [failure, setFailure] = useState<SubmitFailure | null>(null);
@@ -28,7 +32,7 @@ export function ContactForm({title, labels, defaultKind}: Props) {
     reset,
     formState: {errors},
   } = useForm<ContactValues>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(schema),
     mode: 'onBlur',
     defaultValues: {kind: defaultKind, fullName: '', organization: '', email: '', phone: '', message: '', website: ''},
   });

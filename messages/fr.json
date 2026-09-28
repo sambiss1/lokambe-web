@@ -115,5 +115,31 @@
         "short": "Portefeuille"
       }
     }
+  },
+  "validation": {
+    "firstName": "Indiquez votre prénom.",
+    "lastName": "Indiquez votre nom.",
+    "phone": "Indiquez un numéro de téléphone.",
+    "phoneInvalid": "Numéro de téléphone invalide.",
+    "email": "Indiquez votre email.",
+    "emailInvalid": "Adresse email invalide.",
+    "city": "Indiquez votre ville.",
+    "businessName": "Indiquez le nom de votre activité.",
+    "sector": "Choisissez un secteur.",
+    "sectorOther": "Précisez votre secteur.",
+    "number": "Indiquez un nombre.",
+    "description": "Décrivez votre activité.",
+    "descriptionShort": "Décrivez votre activité en quelques phrases (40 caractères minimum).",
+    "needType": "Choisissez un type de besoin.",
+    "amount": "Indiquez un montant en dollars.",
+    "useOfFunds": "Expliquez l’utilisation prévue du capital.",
+    "useOfFundsShort": "Expliquez en quelques phrases comment le capital sera utilisé (30 caractères minimum).",
+    "consent": "Votre accord est nécessaire pour étudier votre dossier.",
+    "kind": "Choisissez un objet.",
+    "message": "Écrivez votre message.",
+    "messageShort": "Votre message doit contenir au moins 20 caractères.",
+    "fileMax": "Maximum {max} fichiers.",
+    "fileFormat": "Format non accepté (PDF, JPG, PNG ou WEBP).",
+    "fileTooLarge": "Fichier trop lourd ({max} Mo maximum)."
   }
 }

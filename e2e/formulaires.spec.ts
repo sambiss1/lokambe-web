@@ -60,6 +60,28 @@ test('le formulaire de contact refuse une adresse email invalide', async ({page}
   await expect(page.getByLabel('Email')).toHaveAttribute('aria-invalid', 'true');
 });
 
+test('les messages de validation suivent la langue de la page', async ({page}) => {
+  await page.goto('/en/soumettre-un-projet');
+
+  await page.getByRole('button', {name: 'Continue'}).click();
+
+  // Le piège d'un site bilingue : un champ anglais sous lequel s'affiche une
+  // phrase française.
+  await expect(page.getByText('Enter your first name.')).toBeVisible();
+  await expect(page.getByText('Indiquez votre prénom.')).toHaveCount(0);
+});
+
+test('le formulaire de contact anglais refuse une adresse invalide, en anglais', async ({page}) => {
+  await page.goto('/en/contact');
+
+  await page.getByLabel('Full name').fill('Jean Kabasele');
+  await page.getByLabel('Email').fill('pas-une-adresse');
+  await page.getByLabel('Your message').fill('Hello, I would like to talk with your team.');
+  await page.getByRole('button', {name: 'Send'}).click();
+
+  await expect(page.getByText('This email address is not valid.')).toBeVisible();
+});
+
 test.describe('avec l’API', () => {
   test.skip(!withApi, 'E2E_API_URL absente : envoi réel non vérifié');
 

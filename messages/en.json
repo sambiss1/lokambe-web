@@ -115,5 +115,31 @@
         "short": "Portfolio"
       }
     }
+  },
+  "validation": {
+    "firstName": "Enter your first name.",
+    "lastName": "Enter your last name.",
+    "phone": "Enter a phone number.",
+    "phoneInvalid": "This phone number is not valid.",
+    "email": "Enter your email address.",
+    "emailInvalid": "This email address is not valid.",
+    "city": "Enter your city.",
+    "businessName": "Enter the name of your business.",
+    "sector": "Choose a sector.",
+    "sectorOther": "Please specify your sector.",
+    "number": "Enter a number.",
+    "description": "Describe your business.",
+    "descriptionShort": "Describe your business in a few sentences (40 characters minimum).",
+    "needType": "Choose a type of need.",
+    "amount": "Enter an amount in dollars.",
+    "useOfFunds": "Explain how the capital would be used.",
+    "useOfFundsShort": "Explain in a few sentences how the capital would be used (30 characters minimum).",
+    "consent": "We need your agreement in order to study your application.",
+    "kind": "Choose a subject.",
+    "message": "Write your message.",
+    "messageShort": "Your message must be at least 20 characters long.",
+    "fileMax": "No more than {max} files.",
+    "fileFormat": "Format not accepted (PDF, JPG, PNG or WEBP).",
+    "fileTooLarge": "File too large ({max} MB maximum)."
   }
 }
