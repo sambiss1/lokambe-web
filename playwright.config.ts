@@ -5,8 +5,10 @@ import {defineConfig, devices} from '@playwright/test';
  *
  * Ils tournent sur le **site construit**, pas sur le serveur de développement :
  * c'est la version que le visiteur reçoit, animations et rendu statique compris.
- * Le navigateur est le Chrome du système (`channel: 'chrome'`) pour éviter de
- * télécharger 300 Mo de navigateurs à chaque installation.
+ * En local, le navigateur est le Chrome du système (`channel: 'chrome'`) pour
+ * éviter de télécharger 300 Mo de navigateurs à chaque installation. Sur un
+ * runner d'intégration continue, ce canal n'existe pas : on y prend le Chromium
+ * installé par `playwright install`.
  *
  * L'anglais est activé pendant les tests : c'est le seul moyen de vérifier que
  * les deux langues tiennent, même si la production reste en français.
@@ -16,6 +18,7 @@ import {defineConfig, devices} from '@playwright/test';
  * que la suite reste lançable sans base de données.
  */
 const PORT = Number(process.env.E2E_PORT ?? 3100);
+const CHANNEL = process.env.CI ? undefined : 'chrome';
 const API_URL = process.env.E2E_API_URL ?? '';
 
 const start = `npx next start -p ${PORT}`;
@@ -32,13 +35,13 @@ export default defineConfig({
   expect: {timeout: 10_000},
   use: {
     baseURL: `http://localhost:${PORT}`,
-    channel: 'chrome',
+    channel: CHANNEL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [
-    {name: 'bureau', use: {...devices['Desktop Chrome'], channel: 'chrome'}},
-    {name: 'mobile', use: {...devices['Pixel 7'], channel: 'chrome'}},
+    {name: 'bureau', use: {...devices['Desktop Chrome'], channel: CHANNEL}},
+    {name: 'mobile', use: {...devices['Pixel 7'], channel: CHANNEL}},
   ],
   webServer: {
     command,
