@@ -61,7 +61,7 @@ export default async function AboutPage({params}: Props) {
             <ol className="mt-10 space-y-3">
               {about.conclusion.pillars.map((pillar, index) => (
                 <Reveal as="li" key={pillar} index={index} className="flex items-baseline gap-4">
-                  <span className="text-xl font-extrabold text-lokambe-red tabular-nums">{index + 1}</span>
+                  <span className="text-xl font-extrabold text-lokambe-red-strong tabular-nums">{index + 1}</span>
                   <span className="text-xl font-bold text-ink sm:text-2xl">{pillar}</span>
                 </Reveal>
               ))}

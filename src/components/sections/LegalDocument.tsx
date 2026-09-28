@@ -37,7 +37,7 @@ export function LegalDocument({document}: {document: LegalContent}) {
                     href={`#${slug(section.title)}`}
                     className="flex gap-3 py-1 text-[1.0625rem] text-ink-soft transition-colors hover:text-lokambe-blue"
                   >
-                    <span className="tabular-nums text-lokambe-red">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="tabular-nums text-lokambe-red-strong">{String(index + 1).padStart(2, '0')}</span>
                     {section.title}
                   </a>
                 </li>

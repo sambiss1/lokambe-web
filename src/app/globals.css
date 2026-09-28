@@ -6,6 +6,14 @@
   --color-lokambe-peach: #f7c4a7;
   --color-lokambe-peach-soft: #fdeee4;
   --color-lokambe-red: #f01346;
+  /*
+   * Le rouge de la charte porte mal le texte blanc : 4,29:1, sous le seuil AA
+   * de 4,5:1 pour un texte de 15 px. Cette teinte, 3 % plus sombre, atteint
+   * 4,53:1 sans que l'œil voie la différence. Elle ne sert qu'aux surfaces
+   * pleines qui portent du texte blanc ; les accents gardent la teinte d'origine.
+   */
+  --color-lokambe-red-strong: #e91244;
+  --color-lokambe-red-strong-hover: #d6113e;
   --color-ink: #0a0a0a;
   --color-ink-soft: #3d3d45;
   --color-line: #e7e3ea;

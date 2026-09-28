@@ -243,7 +243,7 @@ export function RichTextEditor({value, onChange, labelledBy}: Props) {
       )}
 
       {error && (
-        <p role="alert" className="border-b border-line bg-lokambe-red/10 px-4 py-2 text-sm font-medium text-lokambe-red">
+        <p role="alert" className="border-b border-line bg-lokambe-red/10 px-4 py-2 text-sm font-medium text-lokambe-red-strong">
           {error}
         </p>
       )}

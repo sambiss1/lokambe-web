@@ -45,3 +45,9 @@ images-raw/
 .env.local
 !.env.example
 .superpowers/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

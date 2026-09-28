@@ -37,7 +37,7 @@ export function Field({label, hint, error, optionalLabel, children}: FieldShellP
       )}
       <div className="mt-2">{children({id, describedBy, invalid: Boolean(error)})}</div>
       {error && (
-        <p id={errorId} className="mt-2 flex items-start gap-2 text-base font-medium text-lokambe-red">
+        <p id={errorId} className="mt-2 flex items-start gap-2 text-base font-medium text-lokambe-red-strong">
           <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-lokambe-red" />
           {error}
         </p>
@@ -98,7 +98,7 @@ export function CheckboxCard({
         />
         <span className="text-lg leading-snug text-ink">{label}</span>
       </label>
-      {error && <p className="mt-2 text-base font-medium text-lokambe-red">{error}</p>}
+      {error && <p className="mt-2 text-base font-medium text-lokambe-red-strong">{error}</p>}
     </div>
   );
 }

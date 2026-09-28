@@ -38,7 +38,7 @@ export default async function ArticlesPage({searchParams}: {searchParams: Promis
         actions={
           <Link
             href="/admin/articles/nouveau"
-            className="inline-flex items-center rounded-xl bg-lokambe-red px-4 py-2.5 text-[0.95rem] font-bold text-white transition-colors duration-200 hover:bg-lokambe-red/90"
+            className="inline-flex items-center rounded-xl bg-lokambe-red-strong px-4 py-2.5 text-[0.95rem] font-bold text-white transition-colors duration-200 hover:bg-lokambe-red-strong-hover"
           >
             Nouvel article
           </Link>

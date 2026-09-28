@@ -240,7 +240,7 @@ export function ArticleForm({article}: Props) {
                 type="button"
                 disabled={pending}
                 onClick={() => save('publie')}
-                className={cx(buttonBase, 'bg-lokambe-red text-white hover:bg-lokambe-red/90')}
+                className={cx(buttonBase, 'bg-lokambe-red-strong text-white hover:bg-lokambe-red-strong-hover')}
               >
                 Publier
               </button>
@@ -251,7 +251,7 @@ export function ArticleForm({article}: Props) {
                 type="button"
                 disabled={pending}
                 onClick={remove}
-                className={cx(buttonBase, 'text-lokambe-red hover:bg-lokambe-red/10')}
+                className={cx(buttonBase, 'text-lokambe-red-strong hover:bg-lokambe-red/10')}
               >
                 <Trash2 aria-hidden="true" className="size-4" strokeWidth={2.2} />
                 Supprimer
@@ -264,7 +264,7 @@ export function ArticleForm({article}: Props) {
               role="status"
               className={cx(
                 'mt-4 rounded-xl px-3.5 py-2.5 text-sm font-medium',
-                feedback.tone === 'ok' ? 'bg-lokambe-peach-soft text-ink-soft' : 'bg-lokambe-red/10 text-lokambe-red',
+                feedback.tone === 'ok' ? 'bg-lokambe-peach-soft text-ink-soft' : 'bg-lokambe-red/10 text-lokambe-red-strong',
               )}
             >
               {feedback.text}

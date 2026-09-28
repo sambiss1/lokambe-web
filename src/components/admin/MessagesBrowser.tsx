@@ -134,7 +134,7 @@ export function MessagesBrowser({result, filters, pageSize, unreadTotal}: Props)
       </p>
 
       {failure && (
-        <p role="alert" className="rounded-2xl bg-lokambe-red/8 px-5 py-4 text-sm font-medium text-lokambe-red">
+        <p role="alert" className="rounded-2xl bg-lokambe-red/8 px-5 py-4 text-sm font-medium text-lokambe-red-strong">
           {failure}
         </p>
       )}

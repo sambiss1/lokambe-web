@@ -21,7 +21,7 @@ export function StepList({steps, tone = 'light'}: {steps: TitledText[]; tone?: '
           <span
             className={cx(
               'text-3xl leading-none font-extrabold tabular-nums transition-colors sm:text-4xl',
-              dark ? 'text-white/35 group-hover:text-lokambe-peach' : 'text-lokambe-peach group-hover:text-lokambe-red',
+              dark ? 'text-white/35 group-hover:text-lokambe-peach' : 'text-lokambe-peach group-hover:text-lokambe-red-strong',
             )}
           >
             {String(index + 1).padStart(2, '0')}

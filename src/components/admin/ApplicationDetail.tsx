@@ -272,7 +272,7 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                   role={statusFeedback.kind === 'error' ? 'alert' : 'status'}
                   className={
                     statusFeedback.kind === 'error'
-                      ? 'rounded-xl bg-lokambe-red/10 px-3.5 py-2.5 text-sm font-medium text-lokambe-red'
+                      ? 'rounded-xl bg-lokambe-red/10 px-3.5 py-2.5 text-sm font-medium text-lokambe-red-strong'
                       : 'rounded-xl bg-lokambe-blue/10 px-3.5 py-2.5 text-sm font-medium text-lokambe-blue'
                   }
                 >
@@ -340,7 +340,7 @@ export function ApplicationDetail({application}: {application: AdminApplication}
               </Field>
 
               {noteError ? (
-                <p role="alert" className="text-sm font-medium text-lokambe-red">
+                <p role="alert" className="text-sm font-medium text-lokambe-red-strong">
                   {noteError}
                 </p>
               ) : null}

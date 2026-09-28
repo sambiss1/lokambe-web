@@ -1,7 +1,7 @@
 import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it} from 'vitest';
-import {blogArticles, blogCategories} from '@/content/blog';
+import {blogArticles} from '@/content/blog';
 import fr from '../../../messages/fr.json';
 import {fromStatic} from '@/lib/blog/article';
 import {renderWithIntl} from '@/test/render';
