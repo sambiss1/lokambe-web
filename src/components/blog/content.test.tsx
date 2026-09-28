@@ -8,13 +8,15 @@ import {
   articlePath,
   blogArticles,
   blogCategories,
-  blogSlugs,
   formatArticleDate,
-  getArticleBySlug,
   getCategory,
-  getLatestArticles,
-  getUsedCategories,
 } from '@/content/blog';
+
+/**
+ * Ces huit articles ne sont plus le blog : ils en sont le repli, affiché quand
+ * l'API ne répond pas. Ils restent tenus aux mêmes exigences éditoriales.
+ */
+const slugs = blogArticles.map((article) => article.slug);
 
 const CATEGORY_IDS = blogCategories.map((category) => category.id);
 
@@ -34,14 +36,13 @@ describe('contenu du blog', () => {
   });
 
   it('couvre tous les thèmes annoncés dans le filtre', () => {
-    expect(getUsedCategories(blogArticles.map((article) => article.category)).map((category) => category.id)).toEqual(
-      CATEGORY_IDS,
-    );
+    const used = new Set(blogArticles.map((article) => article.category));
+    expect(CATEGORY_IDS.filter((id) => used.has(id))).toEqual(CATEGORY_IDS);
   });
 
   it('a des identifiants uniques et utilisables dans une URL', () => {
-    expect(new Set(blogSlugs).size).toBe(blogArticles.length);
-    for (const slug of blogSlugs) expect(slug).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+    expect(new Set(slugs).size).toBe(blogArticles.length);
+    for (const slug of slugs) expect(slug).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
   });
 
   it.each(blogArticles.map((article) => [article.slug, article] as const))('%s est complet', (_slug, article) => {
@@ -85,17 +86,6 @@ describe('contenu du blog', () => {
 });
 
 describe('aides du blog', () => {
-  it('retrouve un article par son identifiant', () => {
-    expect(getArticleBySlug(blogSlugs[0])?.slug).toBe(blogSlugs[0]);
-    expect(getArticleBySlug('inconnu')).toBeUndefined();
-  });
-
-  it('propose les derniers articles en excluant celui que l’on lit', () => {
-    const latest = getLatestArticles(3, blogSlugs[0]);
-    expect(latest).toHaveLength(3);
-    expect(latest.map((article) => article.slug)).not.toContain(blogSlugs[0]);
-  });
-
   it('construit les chemins relatifs à la locale', () => {
     expect(BLOG_BASE_PATH).toBe('/blog');
     expect(articlePath('mon-article')).toBe('/blog/mon-article');

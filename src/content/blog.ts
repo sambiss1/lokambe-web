@@ -646,23 +646,6 @@ export const blogArticles: readonly BlogArticle[] = [...ARTICLES].sort((a, b) =>
   b.publishedAt.localeCompare(a.publishedAt),
 );
 
-export const blogSlugs: readonly string[] = blogArticles.map((article) => article.slug);
-
-export function getArticleBySlug(slug: string): BlogArticle | undefined {
-  return blogArticles.find((article) => article.slug === slug);
-}
-
-/** Derniers articles publiés, en excluant éventuellement celui que l’on lit. */
-export function getLatestArticles(limit = 3, excludeSlug?: string): BlogArticle[] {
-  return blogArticles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
-}
-
-/** Catégories effectivement utilisées, dans l’ordre de `blogCategories`. */
-export function getUsedCategories(categories: readonly BlogCategoryId[]): BlogCategory[] {
-  const used = new Set(categories);
-  return blogCategories.filter((category) => used.has(category.id));
-}
-
 /** Chemin d’un article, relatif à la locale (`Link` de next-intl ajoute le préfixe). */
 export function articlePath(slug: string): string {
   return `${BLOG_BASE_PATH}/${slug}`;
