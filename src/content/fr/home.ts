@@ -214,7 +214,7 @@ export const home: HomeContent = {
       {
         question: 'Quels secteurs sont prioritaires ?',
         answer:
-          'La restauration, les métiers de bouche et la transformation alimentaire, le commerce et la distribution, l’événementiel et les services.',
+          'La restauration, les métiers de bouche et la transformation alimentaire, le commerce et la distribution, l’événementiel, les services, les médias et le divertissement, l’éducation et la formation.',
       },
       {
         question: 'LOKAMBE fait-il des dons ou des subventions ?',

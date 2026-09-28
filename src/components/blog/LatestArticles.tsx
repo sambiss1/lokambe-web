@@ -1,4 +1,5 @@
-import {BLOG_BASE_PATH, blogPage} from '@/content/blog';
+import {useTranslations} from 'next-intl';
+import {BLOG_BASE_PATH} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {Reveal} from '../motion/Reveal';
 import {Section} from '../sections/Section';
@@ -7,16 +8,18 @@ import {BlogCard} from './BlogCard';
 
 /** Bloc de fin d’article : les publications les plus récentes. */
 export function LatestArticles({articles}: {articles: Article[]}) {
+  const t = useTranslations('blog');
+
   if (articles.length === 0) return null;
 
   return (
     <Section
       tone="peach-soft"
-      eyebrow={blogPage.latest.eyebrow}
-      title={blogPage.latest.title}
+      eyebrow={t('latestEyebrow')}
+      title={t('latestTitle')}
       aside={
         <ButtonLink href={BLOG_BASE_PATH} variant="outline-blue" size="lg" className="mt-2">
-          {blogPage.allLabel}
+          {t('allLabel')}
         </ButtonLink>
       }
     >

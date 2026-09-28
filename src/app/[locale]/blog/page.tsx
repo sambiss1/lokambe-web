@@ -1,10 +1,10 @@
 import type {Metadata} from 'next';
-import {setRequestLocale} from 'next-intl/server';
+import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {BlogList} from '@/components/blog/BlogList';
 import {CtaBanner} from '@/components/sections/CtaBanner';
 import {PageHero} from '@/components/sections/PageHero';
 import {Container} from '@/components/ui/Container';
-import {BLOG_BASE_PATH, blogPage} from '@/content/blog';
+import {BLOG_BASE_PATH} from '@/content/blog';
 import {listArticles} from '@/lib/api/articles';
 import {pageMetadata} from '@/lib/seo';
 
@@ -12,18 +12,31 @@ type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(blogPage.meta, {locale, path: BLOG_BASE_PATH});
+  const t = await getTranslations({locale, namespace: 'blog'});
+
+  return pageMetadata(
+    {title: t('metaTitle'), description: t('metaDescription')},
+    {locale, path: BLOG_BASE_PATH},
+  );
 }
 
 export default async function BlogIndexPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
 
-  const {articles} = await listArticles();
+  const t = await getTranslations({locale, namespace: 'blog'});
+  const {articles} = await listArticles(locale);
 
   return (
     <>
-      <PageHero hero={blogPage.hero} />
+      <PageHero
+        hero={{
+          eyebrow: t('heroEyebrow'),
+          title: t('heroTitle'),
+          intro: t('heroIntro'),
+          image: {src: '/images/home-kinshasa.webp', alt: t('heroImageAlt')},
+        }}
+      />
 
       <section className="bg-white py-20 sm:py-28">
         <Container>
@@ -31,7 +44,14 @@ export default async function BlogIndexPage({params}: Props) {
         </Container>
       </section>
 
-      <CtaBanner cta={blogPage.cta} />
+      <CtaBanner
+        cta={{
+          title: t('ctaTitle'),
+          text: t('ctaText'),
+          primary: {label: t('ctaPrimary'), href: '/soumettre-un-projet'},
+          secondary: {label: t('ctaSecondary'), href: '/contact'},
+        }}
+      />
     </>
   );
 }

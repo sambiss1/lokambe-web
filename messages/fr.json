@@ -56,5 +56,64 @@
   "navPromo": {
     "title": "Vous portez une activité qui mérite de grandir ?",
     "cta": "Soumettre un projet"
+  },
+  "blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "Analyses et conseils pratiques sur l’entrepreneuriat congolais, le financement des PME et l’économie réelle en République démocratique du Congo.",
+    "heroEyebrow": "Le blog",
+    "heroTitle": "Comprendre le capital privé et l’entreprise en RDC",
+    "heroIntro": "Des repères concrets pour les entrepreneurs de Kinshasa et d’ailleurs : gestion, financement, formalisation, commerce, restauration. Des textes courts, utiles, sans jargon.",
+    "heroImageAlt": "Rue commerçante animée de Kinshasa",
+    "filterLabel": "Filtrer par thème",
+    "allLabel": "Tous les articles",
+    "featuredLabel": "À la une",
+    "count": "{count, plural, one {# article} other {# articles}}",
+    "empty": "Aucun article dans ce thème pour le moment.",
+    "emptyLocale": "Aucun article publié en français pour le moment.",
+    "toc": "Sommaire",
+    "back": "Tous les articles",
+    "readingTime": "{minutes} min de lecture",
+    "latestEyebrow": "Continuer la lecture",
+    "latestTitle": "Derniers articles",
+    "ctaTitle": "Votre projet mérite mieux qu’un dossier de plus",
+    "ctaText": "Vous dirigez une activité rentable à Kinshasa et vous cherchez du capital et de l’accompagnement pour changer d’échelle ? Parlons-en.",
+    "ctaPrimary": "Soumettre un projet",
+    "ctaSecondary": "Nous écrire",
+    "exampleLabel": "Article d’exemple",
+    "exampleNotice": "Article d’exemple. Ce texte illustre la ligne éditoriale du blog LOKAMBE : il ne décrit ni une opération, ni une entreprise financée par le fonds.",
+    "categories": {
+      "entrepreneuriat": {
+        "label": "Entrepreneuriat congolais",
+        "short": "Entrepreneuriat"
+      },
+      "financement": {
+        "label": "Financement des PME",
+        "short": "Financement"
+      },
+      "creation": {
+        "label": "Création d’entreprise",
+        "short": "Création"
+      },
+      "commerce": {
+        "label": "Commerce de proximité",
+        "short": "Commerce"
+      },
+      "restauration": {
+        "label": "Restauration",
+        "short": "Restauration"
+      },
+      "investissement": {
+        "label": "Investissement et économie réelle",
+        "short": "Investissement"
+      },
+      "histoires": {
+        "label": "Histoires d’entrepreneurs",
+        "short": "Histoires"
+      },
+      "portefeuille": {
+        "label": "Actualités du portefeuille",
+        "short": "Portefeuille"
+      }
+    }
   }
 }

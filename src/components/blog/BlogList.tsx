@@ -1,7 +1,8 @@
 'use client';
 
+import {useTranslations} from 'next-intl';
 import {useMemo, useState} from 'react';
-import {type BlogCategoryId, blogPage, getUsedCategories} from '@/content/blog';
+import {blogCategories, type BlogCategoryId} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {cx} from '@/lib/cx';
 import {Reveal} from '../motion/Reveal';
@@ -19,34 +20,39 @@ function chipClasses(active: boolean) {
 
 /** Liste filtrable des articles : thèmes en pastilles, article à la une puis grille. */
 export function BlogList({articles: all}: {articles: Article[]}) {
+  const t = useTranslations('blog');
   const [active, setActive] = useState<BlogCategoryId | null>(null);
 
-  const categories = useMemo(() => getUsedCategories(all.map((article) => article.category)), [all]);
+  // Les thèmes affichés sont ceux qui portent au moins un article, dans l'ordre de référence.
+  const categories = useMemo(() => {
+    const used = new Set(all.map((article) => article.category));
+    return blogCategories.filter((category) => used.has(category.id)).map((category) => category.id);
+  }, [all]);
   const articles = active ? all.filter((article) => article.category === active) : all;
   const [featured, ...rest] = articles;
 
   return (
     <div>
       <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-line pb-6">
-        <Eyebrow className="text-ink-soft">{blogPage.filterLabel}</Eyebrow>
+        <Eyebrow className="text-ink-soft">{t('filterLabel')}</Eyebrow>
         <p aria-live="polite" className="text-sm font-medium text-ink-soft">
-          {blogPage.countLabel(articles.length)}
+          {t('count', {count: articles.length})}
         </p>
       </div>
 
-      <div role="group" aria-label={blogPage.filterLabel} className="mt-6 flex flex-wrap gap-2.5">
+      <div role="group" aria-label={t('filterLabel')} className="mt-6 flex flex-wrap gap-2.5">
         <button type="button" aria-pressed={active === null} className={chipClasses(active === null)} onClick={() => setActive(null)}>
-          {blogPage.allLabel}
+          {t('allLabel')}
         </button>
         {categories.map((category) => (
           <button
-            key={category.id}
+            key={category}
             type="button"
-            aria-pressed={active === category.id}
-            className={chipClasses(active === category.id)}
-            onClick={() => setActive(category.id)}
+            aria-pressed={active === category}
+            className={chipClasses(active === category)}
+            onClick={() => setActive(category)}
           >
-            {category.label}
+            {t(`categories.${category}.label`)}
           </button>
         ))}
       </div>
@@ -55,7 +61,7 @@ export function BlogList({articles: all}: {articles: Article[]}) {
         <>
           {active === null && (
             <Reveal className="mt-14">
-              <Eyebrow className="text-ink-soft">{blogPage.featuredLabel}</Eyebrow>
+              <Eyebrow className="text-ink-soft">{t('featuredLabel')}</Eyebrow>
             </Reveal>
           )}
           <Reveal className={active === null ? 'mt-5' : 'mt-12'}>
@@ -74,7 +80,7 @@ export function BlogList({articles: all}: {articles: Article[]}) {
         </>
       ) : (
         <p className="mt-14 rounded-[1.75rem] bg-lokambe-peach-soft p-8 text-lg font-medium text-ink-soft">
-          {blogPage.emptyLabel}
+          {all.length === 0 ? t('emptyLocale') : t('empty')}
         </p>
       )}
     </div>

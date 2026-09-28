@@ -10,7 +10,6 @@ import {
   blogCategories,
   blogSlugs,
   formatArticleDate,
-  formatReadingTime,
   getArticleBySlug,
   getCategory,
   getLatestArticles,
@@ -102,9 +101,9 @@ describe('aides du blog', () => {
     expect(articlePath('mon-article')).toBe('/blog/mon-article');
   });
 
-  it('met la date en français et la durée de lecture en clair', () => {
+  it('met la date dans la langue de la page', () => {
     expect(formatArticleDate('2026-09-02')).toBe('2 septembre 2026');
-    expect(formatReadingTime(5)).toBe('5 min de lecture');
+    expect(formatArticleDate('2026-09-02', 'en')).toBe('2 September 2026');
   });
 
   it('retombe sur la première catégorie pour un identifiant inconnu', () => {

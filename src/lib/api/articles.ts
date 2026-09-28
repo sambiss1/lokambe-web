@@ -44,9 +44,12 @@ async function get<T>(path: string): Promise<Outcome<T>> {
   }
 }
 
-/** Articles d'exemple, triés comme la liste publique. */
-function examples(): Article[] {
-  return blogArticles.map(fromStatic);
+/**
+ * Articles d'exemple, triés comme la liste publique. Ils sont écrits en
+ * français : ils ne servent de repli que pour la version française du site.
+ */
+function examples(locale: string): Article[] {
+  return locale === 'fr' ? blogArticles.map(fromStatic) : [];
 }
 
 export type ArticleList = {
@@ -55,37 +58,43 @@ export type ArticleList = {
   fromExamples: boolean;
 };
 
-export async function listArticles(): Promise<ArticleList> {
-  const result = await get<{items: ApiArticle[]}>(`/articles?limit=${BLOG_PAGE_SIZE}`);
-  if (result.kind !== 'ok') return {articles: examples(), fromExamples: true};
+export async function listArticles(locale: string = 'fr'): Promise<ArticleList> {
+  const result = await get<{items: ApiArticle[]}>(
+    `/articles?limit=${BLOG_PAGE_SIZE}&locale=${encodeURIComponent(locale)}`,
+  );
+  if (result.kind !== 'ok') return {articles: examples(locale), fromExamples: true};
   // Une base encore vide ne doit pas donner un blog vide au client.
-  if (result.data.items.length === 0) return {articles: examples(), fromExamples: true};
+  if (result.data.items.length === 0) return {articles: examples(locale), fromExamples: true};
   return {articles: result.data.items.map(fromApi), fromExamples: false};
 }
 
 /** `null` quand l'article n'existe pas ou n'est pas publié : la page rend un 404. */
-export async function getArticle(slug: string): Promise<Article | null> {
-  const result = await get<ApiArticle>(`/articles/${encodeURIComponent(slug)}`);
+export async function getArticle(slug: string, locale: string = 'fr'): Promise<Article | null> {
+  const result = await get<ApiArticle>(
+    `/articles/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`,
+  );
   if (result.kind === 'ok') return fromApi(result.data);
-  if (result.kind === 'missing') {
-    // L'API a répondu « inconnu » : l'article peut rester un exemple tant que
-    // la base n'a pas été semée.
-    const example = blogArticles.find((article) => article.slug === slug);
-    return example ? fromStatic(example) : null;
-  }
+
+  // Que l'API réponde « inconnu » ou ne réponde pas, l'article peut encore être
+  // un exemple livré avec le site — en français seulement.
+  if (locale !== 'fr') return null;
   const example = blogArticles.find((article) => article.slug === slug);
   return example ? fromStatic(example) : null;
 }
 
 /** Les derniers articles publiés, hors article courant. */
-export async function listLatestArticles(excludeSlug: string, limit = 3): Promise<Article[]> {
-  const {articles} = await listArticles();
+export async function listLatestArticles(
+  excludeSlug: string,
+  locale: string = 'fr',
+  limit = 3,
+): Promise<Article[]> {
+  const {articles} = await listArticles(locale);
   return articles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
 }
 
 /** Slugs connus au moment du build, pour le pré-rendu des pages d'article. */
-export async function listArticleSlugs(): Promise<string[]> {
-  const {articles} = await listArticles();
+export async function listArticleSlugs(locale: string = 'fr'): Promise<string[]> {
+  const {articles} = await listArticles(locale);
   return articles.map((article) => article.slug);
 }
 

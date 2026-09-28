@@ -1,6 +1,7 @@
 import {ArrowUpRight} from 'lucide-react';
 import Image from 'next/image';
-import {articlePath, formatArticleDate, formatReadingTime, getCategory} from '@/content/blog';
+import {useLocale, useTranslations} from 'next-intl';
+import {articlePath, formatArticleDate} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {Link} from '@/i18n/navigation';
 import {cx} from '@/lib/cx';
@@ -16,7 +17,8 @@ type Props = {
 
 /** Carte d’article : image, thème, titre, accroche et informations de lecture. */
 export function BlogCard({article, featured = false, headingLevel: Heading = 'h3'}: Props) {
-  const category = getCategory(article.category);
+  const t = useTranslations('blog');
+  const locale = useLocale();
 
   return (
     <article
@@ -41,7 +43,7 @@ export function BlogCard({article, featured = false, headingLevel: Heading = 'h3
           className="object-cover transition-transform duration-700 ease-(--ease-out-expo) group-hover:scale-[1.04]"
         />
         <span className="absolute bottom-4 left-4 rounded-full bg-lokambe-blue px-3.5 py-1.5 text-[0.6875rem] font-bold tracking-[0.1em] text-white uppercase">
-          {category.short}
+          {t(`categories.${article.category}.short`)}
         </span>
       </div>
 
@@ -67,10 +69,10 @@ export function BlogCard({article, featured = false, headingLevel: Heading = 'h3
         </p>
 
         <footer className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-line pt-5 text-sm text-ink-soft">
-          <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time>
+          <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt, locale)}</time>
           {/* Le séparateur appartient à la durée : il ne reste pas seul en fin de ligne. */}
           <span className="flex items-center gap-3 before:block before:size-1.5 before:flex-none before:rounded-full before:bg-lokambe-red before:content-['']">
-            {formatReadingTime(article.readingMinutes)}
+            {t('readingTime', {minutes: article.readingMinutes})}
           </span>
           <ArrowUpRight
             aria-hidden="true"

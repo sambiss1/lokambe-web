@@ -1,8 +1,10 @@
-import {BLOG_EXAMPLE_LABEL} from '@/content/blog';
+import {useTranslations} from 'next-intl';
 import {cx} from '@/lib/cx';
 
 /** Mention discrète : les articles du blog sont des exemples éditoriaux. */
 export function ExampleBadge({tone = 'light', className}: {tone?: 'light' | 'dark'; className?: string}) {
+  const t = useTranslations('blog');
+
   return (
     <span
       className={cx(
@@ -14,7 +16,7 @@ export function ExampleBadge({tone = 'light', className}: {tone?: 'light' | 'dar
       )}
     >
       <span aria-hidden="true" className="size-1.5 flex-none rounded-full bg-lokambe-red" />
-      {BLOG_EXAMPLE_LABEL}
+      {t('exampleLabel')}
     </span>
   );
 }

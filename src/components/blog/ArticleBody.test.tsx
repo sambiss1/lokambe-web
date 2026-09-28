@@ -1,6 +1,7 @@
 import {screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
-import {BLOG_EXAMPLE_NOTICE, blogArticles, blogPage} from '@/content/blog';
+import {blogArticles} from '@/content/blog';
+import fr from '../../../messages/fr.json';
 import {fromStatic} from '@/lib/blog/article';
 import type {Article} from '@/lib/blog/article';
 import {renderWithIntl} from '@/test/render';
@@ -21,7 +22,7 @@ describe('ArticleBody', () => {
   it('affiche la mention d’article d’exemple et l’image de couverture', () => {
     renderWithIntl(<ArticleBody article={sample} />);
 
-    expect(screen.getByText(BLOG_EXAMPLE_NOTICE)).toBeInTheDocument();
+    expect(screen.getByText(fr.blog.exampleNotice)).toBeInTheDocument();
     expect(screen.getByRole('img', {name: sample.image.alt})).toHaveAttribute('src', sample.image.src);
   });
 
@@ -39,13 +40,13 @@ describe('ArticleBody', () => {
 
   it('n’annonce pas un exemple pour un article écrit dans le back-office', () => {
     renderWithIntl(<ArticleBody article={{...sample, isExample: false}} />);
-    expect(screen.queryByText(BLOG_EXAMPLE_NOTICE)).not.toBeInTheDocument();
+    expect(screen.queryByText(fr.blog.exampleNotice)).not.toBeInTheDocument();
   });
 
   it('construit un sommaire ancré sur les intertitres', () => {
     renderWithIntl(<ArticleBody article={sample} />);
 
-    const nav = screen.getByRole('navigation', {name: blogPage.tocLabel});
+    const nav = screen.getByRole('navigation', {name: fr.blog.toc});
     const link = within(nav).getByRole('link', {name: 'Un intertitre'});
     const anchor = link.getAttribute('href')?.slice(1) ?? '';
 

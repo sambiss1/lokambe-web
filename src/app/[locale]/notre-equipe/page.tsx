@@ -7,19 +7,21 @@ import {PageHero} from '@/components/sections/PageHero';
 import {Prose} from '@/components/sections/Prose';
 import {Section} from '@/components/sections/Section';
 import {TeamRoles} from '@/components/team/TeamRoles';
-import {team} from '@/content/team';
+import {getTeam} from '@/content/team';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(team.meta, {locale, path: '/notre-equipe'});
+  return pageMetadata(getTeam(locale).meta, {locale, path: '/notre-equipe'});
 }
 
 export default async function TeamPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
+
+  const team = getTeam(locale);
 
   return (
     <>

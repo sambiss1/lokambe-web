@@ -1,5 +1,23 @@
-import {fr} from '../fr';
 import type {SiteContent} from '../types';
+import {about} from './about';
+import {apply} from './apply';
+import {contact} from './contact';
+import {forms} from './forms';
+import {home} from './home';
+import {impact} from './impact';
+import {legalNotice, privacy} from './legal';
+import {model} from './model';
+import {sectors} from './sectors';
 
-// Remplacé à la Task 8 par la traduction anglaise.
-export const en: SiteContent = fr;
+export const en: SiteContent = {
+  home,
+  about,
+  model,
+  sectors,
+  impact,
+  apply,
+  contact,
+  forms,
+  legalNotice,
+  privacy,
+};

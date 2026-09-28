@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {BLOG_EXAMPLE_NOTICE, blogPage} from '@/content/blog';
+import {useTranslations} from 'next-intl';
 import {withHeadingAnchors} from '@/lib/blog/article';
 import type {Article} from '@/lib/blog/article';
 import {Reveal} from '../motion/Reveal';
@@ -14,6 +14,7 @@ import {Eyebrow} from '../ui/Eyebrow';
  * lien exécutable. Sa mise en forme vient des règles `.article-rich`.
  */
 export function ArticleBody({article}: {article: Article}) {
+  const t = useTranslations('blog');
   const {html, toc} = withHeadingAnchors(article.html);
 
   // `flow-root` empêche la marge négative de l’image de remonter le fond blanc.
@@ -36,8 +37,8 @@ export function ArticleBody({article}: {article: Article}) {
         <div className="mt-12 grid gap-10 sm:mt-16 lg:grid-cols-12 lg:gap-14">
           {toc.length > 0 && (
             <aside className="hidden lg:col-span-4 lg:block">
-              <nav aria-label={blogPage.tocLabel} className="lg:sticky lg:top-32">
-                <Eyebrow className="text-ink-soft">{blogPage.tocLabel}</Eyebrow>
+              <nav aria-label={t('toc')} className="lg:sticky lg:top-32">
+                <Eyebrow className="text-ink-soft">{t('toc')}</Eyebrow>
                 <ol className="mt-5 space-y-3 border-l border-line pl-6">
                   {toc.map((item) => (
                     <li key={item.id}>
@@ -57,7 +58,7 @@ export function ArticleBody({article}: {article: Article}) {
           <div className={toc.length > 0 ? 'lg:col-span-8' : 'lg:col-span-9'}>
             {article.isExample && (
               <p className="max-w-[68ch] border-l-2 border-lokambe-red pl-5 text-[0.9375rem] leading-relaxed text-ink-soft">
-                {BLOG_EXAMPLE_NOTICE}
+                {t('exampleNotice')}
               </p>
             )}
 
