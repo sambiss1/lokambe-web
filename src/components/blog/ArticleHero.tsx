@@ -1,12 +1,7 @@
 import {ArrowLeft} from 'lucide-react';
 import type {CSSProperties} from 'react';
-import {
-  BLOG_BASE_PATH,
-  blogPage,
-  formatArticleDate,
-  formatReadingTime,
-  getCategory,
-} from '@/content/blog';
+import {useLocale, useTranslations} from 'next-intl';
+import {BLOG_BASE_PATH, formatArticleDate} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {Link} from '@/i18n/navigation';
 import {Container} from '../ui/Container';
@@ -18,7 +13,8 @@ const SEPARATED =
 
 /** Bandeau bleu d’un article : thème, titre, date, durée de lecture. */
 export function ArticleHero({article}: {article: Article}) {
-  const category = getCategory(article.category);
+  const t = useTranslations('blog');
+  const locale = useLocale();
 
   return (
     <section className="relative isolate overflow-hidden bg-lokambe-blue text-white">
@@ -37,11 +33,11 @@ export function ArticleHero({article}: {article: Article}) {
           className="fade-up inline-flex items-center gap-2 text-[0.9375rem] font-bold text-white/75 transition-colors duration-300 hover:text-white"
         >
           <ArrowLeft aria-hidden="true" className="size-4" strokeWidth={2.6} />
-          {blogPage.backLabel}
+          {t('back')}
         </Link>
 
         <div className="fade-up mt-9" style={{'--i': 1} as CSSProperties}>
-          <Eyebrow className="text-white/85">{category.label}</Eyebrow>
+          <Eyebrow className="text-white/85">{t(`categories.${article.category}.label`)}</Eyebrow>
         </div>
 
         <h1 className="display mt-6 max-w-[24ch] text-[clamp(1.85rem,6.23vw,3.45rem)] lg:text-[clamp(2.3rem,3.6vw,3.9rem)]">
@@ -64,9 +60,9 @@ export function ArticleHero({article}: {article: Article}) {
           <span className="font-bold text-white">{article.author}</span>
           {/* Le séparateur appartient à l’élément suivant : il ne reste pas seul en fin de ligne. */}
           <time dateTime={article.publishedAt} className={SEPARATED}>
-            {formatArticleDate(article.publishedAt)}
+            {formatArticleDate(article.publishedAt, locale)}
           </time>
-          <span className={SEPARATED}>{formatReadingTime(article.readingMinutes)}</span>
+          <span className={SEPARATED}>{t('readingTime', {minutes: article.readingMinutes})}</span>
           {article.isExample && (
             <span className="basis-full sm:basis-auto">
               <ExampleBadge tone="dark" />

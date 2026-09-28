@@ -5,7 +5,7 @@ export const legalNotice: LegalContent = {
   meta: {title: 'Mentions légales', description: 'Mentions légales du site LOKAMBE.'},
   title: 'Mentions légales',
   updatedLabel: 'Dernière mise à jour',
-  updatedAt: '15 septembre 2026',
+  updatedAt: '28 septembre 2026',
   sections: [
     {
       title: 'Éditeur du site',
@@ -17,8 +17,8 @@ export const legalNotice: LegalContent = {
     {
       title: 'Hébergement',
       paragraphs: [
-        'Le site et son API sont hébergés par Railway Corp. (railway.com), États-Unis.',
-        'Les données transmises via les formulaires, y compris les pièces jointes, sont stockées dans une base MongoDB hébergée sur Railway. Les emails transactionnels sont envoyés via ZeptoMail (Zoho Corporation).',
+        'Le site est hébergé par Vercel Inc. (vercel.com), États-Unis. L’interface d’administration et l’API qui la sert sont hébergées par Railway Corp. (railway.com), États-Unis.',
+        'Les données transmises via les formulaires, y compris les pièces jointes, sont stockées dans une base MongoDB hébergée aux États-Unis. Les emails transactionnels sont envoyés via ZeptoMail (Zoho Corporation).',
       ],
     },
     {
@@ -32,7 +32,7 @@ export const legalNotice: LegalContent = {
       title: 'Nature des informations',
       paragraphs: [
         'Les informations publiées sur ce site présentent le modèle et les orientations de LOKAMBE. Elles ne constituent ni une offre de financement, ni une sollicitation d’investissement, ni un conseil financier.',
-        'Toute intervention de LOKAMBE est soumise à son processus d’analyse et à la décision de son Comité d’investissement.',
+        'Toute intervention de LOKAMBE est soumise à son analyse préalable et à sa décision.',
       ],
     },
   ],
@@ -45,7 +45,7 @@ export const privacy: LegalContent = {
   },
   title: 'Politique de confidentialité',
   updatedLabel: 'Dernière mise à jour',
-  updatedAt: '15 septembre 2026',
+  updatedAt: '28 septembre 2026',
   sections: [
     {
       title: 'Données collectées',
@@ -57,13 +57,13 @@ export const privacy: LegalContent = {
     {
       title: 'Finalités',
       paragraphs: [
-        'Ces données sont utilisées exclusivement pour étudier votre candidature selon le processus d’investissement de LOKAMBE, vous recontacter et répondre à vos demandes. Elles ne sont jamais vendues ni utilisées à des fins publicitaires.',
+        'Ces données sont utilisées exclusivement pour étudier votre candidature, vous recontacter et répondre à vos demandes. Elles ne sont jamais vendues ni utilisées à des fins publicitaires.',
       ],
     },
     {
       title: 'Destinataires',
       paragraphs: [
-        'Vos données sont accessibles uniquement à l’équipe permanente de LOKAMBE et, pour les dossiers qui lui sont soumis, aux membres du Comité d’investissement. Des experts du réseau LOKAMBE peuvent y avoir accès dans le cadre de l’analyse d’un dossier, sous engagement de confidentialité.',
+        'Vos données sont accessibles uniquement aux personnes de LOKAMBE chargées d’étudier votre dossier. Des experts extérieurs peuvent y avoir accès dans ce même cadre, sous engagement de confidentialité.',
       ],
     },
     {

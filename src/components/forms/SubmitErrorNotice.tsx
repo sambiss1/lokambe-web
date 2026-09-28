@@ -23,9 +23,9 @@ export function SubmitErrorNotice({
 
   return (
     <div role="alert" className="mt-6 flex items-start gap-3 rounded-2xl bg-lokambe-red/8 p-4 ring-1 ring-lokambe-red/30 ring-inset">
-      <TriangleAlert aria-hidden="true" className="mt-0.5 size-5 flex-none text-lokambe-red" />
+      <TriangleAlert aria-hidden="true" className="mt-0.5 size-5 flex-none text-lokambe-red-strong" />
       <div>
-        <p className="text-base font-semibold text-lokambe-red">{labels.title}</p>
+        <p className="text-base font-semibold text-lokambe-red-strong">{labels.title}</p>
         <p className="mt-1 max-w-[55ch] text-base leading-relaxed text-ink-soft">{message[kind]}</p>
       </div>
     </div>

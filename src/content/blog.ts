@@ -73,48 +73,6 @@ export const BLOG_BASE_PATH = '/blog';
 
 export const BLOG_AUTHOR = 'L’équipe LOKAMBE';
 
-/** Mention discrète rappelant que les articles sont des exemples. */
-export const BLOG_EXAMPLE_LABEL = 'Article d’exemple';
-
-export const BLOG_EXAMPLE_NOTICE =
-  'Article d’exemple. Ce texte illustre la ligne éditoriale du blog LOKAMBE : il ne décrit ni une opération, ni une entreprise financée par le fonds.';
-
-/* ------------------------------------------------------------ page index */
-
-export const blogPage = {
-  meta: {
-    title: 'Blog',
-    description:
-      'Analyses et conseils pratiques sur l’entrepreneuriat congolais, le financement des PME et l’économie réelle en République démocratique du Congo.',
-  },
-  hero: {
-    eyebrow: 'Le blog',
-    title: 'Comprendre le capital privé et l’entreprise en RDC',
-    intro:
-      'Des repères concrets pour les entrepreneurs de Kinshasa et d’ailleurs : gestion, financement, formalisation, commerce, restauration. Des textes courts, utiles, sans jargon.',
-    image: {
-      src: '/images/home-kinshasa.webp',
-      alt: 'Rue commerçante animée de Kinshasa',
-    },
-  },
-  filterLabel: 'Filtrer par thème',
-  allLabel: 'Tous les articles',
-  featuredLabel: 'À la une',
-  countLabel: (count: number) => (count > 1 ? `${count} articles` : `${count} article`),
-  emptyLabel: 'Aucun article dans ce thème pour le moment.',
-  tocLabel: 'Sommaire',
-  latest: {
-    eyebrow: 'Continuer la lecture',
-    title: 'Derniers articles',
-  },
-  backLabel: 'Tous les articles',
-  cta: {
-    title: 'Votre projet mérite mieux qu’un dossier de plus',
-    text: 'Vous dirigez une activité rentable à Kinshasa et vous cherchez du capital et de l’accompagnement pour changer d’échelle ? Parlons-en.',
-    primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Nous écrire', href: '/contact'},
-  },
-} as const;
 
 /* ---------------------------------------------------------------- articles */
 
@@ -710,11 +668,21 @@ export function articlePath(slug: string): string {
   return `${BLOG_BASE_PATH}/${slug}`;
 }
 
-/** Date de publication en toutes lettres, par exemple « 2 septembre 2026 ». */
-export function formatArticleDate(iso: string): string {
-  return new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'}).format(
-    new Date(`${iso}T00:00:00Z`),
-  );
+/**
+ * Date de publication en toutes lettres : « 2 septembre 2026 », « 2 September 2026 ».
+ *
+ * Les régions sont explicites : « en » seul donnerait la date à l'américaine
+ * (« September 2, 2026 »), alors que le site est rédigé en anglais britannique.
+ */
+const DATE_LOCALES: Record<string, string> = {fr: 'fr-FR', en: 'en-GB'};
+
+export function formatArticleDate(iso: string, locale: string = 'fr'): string {
+  return new Intl.DateTimeFormat(DATE_LOCALES[locale] ?? locale, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${iso}T00:00:00Z`));
 }
 
 /** Ancre d’un intertitre, utilisée par le sommaire de l’article. */
@@ -728,7 +696,4 @@ export function headingAnchor(text: string, index: number): string {
   return `${index + 1}-${base || 'section'}`;
 }
 
-/** Durée de lecture affichée, par exemple « 5 min de lecture ». */
-export function formatReadingTime(minutes: number): string {
-  return `${minutes} min de lecture`;
-}
+

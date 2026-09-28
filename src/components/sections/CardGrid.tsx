@@ -26,7 +26,7 @@ export function CardGrid({items, numbered = false, tone = 'light', columns = 3}:
           )}
         >
           {numbered ? (
-            <span className={cx('text-4xl leading-none font-extrabold tabular-nums', dark ? 'text-lokambe-peach' : 'text-lokambe-red')}>
+            <span className={cx('text-4xl leading-none font-extrabold tabular-nums', dark ? 'text-lokambe-peach' : 'text-lokambe-red-strong')}>
               {String(index + 1).padStart(2, '0')}
             </span>
           ) : (

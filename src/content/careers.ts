@@ -1,5 +1,5 @@
 /**
- * Contenu de la page « Carrières » (français).
+ * Contenu de la page « Carrières », en français et en anglais.
  *
  * Aucun effectif, aucune rémunération, aucun avantage n’est annoncé : la page
  * décrit la réalité du travail chez LOKAMBE et accueille les candidatures.
@@ -113,3 +113,72 @@ export const careers: CareersContent = {
     secondary: {label: 'Découvrir l’équipe', href: '/notre-equipe'},
   },
 };
+
+/* ------------------------------------------------------------------ anglais */
+
+export const careersEn: CareersContent = {
+  meta: {
+    title: 'Careers',
+    description:
+      'Working at LOKAMBE: the field, rigour and closeness to Congolese entrepreneurs. Open positions and speculative applications.',
+  },
+  hero: {
+    eyebrow: 'Careers',
+    title: 'Building LOKAMBE, out in the field',
+    intro:
+      'LOKAMBE is built by a small, demanding team that stays close to the entrepreneurs it finances. Our open positions are listed here — and you can send us a speculative application at any time.',
+    image: {src: '/images/process-hero.webp', alt: 'Three women talking around a laptop'},
+  },
+  culture: {
+    eyebrow: 'Working at LOKAMBE',
+    title: 'The field first, then rigour',
+    intro:
+      'A light structure, where everyone covers several functions, documents their work and answers for their decisions.',
+    items: [
+      {
+        title: 'The field first',
+        text: 'Company visits, information gathered on site, regular checks: our decisions rest on what we have seen and verified ourselves.',
+      },
+      {
+        title: 'Rigour as a method',
+        text: 'Written analysis, criteria set in advance, procedures and indicators followed. Nothing rests on intuition alone.',
+      },
+      {
+        title: 'Close to entrepreneurs',
+        text: 'We support the companies we finance over time. Talking with the people who run them is part of the daily work.',
+      },
+      {
+        title: 'Real responsibility',
+        text: 'A small team means a wide remit, visible decisions and a direct hand in building LOKAMBE.',
+      },
+    ],
+  },
+  openings: {
+    eyebrow: 'Open positions',
+    title: 'Our openings',
+    intro: 'The positions currently open for recruitment.',
+    empty: {
+      title: 'No open position at the moment',
+      text: 'Write to us — speculative applications are welcome.',
+      cta: {label: 'Send an application', href: '/contact'},
+    },
+    labels: {
+      location: 'Location',
+      contract: 'Contract',
+      missions: 'Responsibilities',
+      profile: 'Who we are looking for',
+      apply: 'Apply',
+    },
+  },
+  cta: {
+    title: 'Speculative application',
+    text: 'Introduce yourself in a few lines, say which role interests you and attach your CV. We reply to every application we review.',
+    primary: {label: 'Write to us', href: '/contact'},
+    secondary: {label: 'Meet the team', href: '/notre-equipe'},
+  },
+};
+
+/** La page « Carrières » dans la langue demandée. */
+export function getCareers(locale: string): CareersContent {
+  return locale === 'en' ? careersEn : careers;
+}

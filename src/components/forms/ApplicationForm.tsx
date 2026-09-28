@@ -312,7 +312,7 @@ export function ApplicationForm({content, labels}: Props) {
                 {fileErrors.length > 0 && (
                   <ul className="mt-3 space-y-1">
                     {fileErrors.map((error) => (
-                      <li key={error} className="text-base font-medium text-lokambe-red">
+                      <li key={error} className="text-base font-medium text-lokambe-red-strong">
                         {error}
                       </li>
                     ))}

@@ -5,19 +5,21 @@ import {CardGrid} from '@/components/sections/CardGrid';
 import {CtaBanner} from '@/components/sections/CtaBanner';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
-import {careers, jobPostings} from '@/content/careers';
+import {getCareers, jobPostings} from '@/content/careers';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale} = await params;
-  return pageMetadata(careers.meta, {locale, path: '/carrieres'});
+  return pageMetadata(getCareers(locale).meta, {locale, path: '/carrieres'});
 }
 
 export default async function CareersPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
+
+  const careers = getCareers(locale);
 
   return (
     <>

@@ -47,8 +47,8 @@
   "navDesc": {
     "about": "Why LOKAMBE exists and what we believe in.",
     "model": "Invest, create, support: how we work.",
-    "sectors": "Our 5 priority sectors and our criteria.",
-    "impact": "Jobs, income and territorial rollout.",
+    "sectors": "Our seven priority sectors and the profile we look for.",
+    "impact": "Jobs, income and local value creation.",
     "team": "The four roles that run the fund.",
     "blog": "Entrepreneurship, financing and the real economy in the DRC.",
     "careers": "Join LOKAMBE."
@@ -56,5 +56,64 @@
   "navPromo": {
     "title": "Running a business that deserves to grow?",
     "cta": "Submit a project"
+  },
+  "blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "Analysis and practical advice on Congolese entrepreneurship, financing small businesses and the real economy in the Democratic Republic of the Congo.",
+    "heroEyebrow": "The blog",
+    "heroTitle": "Making sense of private capital and business in the DRC",
+    "heroIntro": "Concrete pointers for entrepreneurs in Kinshasa and beyond: management, financing, formalisation, trade, restaurants. Short, useful pieces, without the jargon.",
+    "heroImageAlt": "Busy shopping street in Kinshasa",
+    "filterLabel": "Filter by topic",
+    "allLabel": "All articles",
+    "featuredLabel": "Featured",
+    "count": "{count, plural, one {# article} other {# articles}}",
+    "empty": "No article in this topic yet.",
+    "emptyLocale": "No article has been published in English yet.",
+    "toc": "Contents",
+    "back": "All articles",
+    "readingTime": "{minutes} min read",
+    "latestEyebrow": "Keep reading",
+    "latestTitle": "Latest articles",
+    "ctaTitle": "Your project deserves more than another file in a drawer",
+    "ctaText": "You run a profitable business in Kinshasa and you are looking for capital and support to change scale? Let’s talk.",
+    "ctaPrimary": "Submit a project",
+    "ctaSecondary": "Write to us",
+    "exampleLabel": "Sample article",
+    "exampleNotice": "Sample article. This text illustrates the editorial line of the LOKAMBE blog: it describes neither a transaction nor a company financed by the fund.",
+    "categories": {
+      "entrepreneuriat": {
+        "label": "Congolese entrepreneurship",
+        "short": "Entrepreneurship"
+      },
+      "financement": {
+        "label": "Financing small businesses",
+        "short": "Financing"
+      },
+      "creation": {
+        "label": "Starting a company",
+        "short": "Starting up"
+      },
+      "commerce": {
+        "label": "Local trade",
+        "short": "Trade"
+      },
+      "restauration": {
+        "label": "Restaurants and catering",
+        "short": "Restaurants"
+      },
+      "investissement": {
+        "label": "Investment and the real economy",
+        "short": "Investment"
+      },
+      "histoires": {
+        "label": "Entrepreneurs’ stories",
+        "short": "Stories"
+      },
+      "portefeuille": {
+        "label": "Portfolio news",
+        "short": "Portfolio"
+      }
+    }
   }
 }

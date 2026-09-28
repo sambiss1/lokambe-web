@@ -7,7 +7,7 @@ export type ButtonSize = 'md' | 'lg';
 
 const VARIANTS: Record<ButtonVariant, {base: string; dot: string}> = {
   blue: {base: 'bg-lokambe-blue text-white hover:bg-lokambe-blue-deep', dot: 'bg-white'},
-  red: {base: 'bg-lokambe-red text-white hover:bg-[#c8062f]', dot: 'bg-white'},
+  red: {base: 'bg-lokambe-red-strong text-white hover:bg-lokambe-red-strong-hover', dot: 'bg-white'},
   white: {base: 'bg-white text-lokambe-blue hover:bg-lokambe-peach-soft', dot: 'bg-lokambe-red'},
   peach: {base: 'bg-lokambe-peach text-lokambe-blue hover:bg-white', dot: 'bg-lokambe-blue'},
   ink: {base: 'bg-ink text-white hover:bg-lokambe-blue', dot: 'bg-lokambe-peach'},
