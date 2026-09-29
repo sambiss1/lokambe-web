@@ -17,7 +17,6 @@ export const home: HomeContent = {
     primary: {label: 'Submit a project', href: '/soumettre-un-projet'},
     secondary: {label: 'Discover us', href: '/a-propos'},
     cards: {
-      step: {label: 'On the ground', title: 'Visit', text: 'We come and see the business, and understand it, before we invest.'},
       sector: {label: 'Priority sector', title: 'Trade and distribution'},
       place: {label: 'Beyond capital', title: 'Support'},
       pillars: {label: 'What sets us apart', title: 'Invest · Create · Support'},
@@ -177,10 +176,8 @@ export const home: HomeContent = {
   partners: {
     eyebrow: 'Partners',
     title: 'Those moving forward with us',
-    intro: 'Financial, technical and institutional partners. Click on a partner to see their role.',
-    // Nothing has been supplied yet: the section stays hidden while this list is
-    // empty, rather than showing made-up names.
-    items: [],
+    intro: 'The partners supporting LOKAMBE as it grows.',
+    items: [{id: 'niwali', name: 'NIWALI', logo: '/images/partners/niwali.webp'}],
     detail: {sectorLabel: 'Type of partnership', statusLabel: 'Since', pending: 'To be confirmed', close: 'Close'},
     empty: 'LOKAMBE’s partners will be presented here.',
   },
@@ -201,24 +198,28 @@ export const home: HomeContent = {
     title: 'What an investment changes',
     paragraphs: [
       'We invest in real businesses, alongside the entrepreneurs who run them day after day. Capital serves to produce more, sell more and employ more.',
+      'A large share of Congolese economic activity remains informal. Investing also means helping a business get organised, and making its growth measurable.',
     ],
     image: {src: '/images/home-kinshasa.webp', alt: 'Kinshasa boulevard with yellow taxis and motorbikes'},
     overlay: 'DRC.',
+    // The three formalisation texts, moved here at the client's request on
+    // 29 September. Same titles and descriptions as the Impact page; only the
+    // kickers above them are new, the timeline needs one per step.
     points: [
       {
-        label: 'What we finance',
-        title: 'Equipment and stock',
-        text: 'Machines, tools, raw materials and working capital.',
+        label: 'Where we start',
+        title: 'Organise before financing',
+        text: 'Bookkeeping, cash register, stock and procedures: we help the entrepreneur put the business in order — the condition for capital to be well used.',
       },
       {
-        label: 'What we bring',
-        title: 'Support',
-        text: 'Skills, tools and a network, alongside the entrepreneur.',
+        label: 'What we support',
+        title: 'Support formalisation',
+        text: 'Trade register, tax identification, contracts and articles of association: formalisation becomes a step in the growth plan, not a barrier to entry.',
       },
       {
         label: 'What we aim for',
-        title: 'Solid companies',
-        text: 'Better organised, more independent, creating jobs and income.',
+        title: 'Help the business grow',
+        text: 'An organised company gains easier access to credit, suppliers, public and private markets, and can hire for the long term.',
       },
     ],
     closing: 'We invest in those who are already building.',

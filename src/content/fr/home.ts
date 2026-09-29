@@ -16,7 +16,6 @@ export const home: HomeContent = {
     primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
     secondary: {label: 'Nous découvrir', href: '/a-propos'},
     cards: {
-      step: {label: 'Sur le terrain', title: 'Visiter', text: 'Nous venons voir et comprendre l’activité avant d’investir.'},
       sector: {label: 'Secteur prioritaire', title: 'Commerce et distribution'},
       place: {label: 'Au-delà du capital', title: 'Accompagnement'},
       pillars: {label: 'Ce qui nous distingue', title: 'Investir · Créer · Accompagner'},
@@ -177,10 +176,8 @@ export const home: HomeContent = {
   partners: {
     eyebrow: 'Partenaires',
     title: 'Ceux qui avancent avec nous',
-    intro: 'Partenaires financiers, techniques et institutionnels. Cliquez sur un partenaire pour voir son rôle.',
-    // Aucun partenaire n'a encore été communiqué : la section reste masquée
-    // tant que cette liste est vide, plutôt que d'afficher des noms inventés.
-    items: [],
+    intro: 'Les partenaires qui accompagnent LOKAMBE dans son développement.',
+    items: [{id: 'niwali', name: 'NIWALI', logo: '/images/partners/niwali.webp'}],
     detail: {sectorLabel: 'Type de partenariat', statusLabel: 'Depuis', pending: 'À renseigner', close: 'Fermer'},
     empty: 'Les partenaires de LOKAMBE seront présentés ici.',
   },
@@ -201,24 +198,28 @@ export const home: HomeContent = {
     title: 'Ce que change un investissement',
     paragraphs: [
       'Nous investissons dans des activités réelles, aux côtés d’entrepreneurs qui les dirigent au quotidien. Le capital sert à produire davantage, vendre davantage et employer davantage.',
+      'Une grande partie de l’activité économique congolaise reste informelle. Investir, c’est aussi aider une activité à se structurer, et rendre sa croissance mesurable.',
     ],
     image: {src: '/images/home-kinshasa.webp', alt: 'Boulevard de Kinshasa avec taxis jaunes et motos'},
     overlay: 'RDC.',
+    // Les trois textes de la section Formalisation, repris ici à la demande du
+    // client le 29 septembre. Titres et descriptions sont les siens, mot pour
+    // mot ; seuls les intitulés au-dessus sont ajoutés, la frise en a besoin.
     points: [
       {
-        label: 'Ce que nous finançons',
-        title: 'Équipements et stock',
-        text: 'Machines, matériel, matières premières et fonds de roulement.',
+        label: 'Par où nous commençons',
+        title: 'Structurer avant de financer',
+        text: 'Comptabilité, caisse, stocks et procédures : nous aidons l’entrepreneur à mettre de l’ordre dans son activité, condition d’un capital bien utilisé.',
       },
       {
-        label: 'Ce que nous apportons',
-        title: 'Accompagnement',
-        text: 'Des compétences, des outils et un réseau, aux côtés de l’entrepreneur.',
+        label: 'Ce que nous accompagnons',
+        title: 'Accompagner la formalisation',
+        text: 'RCCM, identification fiscale, contrats et statuts : la formalisation devient une étape du plan de croissance, pas un obstacle à l’entrée.',
       },
       {
         label: 'Ce que nous visons',
-        title: 'Des entreprises solides',
-        text: 'Plus structurées, plus autonomes, créatrices d’emplois et de revenus.',
+        title: 'Contribuer à la croissance de l’activité',
+        text: 'Une entreprise structurée accède plus facilement au crédit, aux fournisseurs, aux marchés publics et privés, et peut recruter durablement.',
       },
     ],
     closing: 'Nous investissons dans ceux qui créent déjà.',

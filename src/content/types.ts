@@ -54,7 +54,6 @@ export type HomeContent = {
     primary: LinkItem;
     secondary: LinkItem;
     cards: {
-      step: {label: string; title: string; text: string};
       sector: {label: string; title: string};
       place: {label: string; title: string};
       /** Les trois piliers, demandés par le client le 29 septembre. */

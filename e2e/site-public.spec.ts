@@ -8,6 +8,26 @@ test('l’accueil présente le fonds et ses deux appels à l’action', async ({
   await expect(page.getByRole('heading', {level: 1})).toContainText('Musapi moko');
   await expect(page.getByRole('link', {name: 'Soumettre un projet'}).first()).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
+
+  // La carte « Visiter » a été retirée du bandeau, sur tous les écrans.
+  await expect(page.getByText('Nous venons voir et comprendre')).toHaveCount(0);
+});
+
+test('« Notre engagement » porte les trois textes de la formalisation', async ({page}) => {
+  await page.goto('/fr');
+
+  for (const titre of ['Structurer avant de financer', 'Accompagner la formalisation', 'Contribuer à la croissance de l’activité']) {
+    await expect(page.getByRole('heading', {name: titre})).toBeVisible();
+  }
+});
+
+test('les partenaires ne sont que des logos, sans fiche au clic', async ({page}) => {
+  await page.goto('/fr');
+
+  await expect(page.getByRole('heading', {name: 'Ceux qui avancent avec nous'})).toBeVisible();
+  await expect(page.getByRole('img', {name: 'NIWALI'})).toBeVisible();
+  // Le client ne veut afficher que le logo : pas de tuile cliquable.
+  await expect(page.getByRole('button', {name: 'NIWALI'})).toHaveCount(0);
 });
 
 test('la racine redirige vers le français', async ({page}) => {
@@ -75,9 +95,11 @@ test('le portefeuille montre les sept entreprises et ouvre leur fiche', async ({
 });
 
 test('les sections déplacées sont bien à leur nouvelle place', async ({page}) => {
-  // La formalisation a quitté l'accueil pour Impact, la FAQ pour Contact.
+  // La section Formalisation a quitté l'accueil pour Impact, la FAQ pour
+  // Contact. Les trois textes de la formalisation, eux, ont été repris dans
+  // « Notre engagement » — c'est la section, pas le texte, qui a déménagé.
   await page.goto('/fr');
-  await expect(page.getByRole('heading', {name: /formel/i})).toHaveCount(0);
+  await expect(page.getByRole('heading', {name: /de l’informel vers le formel/i})).toHaveCount(0);
   await expect(page.getByText('Vous vous posez des questions ?')).toHaveCount(0);
 
   await page.goto('/fr/impact');

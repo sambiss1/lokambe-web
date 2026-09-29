@@ -33,8 +33,10 @@ export default async function HomePage({params}: Props) {
       <SectorsBento sectors={home.sectors} />
       <LogoWall content={home.portfolio} tone="peach" />
       <SupportPilot support={home.support} pilot={home.pilot} />
-      {/* Tant qu'aucun partenaire n'est communiqué, la section reste masquée. */}
-      {home.partners.items.length > 0 && <LogoWall content={home.partners} />}
+      {/* Les partenaires : juste les logos, sans fiche au clic — le client n'a
+          rien d'autre à afficher pour l'instant. La section reste masquée tant
+          que la liste est vide. */}
+      {home.partners.items.length > 0 && <LogoWall content={home.partners} interactive={false} />}
     </>
   );
 }

@@ -52,32 +52,12 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
             <div className="absolute inset-0 bg-gradient-to-t from-lokambe-blue/35 via-transparent to-transparent" />
           </div>
 
-          {/* Cartes flottantes. La première — « Visiter » — disparaît sous 640 px :
-              sur un téléphone elle recouvrait la photo. Les trois autres sont des
-              pastilles, dont celle des trois piliers, ajoutée le 29 septembre. */}
-          <div
-            className="fade-up absolute top-[8%] hidden w-[15.5rem] sm:-left-6 sm:block lg:-left-10"
-            style={{'--i': 4} as CSSProperties}
-            aria-hidden="true"
-          >
-            <div className={cx(FLOAT, 'rounded-3xl bg-white p-5 text-ink shadow-[0_24px_60px_-18px_rgba(0,8,90,0.55)]')}>
-              <p className="text-sm font-medium text-ink-soft">{cards.step.label}</p>
-              <p className="mt-1 text-2xl font-extrabold text-lokambe-blue uppercase">{cards.step.title}</p>
-              <p className="mt-1.5 text-[0.95rem] leading-snug text-ink-soft">{cards.step.text}</p>
-              <div className="mt-4 flex gap-1">
-                {Array.from({length: 12}, (_, index) => (
-                  <span
-                    key={index}
-                    className={cx('h-1.5 flex-1 rounded-full', index < 3 ? 'bg-lokambe-red' : 'bg-lokambe-peach/60')}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
+          {/* Trois pastilles flottantes. La carte « Visiter » qui occupait le
+              haut à gauche a été retirée le 29 septembre : le client la voulait
+              hors du téléphone, puis hors de l'écran large aussi. */}
           <div
             className="fade-up absolute top-[3%] -right-1 sm:-right-5 lg:-right-3"
-            style={{'--i': 5} as CSSProperties}
+            style={{'--i': 4} as CSSProperties}
             aria-hidden="true"
           >
             <div
@@ -98,7 +78,7 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
 
           <div
             className="fade-up absolute right-0 bottom-[22%] sm:-right-4 lg:-right-2"
-            style={{'--i': 6} as CSSProperties}
+            style={{'--i': 5} as CSSProperties}
             aria-hidden="true"
           >
             <div
@@ -119,7 +99,7 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
 
           <div
             className="fade-up absolute bottom-[2%] left-[6%] lg:left-0"
-            style={{'--i': 7} as CSSProperties}
+            style={{'--i': 6} as CSSProperties}
             aria-hidden="true"
           >
             <div
