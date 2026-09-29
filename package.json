@@ -15,6 +15,7 @@
     "test:watch": "vitest",
     "brand": "node scripts/prepare-brand.mjs",
     "images": "node scripts/optimize-images.mjs",
+    "shot": "node scripts/screenshot.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "portfolio": "node scripts/prepare-portfolio.mjs"
