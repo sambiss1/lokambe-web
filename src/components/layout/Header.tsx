@@ -65,7 +65,7 @@ export function Header() {
         {t('skipToContent')}
       </a>
       <div className="mx-auto flex h-20 max-w-[1320px] items-center gap-6 px-5 sm:h-24 sm:px-8 lg:px-12">
-        <Link href="/" aria-label={t('homeLink')} className="relative block w-40 flex-none sm:w-48">
+        <Link href="/" aria-label={t('homeLink')} className="relative block w-36 flex-none sm:w-44">
           <Logo tone="white" priority className={cx('w-full transition-opacity duration-300', solid && 'opacity-0')} />
           <Logo
             tone="blue"

@@ -115,7 +115,7 @@ export function MobileMenu({solid}: {solid: boolean}) {
               )}
             >
               <div className="flex h-20 shrink-0 items-center justify-between border-b border-white/15 px-5 sm:h-24 sm:px-8">
-                <Link href="/" onClick={close} aria-label={t('homeLink')} className="block w-40 sm:w-44">
+                <Link href="/" onClick={close} aria-label={t('homeLink')} className="block w-36 sm:w-40">
                   <Logo tone="white" className="w-full" />
                 </Link>
                 <button
