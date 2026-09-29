@@ -1,10 +1,10 @@
-import type {HomeContent} from '@/content/types';
-import {CardGrid} from '../sections/CardGrid';
+import type {FormalisationContent} from '@/content/types';
 import {Container} from '../ui/Container';
 import {SectionHeader} from '../ui/SectionHeader';
+import {CardGrid} from './CardGrid';
 
-/** Comment LOKAMBE aide les activités informelles à se structurer. */
-export function Formalisation({formalisation}: {formalisation: HomeContent['formalisation']}) {
+/** Comment LOKAMBE aide les activités informelles à se structurer. Page Impact. */
+export function Formalisation({formalisation}: {formalisation: FormalisationContent}) {
   return (
     <section className="bg-lokambe-blue py-20 text-white sm:py-28">
       <Container>

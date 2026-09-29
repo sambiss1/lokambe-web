@@ -4,7 +4,7 @@ export const model: ModelContent = {
   meta: {
     title: 'Notre modèle',
     description:
-      'Investisseur, créateur et accompagnateur : les deux piliers d’intervention de LOKAMBE.',
+      'Investisseur, créateur et accompagnateur : les trois piliers d’intervention de LOKAMBE.',
   },
   hero: {
     eyebrow: 'Notre modèle',
@@ -34,8 +34,8 @@ export const model: ModelContent = {
     closing: 'Cette combinaison constitue l’identité du modèle.',
   },
   pillars: {
-    eyebrow: 'Deux piliers d’intervention',
-    title: 'Investir et créer',
+    eyebrow: 'Trois piliers d’intervention',
+    title: 'Investir, créer, accompagner',
     items: [
       {
         label: 'Pilier 1',
@@ -90,6 +90,35 @@ export const model: ModelContent = {
           },
         ],
         closing: 'L’objectif est de transformer une opportunité en entreprise, puis une entreprise en modèle duplicable.',
+      },
+      {
+        label: 'Pilier 3',
+        title: 'Accompagner la croissance',
+        text: 'Le capital seul ne fait pas grandir une entreprise. Chaque société financée ou créée par LOKAMBE bénéficie d’un appui concret, aux côtés de l’entrepreneur, sur les sujets qui décident réellement de sa croissance.',
+        groups: [
+          {
+            title: 'Les domaines couverts',
+            intro: 'Sur toute la durée de notre engagement :',
+            items: [
+              'Finance : comptabilité, trésorerie, suivi des marges',
+              'Commercial : prix, clientèle, distribution',
+              'Marketing : marque, communication, présence digitale',
+              'Opérations : stocks, achats, qualité',
+              'Ressources humaines : recrutement, organisation, management',
+            ],
+          },
+          {
+            title: 'Ce que cela change',
+            intro: 'Pour l’entreprise :',
+            items: [
+              'Des décisions prises sur des chiffres, pas au jugé',
+              'Une organisation qui tient quand l’activité augmente',
+              'Un accès facilité aux fournisseurs et aux financements',
+              'Une équipe qui se structure et se renforce',
+            ],
+          },
+        ],
+        closing: 'C’est ce qui distingue un investissement LOKAMBE d’un simple apport d’argent.',
       },
     ],
   },

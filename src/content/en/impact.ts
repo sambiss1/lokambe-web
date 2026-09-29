@@ -7,10 +7,10 @@ export const impact: ImpactContent = {
   },
   hero: {
     eyebrow: 'Impact and vision',
-    title: 'Profitability and local value, together',
+    title: 'Impact is part of the result',
     intro:
-      'LOKAMBE treats impact as part of value creation, and measures it just as it measures financial performance.',
-    image: {src: '/images/impact-hero.webp', alt: 'Two smiling employees at the counter of a street restaurant'},
+      'What a company changes around it — jobs, income, suppliers kept busy — counts as much as what it returns. We track both, with the same rigour.',
+    image: {src: '/images/impact-boutique.webp', alt: 'Young smiling shopkeeper behind the counter of her store'},
   },
   performance: {
     eyebrow: 'Measuring performance',
@@ -82,6 +82,26 @@ export const impact: ImpactContent = {
     ecosystemTitle: 'A genuine ecosystem',
     ecosystem: ['Investors', 'LOKAMBE', 'Entrepreneurs', 'Companies', 'Jobs', 'Income', 'Returns', 'Reinvestment'],
     closing: 'The ultimate aim is a cycle of Congolese private capital that grows stronger over time.',
+  },
+  formalisation: {
+    eyebrow: 'Formalisation',
+    title: 'Helping the Congolese economy move from informal to formal',
+    intro:
+      'A large share of Congolese economic activity remains informal. Investing also means helping a business get organised, and making its growth measurable.',
+    items: [
+      {
+        title: 'Organise before financing',
+        text: 'Bookkeeping, cash register, stock and procedures: we help the entrepreneur put the business in order — the condition for capital to be well used.',
+      },
+      {
+        title: 'Support formalisation',
+        text: 'Trade register, tax identification, contracts and articles of association: formalisation becomes a step in the growth plan, not a barrier to entry.',
+      },
+      {
+        title: 'Help the business grow',
+        text: 'An organised company gains easier access to credit, suppliers, public and private markets, and can hire for the long term.',
+      },
+    ],
   },
   cta: {
     title: 'Take part in the LOKAMBE cycle',

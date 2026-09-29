@@ -3,7 +3,7 @@ import type {ModelContent} from '../types';
 export const model: ModelContent = {
   meta: {
     title: 'Our model',
-    description: 'Investor, creator and partner: the two pillars of how LOKAMBE steps in.',
+    description: 'Investor, creator and partner: the three pillars of how LOKAMBE steps in.',
   },
   hero: {
     eyebrow: 'Our model',
@@ -33,8 +33,8 @@ export const model: ModelContent = {
     closing: 'That combination is what the model is.',
   },
   pillars: {
-    eyebrow: 'Two pillars',
-    title: 'Investing and creating',
+    eyebrow: 'Three pillars',
+    title: 'Investing, creating, supporting',
     items: [
       {
         label: 'Pillar 1',
@@ -89,6 +89,35 @@ export const model: ModelContent = {
           },
         ],
         closing: 'The aim is to turn an opportunity into a company, then a company into a model that can be replicated.',
+      },
+      {
+        label: 'Pillar 3',
+        title: 'Supporting growth',
+        text: 'Capital alone does not grow a company. Every business financed or created by LOKAMBE gets concrete help, alongside its founder, on the things that actually decide whether it grows.',
+        groups: [
+          {
+            title: 'What we cover',
+            intro: 'Throughout our involvement:',
+            items: [
+              'Finance: bookkeeping, cash flow, margin tracking',
+              'Sales: pricing, customers, distribution',
+              'Marketing: brand, communication, digital presence',
+              'Operations: stock, purchasing, quality',
+              'Human resources: hiring, organisation, management',
+            ],
+          },
+          {
+            title: 'What changes',
+            intro: 'For the company:',
+            items: [
+              'Decisions made on figures, not on hunches',
+              'An organisation that holds up as volumes rise',
+              'Easier access to suppliers and to funding',
+              'A team that gets organised and gains strength',
+            ],
+          },
+        ],
+        closing: 'That is what separates a LOKAMBE investment from simply handing over money.',
       },
     ],
   },

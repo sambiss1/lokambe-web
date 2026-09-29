@@ -8,9 +8,9 @@ export const about: AboutContent = {
   },
   hero: {
     eyebrow: 'À propos',
-    title: 'La RDC ne manque pas d’entrepreneurs.',
+    title: 'Le talent est là. Le capital doit suivre.',
     intro:
-      'Elle manque de mécanismes permettant à davantage d’entrepreneurs de changer d’échelle. LOKAMBE est né pour y répondre.',
+      'Partout en RDC, des entrepreneurs font vivre une activité rentable sans pouvoir la faire grandir. LOKAMBE a été créé pour leur apporter les deux choses qui manquent : du capital productif, et quelqu’un à leurs côtés.',
     image: {src: '/images/about-hero.webp', alt: 'Tailleur cousant sur sa machine à coudre'},
   },
   problem: {

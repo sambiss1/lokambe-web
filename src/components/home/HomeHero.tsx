@@ -1,4 +1,4 @@
-import {HeartHandshake, Store} from 'lucide-react';
+import {HeartHandshake, Layers, Store} from 'lucide-react';
 import Image from 'next/image';
 import type {CSSProperties} from 'react';
 import type {HomeContent} from '@/content/types';
@@ -52,9 +52,11 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
             <div className="absolute inset-0 bg-gradient-to-t from-lokambe-blue/35 via-transparent to-transparent" />
           </div>
 
-          {/* Cartes flottantes : elles illustrent le parcours réel d'un dossier. */}
+          {/* Cartes flottantes. La première — « Visiter » — disparaît sous 640 px :
+              sur un téléphone elle recouvrait la photo. Les trois autres sont des
+              pastilles, dont celle des trois piliers, ajoutée le 29 septembre. */}
           <div
-            className="fade-up absolute top-[8%] -left-1 w-[15.5rem] sm:-left-6 lg:-left-10"
+            className="fade-up absolute top-[8%] hidden w-[15.5rem] sm:-left-6 sm:block lg:-left-10"
             style={{'--i': 4} as CSSProperties}
             aria-hidden="true"
           >
@@ -74,8 +76,29 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
           </div>
 
           <div
-            className="fade-up absolute right-0 bottom-[22%] sm:-right-4 lg:-right-2"
+            className="fade-up absolute top-[3%] -right-1 sm:-right-5 lg:-right-3"
             style={{'--i': 5} as CSSProperties}
+            aria-hidden="true"
+          >
+            <div
+              className={cx(
+                FLOAT,
+                '[animation-delay:-1.2s] flex items-center gap-3 rounded-full bg-white py-2 pr-5 pl-2 text-lokambe-blue shadow-[0_20px_50px_-20px_rgba(0,8,90,0.6)]',
+              )}
+            >
+              <span className="grid size-10 flex-none place-items-center rounded-full bg-lokambe-blue text-white">
+                <Layers className="size-5" strokeWidth={2.2} />
+              </span>
+              <span className="leading-tight">
+                <span className="block text-xs font-medium">{cards.pillars.label}</span>
+                <span className="block text-[0.9375rem] font-extrabold whitespace-nowrap">{cards.pillars.title}</span>
+              </span>
+            </div>
+          </div>
+
+          <div
+            className="fade-up absolute right-0 bottom-[22%] sm:-right-4 lg:-right-2"
+            style={{'--i': 6} as CSSProperties}
             aria-hidden="true"
           >
             <div
@@ -96,7 +119,7 @@ export function HomeHero({hero}: {hero: HomeContent['hero']}) {
 
           <div
             className="fade-up absolute bottom-[2%] left-[6%] lg:left-0"
-            style={{'--i': 6} as CSSProperties}
+            style={{'--i': 7} as CSSProperties}
             aria-hidden="true"
           >
             <div

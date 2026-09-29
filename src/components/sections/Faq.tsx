@@ -1,11 +1,11 @@
 import {Plus} from 'lucide-react';
-import type {HomeContent} from '@/content/types';
+import type {FaqContent} from '@/content/types';
 import {Reveal} from '../motion/Reveal';
 import {ButtonLink} from '../ui/Button';
 import {Container} from '../ui/Container';
 import {Eyebrow} from '../ui/Eyebrow';
 
-export function Faq({faq}: {faq: HomeContent['faq']}) {
+export function Faq({faq}: {faq: FaqContent}) {
   return (
     <section className="bg-lokambe-peach py-24 sm:py-32">
       <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -14,9 +14,11 @@ export function Faq({faq}: {faq: HomeContent['faq']}) {
             <Eyebrow className="text-lokambe-blue">{faq.eyebrow}</Eyebrow>
             <h2 className="display mt-5 text-[clamp(1.95rem,4.1vw,3.7rem)] text-lokambe-blue">{faq.title}</h2>
             <p className="mt-6 text-[1.0625rem] text-ink sm:text-lg">{faq.contactText}</p>
-            <ButtonLink href={faq.contact.href} variant="blue" size="lg" className="mt-6">
-              {faq.contact.label}
-            </ButtonLink>
+            {faq.contact && (
+              <ButtonLink href={faq.contact.href} variant="blue" size="lg" className="mt-6">
+                {faq.contact.label}
+              </ButtonLink>
+            )}
           </div>
         </Reveal>
 

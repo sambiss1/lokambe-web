@@ -10,12 +10,15 @@ function RolePortrait({role}: {role: TeamRoleCard}) {
   return (
     <div className="relative isolate aspect-square w-full overflow-hidden bg-lokambe-blue sm:aspect-[4/5]">
       {role.photo.ready ? (
+        /* Sur téléphone le cadre est carré alors que les portraits sont en 4/5 :
+           un cadrage centré coupe le haut du crâne. On remonte le point
+           d'ancrage pour garder le visage dans le cadre. */
         <Image
           src={role.photo.src}
           alt={role.photo.alt}
           fill
           sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
-          className="object-cover"
+          className="object-[50%_20%] object-cover sm:object-center"
         />
       ) : (
         <>

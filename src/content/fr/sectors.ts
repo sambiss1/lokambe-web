@@ -4,18 +4,20 @@ export const sectors: SectorsContent = {
   meta: {
     title: 'Secteurs',
     description:
-      'Les sept secteurs prioritaires de LOKAMBE et le profil des entreprises que nous recherchons.',
+      'Les sept secteurs dans lesquels LOKAMBE investit, et le profil des entreprises que nous recherchons.',
   },
   hero: {
     eyebrow: 'Secteurs',
-    title: 'Comment cette entreprise gagne-t-elle de l’argent ?',
-    intro: 'C’est la question fondamentale à laquelle LOKAMBE doit pouvoir répondre clairement avant chaque investissement.',
-    image: {src: '/images/sectors-hero.webp', alt: 'Cuisinière préparant des pâtisseries dans une cuisine professionnelle'},
+    title: 'Sept secteurs, et rien d’autre',
+    intro:
+      'Restauration, métiers de bouche, commerce, événementiel, services, médias, formation : LOKAMBE concentre ses investissements sur sept secteurs plutôt que de tout survoler. C’est la condition pour les connaître vraiment — et pour être utile aux entreprises qui y travaillent.',
+    image: {src: '/images/sectors-marche.webp', alt: 'Commerçante souriante dans son étal de tissus et d’accessoires'},
   },
   thesis: {
     eyebrow: 'Thèse d’investissement',
-    title: 'Ce que nous recherchons',
-    intro: 'LOKAMBE privilégiera les entreprises qui combinent plusieurs facteurs.',
+    title: 'Ce que nous regardons avant d’investir',
+    intro:
+      'Le secteur ne suffit pas. Dans chacun d’eux, nous cherchons des entreprises qui réunissent plusieurs de ces conditions.',
     items: [
       {title: 'Un besoin réel', text: 'Le produit ou service répond à une demande identifiable et suffisamment importante.'},
       {
@@ -45,10 +47,10 @@ export const sectors: SectorsContent = {
     ],
   },
   sectors: {
-    eyebrow: 'Secteurs prioritaires',
-    title: 'Sept secteurs prioritaires',
+    eyebrow: 'Nos secteurs, en détail',
+    title: 'Là où nous investissons',
     intro:
-      'LOKAMBE concentre ses interventions sur un nombre limité de secteurs, afin d’y développer une véritable expertise.',
+      'Sept secteurs, choisis parce qu’ils répondent à une demande réelle à Kinshasa et ailleurs en RDC, et parce qu’une entreprise peut y grandir sans avoir à tout réinventer. Voici, secteur par secteur, les activités concernées.',
     items: [
       {
         title: 'Restauration',
@@ -93,12 +95,12 @@ export const sectors: SectorsContent = {
       },
     ],
     closing:
-      'LOKAMBE pourra progressivement élargir son champ d’intervention à mesure que son portefeuille, son équipe et ses capacités d’analyse se développeront.',
+      'Cette liste n’est pas figée : elle s’élargira à mesure que le portefeuille, l’équipe et notre connaissance du terrain se développeront.',
   },
   profile: {
-    eyebrow: 'Profil des entreprises ciblées',
-    title: 'Les entreprises que nous recherchons',
-    intro: 'LOKAMBE privilégiera les entreprises présentant :',
+    eyebrow: 'Profil recherché',
+    title: 'À quoi ressemble un dossier que nous retenons',
+    intro: 'Quel que soit le secteur, voici ce que nous regardons en premier :',
     items: [
       'Une activité réelle',
       'Des revenus existants ou démontrables',
@@ -109,12 +111,6 @@ export const sectors: SectorsContent = {
       'Une possibilité d’amélioration',
       'Un potentiel de croissance',
     ],
-    note: 'Le niveau de formalisation ne constituera pas nécessairement le seul critère d’entrée. Une activité informelle présentant un potentiel économique pourra être accompagnée dans sa structuration et sa formalisation avant ou pendant l’intervention de LOKAMBE.',
-  },
-  cta: {
-    title: 'Votre activité coche ces critères ?',
-    text: 'Présentez-nous votre projet, même si votre activité n’est pas encore formalisée.',
-    primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Nous découvrir', href: '/a-propos'},
+    note: 'Votre activité n’est pas encore formalisée ? Ce n’est pas un motif de refus. Une activité informelle qui présente un potentiel économique peut être accompagnée dans sa structuration et sa formalisation, avant ou pendant notre intervention.',
   },
 };

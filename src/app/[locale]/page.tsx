@@ -1,9 +1,6 @@
 import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
 import {CapitalCycle} from '@/components/home/CapitalCycle';
-import {Faq} from '@/components/home/Faq';
-import {FinalCta} from '@/components/home/FinalCta';
-import {Formalisation} from '@/components/home/Formalisation';
 import {LogoWall} from '@/components/home/LogoWall';
 import {HomeHero} from '@/components/home/HomeHero';
 import {SectorsBento} from '@/components/home/SectorsBento';
@@ -35,11 +32,9 @@ export default async function HomePage({params}: Props) {
       <CapitalCycle functions={home.functions} />
       <SectorsBento sectors={home.sectors} />
       <LogoWall content={home.portfolio} tone="peach" />
-      <Formalisation formalisation={home.formalisation} />
       <SupportPilot support={home.support} pilot={home.pilot} />
-      <LogoWall content={home.partners} />
-      <Faq faq={home.faq} />
-      <FinalCta cta={home.cta} />
+      {/* Tant qu'aucun partenaire n'est communiqué, la section reste masquée. */}
+      {home.partners.items.length > 0 && <LogoWall content={home.partners} />}
     </>
   );
 }

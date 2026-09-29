@@ -3,23 +3,29 @@ import {join} from 'node:path';
 import {describe, expect, it} from 'vitest';
 import {fr} from './fr';
 
-function collectImageSources(node: unknown): string[] {
-  if (Array.isArray(node)) return node.flatMap(collectImageSources);
+/** Toutes les valeurs portées par une clé donnée, quelle que soit leur profondeur. */
+function collectByKey(node: unknown, wanted: string): string[] {
+  if (Array.isArray(node)) return node.flatMap((child) => collectByKey(child, wanted));
   if (node !== null && typeof node === 'object') {
     return Object.entries(node).flatMap(([key, value]) =>
-      key === 'src' && typeof value === 'string' ? [value] : collectImageSources(value),
+      key === wanted && typeof value === 'string' ? [value] : collectByKey(value, wanted),
     );
   }
   return [];
 }
 
 const publicFile = (src: string) => join(process.cwd(), 'public', src);
-const sources = Array.from(new Set(collectImageSources(fr)));
+
+/** Les photographies du site : elles viennent de banques libres de droits. */
+const photos = Array.from(new Set(collectByKey(fr, 'src')));
+/** Les logos des entreprises du portefeuille : fournis par le client. */
+const logos = Array.from(new Set(collectByKey(fr, 'logo')));
 
 describe('images', () => {
   it('chaque image référencée dans le contenu existe dans public/', () => {
-    expect(sources.length).toBeGreaterThanOrEqual(16);
-    expect(sources.filter((src) => !existsSync(publicFile(src)))).toEqual([]);
+    expect(photos.length).toBeGreaterThanOrEqual(15);
+    expect(logos.length).toBeGreaterThanOrEqual(7);
+    expect([...photos, ...logos].filter((src) => !existsSync(publicFile(src)))).toEqual([]);
   });
 
   it('les assets de marque existent', () => {
@@ -30,6 +36,6 @@ describe('images', () => {
 
   it('chaque photo a une ligne de crédit', () => {
     const credits = readFileSync(publicFile('/images/CREDITS.md'), 'utf8');
-    expect(sources.filter((src) => !credits.includes(src.replace('/images/', '')))).toEqual([]);
+    expect(photos.filter((src) => !credits.includes(src.replace('/images/', '')))).toEqual([]);
   });
 });

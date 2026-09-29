@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
 import {ContactForm} from '@/components/forms/ContactForm';
 import {Reveal} from '@/components/motion/Reveal';
+import {Faq} from '@/components/sections/Faq';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
 import {getContent} from '@/content';
@@ -54,6 +55,8 @@ export default async function ContactPage({params}: Props) {
           </div>
         </div>
       </Section>
+
+      <Faq faq={contact.faq} />
     </>
   );
 }

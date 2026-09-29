@@ -20,9 +20,9 @@ export const home: HomeContent = {
       step: {label: 'On the ground', title: 'Visit', text: 'We come and see the business, and understand it, before we invest.'},
       sector: {label: 'Priority sector', title: 'Trade and distribution'},
       place: {label: 'Beyond capital', title: 'Support'},
+      pillars: {label: 'What sets us apart', title: 'Invest · Create · Support'},
     },
   },
-  marquee: ['Invest', 'Create', 'Support', 'Grow', 'Reinvest'],
   statement: {
     quote: 'We do not give. We invest.',
     text: 'Capital is a lever for creating value. It should allow a business to get organised, produce more, generate revenue, create jobs, build up capital and, in time, help finance new economic opportunities itself.',
@@ -110,16 +110,66 @@ export const home: HomeContent = {
   },
   portfolio: {
     eyebrow: 'Portfolio',
-    title: 'The companies we support',
+    title: 'Growing with us.',
     intro:
-      'Every company financed or created by LOKAMBE joins this portfolio. Click on a company to see its sector and how far the project has come.',
+      'Seven companies financed or created by LOKAMBE. Click on one of them to see what it does, its sector and how far along the project is.',
     items: [
-      {id: 'entreprise-1', name: 'Company 1'},
-      {id: 'entreprise-2', name: 'Company 2'},
-      {id: 'entreprise-3', name: 'Company 3'},
-      {id: 'entreprise-4', name: 'Company 4'},
-      {id: 'entreprise-5', name: 'Company 5'},
-      {id: 'entreprise-6', name: 'Company 6'},
+      {
+        id: 'bradamada',
+        name: 'Bradamada',
+        logo: '/images/portfolio/bradamada.webp',
+        sector: 'Restaurants and catering',
+        status: 'In development',
+        text: 'An experiential fast-food concept that turns the world, personality and identity of public figures into unique, immersive and memorable culinary experiences.',
+      },
+      {
+        id: 'sitini',
+        name: 'Sitini',
+        logo: '/images/portfolio/sitini.webp',
+        sector: 'Restaurants and catering',
+        status: 'On hold',
+        text: 'A chain of modern malewa serving authentic Congolese cooking — generous, affordable and popular — in a warm, contemporary setting.',
+      },
+      {
+        id: 'jaiant',
+        name: 'JAIANT',
+        logo: '/images/portfolio/jaiant.webp',
+        sector: 'Food crafts',
+        status: 'In development',
+        text: 'A brand built around ice cream, popsicles and frozen creations, with an indulgent, inventive and affordable range. It reworks frozen treats through original recipes, flavours drawn from Congolese produce and surprising combinations, in a young, playful and popular world.',
+      },
+      {
+        id: 'lecap',
+        name: 'LECAP',
+        logo: '/images/portfolio/lecap.webp',
+        sector: 'Media and entertainment',
+        status: 'In development',
+        text: 'A media outlet covering politics, governance and public affairs, decoding how power works and what is at stake in public life.',
+      },
+      {
+        id: 'mololo',
+        name: 'Mololo',
+        logo: '/images/portfolio/mololo.webp',
+        sector: 'Media and entertainment',
+        status: 'Under way',
+        text: 'A media outlet covering culture, the arts, creators and the Congolese cultural and creative industries, shining a light on the talent, trends and ventures shaping that scene.',
+      },
+      {
+        id: 'congolicious',
+        name: 'Congolicious',
+        logo: '/images/portfolio/congolicious.webp',
+        sector: 'Media and entertainment',
+        status: 'Under way',
+        text: 'A platform devoted to travel, lifestyle, food and discovering the Democratic Republic of the Congo, showcasing its destinations, heritage, culture and way of life.',
+      },
+      {
+        id: 'grand-mololo',
+        name: 'Grand Mololo',
+        logo: '/images/portfolio/grand-mololo.webp',
+        sector: 'Media and entertainment',
+        status: 'Under way',
+        text: 'A multidisciplinary creative house working across audiovisual production, events, marketing, communication and strategic advice. It works alongside brands, institutions, companies and talent to design and deliver high-impact projects.',
+      },
     ],
     detail: {sectorLabel: 'Sector', statusLabel: 'Project status', pending: 'To be confirmed', close: 'Close'},
     empty: 'The first companies in the portfolio will be presented here.',
@@ -128,35 +178,11 @@ export const home: HomeContent = {
     eyebrow: 'Partners',
     title: 'Those moving forward with us',
     intro: 'Financial, technical and institutional partners. Click on a partner to see their role.',
-    items: [
-      {id: 'partenaire-1', name: 'Partner 1'},
-      {id: 'partenaire-2', name: 'Partner 2'},
-      {id: 'partenaire-3', name: 'Partner 3'},
-      {id: 'partenaire-4', name: 'Partner 4'},
-      {id: 'partenaire-5', name: 'Partner 5'},
-    ],
+    // Nothing has been supplied yet: the section stays hidden while this list is
+    // empty, rather than showing made-up names.
+    items: [],
     detail: {sectorLabel: 'Type of partnership', statusLabel: 'Since', pending: 'To be confirmed', close: 'Close'},
     empty: 'LOKAMBE’s partners will be presented here.',
-  },
-  formalisation: {
-    eyebrow: 'Formalisation',
-    title: 'Bringing the real economy into the formal sector',
-    intro:
-      'A large share of Congolese economic activity remains informal. Investing also means helping a business get organised, and making its growth measurable.',
-    items: [
-      {
-        title: 'Organise before financing',
-        text: 'Bookkeeping, cash register, stock and procedures: we help the entrepreneur put the business in order — the condition for capital to be well used.',
-      },
-      {
-        title: 'Support registration',
-        text: 'Trade register, tax identification, contracts and articles of association: formalisation becomes a step in the growth plan, not a barrier to entry.',
-      },
-      {
-        title: 'Make the business financeable',
-        text: 'An organised company gains easier access to credit, suppliers, public and private markets, and can hire for the long term.',
-      },
-    ],
   },
   support: {
     eyebrow: 'Support',
@@ -196,40 +222,5 @@ export const home: HomeContent = {
       },
     ],
     closing: 'We invest in those who are already building.',
-  },
-  faq: {
-    eyebrow: 'Frequently asked questions',
-    title: 'Something you would like to know?',
-    items: [
-      {
-        question: 'Who can submit a project to LOKAMBE?',
-        answer:
-          'Entrepreneurs running a real business in the DRC: small and medium-sized enterprises, micro-businesses or income-generating activities, with identifiable customers and a precise need.',
-      },
-      {
-        question: 'My business is not formally registered. Can I still apply?',
-        answer:
-          'Yes. An informal business with economic potential can be supported as it gets organised and registered.',
-      },
-      {
-        question: 'Which sectors are priorities?',
-        answer:
-          'Restaurants and catering, food crafts and processing, trade and distribution, events, services, media and entertainment, education and training.',
-      },
-      {
-        question: 'Does LOKAMBE make donations or give grants?',
-        answer:
-          'No. We do not give, we invest: capital is committed alongside the entrepreneur, and always comes with support.',
-      },
-    ],
-    contactText: 'Another question? Our team will answer you.',
-    contact: {label: 'Contact us', href: '/contact'},
-  },
-  cta: {
-    title: 'Running a business that deserves to grow?',
-    text: 'Tell us about your project: we study every application carefully, on the ground as well as in the figures.',
-    primary: {label: 'Submit a project', href: '/soumettre-un-projet'},
-    secondary: {label: 'Discover us', href: '/a-propos'},
-    image: {src: '/images/cta-entrepreneur.webp', alt: 'Young woman entrepreneur in an orange blazer'},
   },
 };

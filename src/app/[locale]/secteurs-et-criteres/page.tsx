@@ -3,7 +3,6 @@ import {setRequestLocale} from 'next-intl/server';
 import {Reveal} from '@/components/motion/Reveal';
 import {CardGrid} from '@/components/sections/CardGrid';
 import {CheckList} from '@/components/sections/CheckList';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
@@ -45,8 +44,6 @@ export default async function SectorsPage({params}: Props) {
           </p>
         </Reveal>
       </Section>
-
-      <CtaBanner cta={sectors.cta} />
     </>
   );
 }

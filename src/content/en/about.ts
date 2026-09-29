@@ -8,9 +8,9 @@ export const about: AboutContent = {
   },
   hero: {
     eyebrow: 'About',
-    title: 'The DRC is not short of entrepreneurs.',
+    title: 'The talent is here. Capital must follow.',
     intro:
-      'What it lacks are the mechanisms that would let more of them change scale. LOKAMBE was created to answer that.',
+      'Across the DRC, entrepreneurs run profitable businesses they have no way of growing. LOKAMBE was created to bring them both missing pieces: productive capital, and someone standing beside them.',
     image: {src: '/images/about-hero.webp', alt: 'Tailor sewing at his machine'},
   },
   problem: {

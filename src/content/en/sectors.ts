@@ -3,18 +3,20 @@ import type {SectorsContent} from '../types';
 export const sectors: SectorsContent = {
   meta: {
     title: 'Sectors',
-    description: 'LOKAMBE’s seven priority sectors, and the profile of the companies we look for.',
+    description: 'The seven sectors LOKAMBE invests in, and the profile of the companies we look for.',
   },
   hero: {
     eyebrow: 'Sectors',
-    title: 'How does this company make money?',
-    intro: 'That is the basic question LOKAMBE must be able to answer clearly before any investment.',
-    image: {src: '/images/sectors-hero.webp', alt: 'Cook preparing pastries in a professional kitchen'},
+    title: 'Seven sectors, and nothing else',
+    intro:
+      'Restaurants, food crafts, trade, events, services, media, training: LOKAMBE concentrates its investments on seven sectors rather than skimming across everything. That is what it takes to know them properly — and to be useful to the companies working in them.',
+    image: {src: '/images/sectors-marche.webp', alt: 'Smiling shopkeeper at her stall of fabrics and accessories'},
   },
   thesis: {
     eyebrow: 'Investment thesis',
-    title: 'What we look for',
-    intro: 'LOKAMBE favours companies that combine several factors.',
+    title: 'What we look at before investing',
+    intro:
+      'The sector alone is not enough. Within each of them, we look for companies that bring together several of these conditions.',
     items: [
       {title: 'A real need', text: 'The product or service answers demand that can be identified and is large enough.'},
       {
@@ -44,10 +46,10 @@ export const sectors: SectorsContent = {
     ],
   },
   sectors: {
-    eyebrow: 'Priority sectors',
-    title: 'Seven priority sectors',
+    eyebrow: 'Our sectors, in detail',
+    title: 'Where we invest',
     intro:
-      'LOKAMBE concentrates on a limited number of sectors, in order to build real expertise in them.',
+      'Seven sectors, chosen because they answer real demand in Kinshasa and elsewhere in the DRC, and because a company can grow in them without having to reinvent everything. Here is what each one covers.',
     items: [
       {
         title: 'Restaurants and catering',
@@ -92,12 +94,12 @@ export const sectors: SectorsContent = {
       },
     ],
     closing:
-      'LOKAMBE may gradually widen its field as its portfolio, its team and its analytical capacity grow.',
+      'This list is not fixed: it will widen as the portfolio, the team and our knowledge of the ground grow.',
   },
   profile: {
-    eyebrow: 'Profile of the companies we look for',
-    title: 'The companies we are looking for',
-    intro: 'LOKAMBE favours companies that show:',
+    eyebrow: 'The profile we look for',
+    title: 'What an application we take forward looks like',
+    intro: 'Whatever the sector, here is what we look at first:',
     items: [
       'A real activity',
       'Existing or demonstrable revenue',
@@ -108,12 +110,6 @@ export const sectors: SectorsContent = {
       'Room for improvement',
       'Potential for growth',
     ],
-    note: 'Being formally registered will not necessarily be the only condition for applying. An informal business with economic potential may be supported as it gets organised and registered, before or during LOKAMBE’s involvement.',
-  },
-  cta: {
-    title: 'Does your business tick these boxes?',
-    text: 'Tell us about your project, even if your business is not formally registered yet.',
-    primary: {label: 'Submit a project', href: '/soumettre-un-projet'},
-    secondary: {label: 'Discover us', href: '/a-propos'},
+    note: 'Your business is not formally registered yet? That is not a reason to say no. An informal business with economic potential can be supported as it gets organised and registered, before or during our involvement.',
   },
 };

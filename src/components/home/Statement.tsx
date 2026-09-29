@@ -11,19 +11,21 @@ export function Statement({statement, facts}: {statement: HomeContent['statement
   return (
     <section className="bg-white py-24 sm:py-32 lg:py-40">
       <Container>
-        <blockquote>
-          <p className="word-fill display text-[clamp(2.25rem,6.89vw,6.95rem)] leading-[0.88] text-lokambe-blue">
-            {words.map((word, index) => (
-              <span key={`${word}-${index}`}>
-                {word}
-                {index < words.length - 1 ? ' ' : ''}
-              </span>
-            ))}
-          </p>
-        </blockquote>
+        {/* Une seule grille : le titre à gauche, le paragraphe à sa hauteur, à
+            droite. Sur mobile, ils restent l'un sous l'autre. */}
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <blockquote className="lg:col-span-6">
+            <p className="word-fill display text-[clamp(2.25rem,4.6vw,4.45rem)] leading-[0.88] text-lokambe-blue">
+              {words.map((word, index) => (
+                <span key={`${word}-${index}`}>
+                  {word}
+                  {index < words.length - 1 ? ' ' : ''}
+                </span>
+              ))}
+            </p>
+          </blockquote>
 
-        <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12">
-          <Reveal className="lg:col-span-6 lg:col-start-7">
+          <Reveal className="lg:col-span-5 lg:col-start-8 lg:pt-2">
             <p className="text-lg leading-relaxed text-ink-soft sm:text-xl sm:leading-relaxed">{statement.text}</p>
           </Reveal>
         </div>

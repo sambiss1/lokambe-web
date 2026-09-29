@@ -34,7 +34,7 @@ export default async function BlogIndexPage({params}: Props) {
           eyebrow: t('heroEyebrow'),
           title: t('heroTitle'),
           intro: t('heroIntro'),
-          image: {src: '/images/home-kinshasa.webp', alt: t('heroImageAlt')},
+          image: {src: '/images/blog-hero.webp', alt: t('heroImageAlt')},
         }}
       />
 

@@ -1,10 +1,7 @@
 import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
-import {Reveal} from '@/components/motion/Reveal';
 import {CardGrid} from '@/components/sections/CardGrid';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {PageHero} from '@/components/sections/PageHero';
-import {Prose} from '@/components/sections/Prose';
 import {Section} from '@/components/sections/Section';
 import {TeamRoles} from '@/components/team/TeamRoles';
 import {getTeam} from '@/content/team';
@@ -31,31 +28,9 @@ export default async function TeamPage({params}: Props) {
         <TeamRoles members={team.roles.members} />
       </Section>
 
-      <Section tone="blue" eyebrow={team.decisions.eyebrow} title={team.decisions.title} intro={team.decisions.intro}>
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-16">
-          <div className="lg:col-span-7">
-            <Prose paragraphs={team.decisions.paragraphs} tone="dark" lead />
-          </div>
-          <Reveal index={1} className="lg:col-span-5">
-            <h3 className="text-base font-bold text-white/80">{team.decisions.valuesTitle}</h3>
-            <ul className="mt-4 flex flex-wrap gap-2.5">
-              {team.decisions.values.map((value) => (
-                <li
-                  key={value}
-                  className="rounded-full bg-white/10 px-4 py-2 text-[0.9375rem] font-bold text-white ring-1 ring-white/15 ring-inset"
-                >
-                  {value}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-        <div className="mt-14">
-          <CardGrid items={team.decisions.items} tone="dark" />
-        </div>
+      <Section tone="blue" eyebrow={team.values.eyebrow} title={team.values.title} intro={team.values.intro}>
+        <CardGrid items={team.values.items} tone="dark" columns={2} />
       </Section>
-
-      <CtaBanner cta={team.cta} />
     </>
   );
 }

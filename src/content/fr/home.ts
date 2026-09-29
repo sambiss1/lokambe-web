@@ -19,9 +19,9 @@ export const home: HomeContent = {
       step: {label: 'Sur le terrain', title: 'Visiter', text: 'Nous venons voir et comprendre l’activité avant d’investir.'},
       sector: {label: 'Secteur prioritaire', title: 'Commerce et distribution'},
       place: {label: 'Au-delà du capital', title: 'Accompagnement'},
+      pillars: {label: 'Ce qui nous distingue', title: 'Investir · Créer · Accompagner'},
     },
   },
-  marquee: ['Investir', 'Créer', 'Accompagner', 'Faire grandir', 'Réinvestir'],
   statement: {
     quote: 'Nous ne donnons pas. Nous investissons.',
     text: 'Le capital est un levier de création de valeur. Il doit permettre à une activité de se structurer, de produire davantage, de générer des revenus, de créer des emplois, d’accumuler du capital et, à terme, de contribuer elle-même au financement de nouvelles opportunités économiques.',
@@ -110,16 +110,66 @@ export const home: HomeContent = {
   },
   portfolio: {
     eyebrow: 'Portefeuille',
-    title: 'Les entreprises que nous accompagnons',
+    title: 'Elles grandissent avec nous.',
     intro:
-      'Chaque entreprise financée ou créée par LOKAMBE rejoint ce portefeuille. Cliquez sur une entreprise pour voir son secteur et l’avancement du projet.',
+      'Sept entreprises financées ou créées par LOKAMBE. Cliquez sur l’une d’elles pour découvrir son activité, son secteur et l’avancement du projet.',
     items: [
-      {id: 'entreprise-1', name: 'Entreprise 1'},
-      {id: 'entreprise-2', name: 'Entreprise 2'},
-      {id: 'entreprise-3', name: 'Entreprise 3'},
-      {id: 'entreprise-4', name: 'Entreprise 4'},
-      {id: 'entreprise-5', name: 'Entreprise 5'},
-      {id: 'entreprise-6', name: 'Entreprise 6'},
+      {
+        id: 'bradamada',
+        name: 'Bradamada',
+        logo: '/images/portfolio/bradamada.webp',
+        sector: 'Restauration',
+        status: 'En développement',
+        text: 'Un concept de restauration rapide expérientielle qui transforme l’univers, la personnalité et l’identité de figures publiques en expériences culinaires uniques, immersives et mémorables.',
+      },
+      {
+        id: 'sitini',
+        name: 'Sitini',
+        logo: '/images/portfolio/sitini.webp',
+        sector: 'Restauration',
+        status: 'En pause',
+        text: 'Une chaîne de malewa modernes proposant une cuisine congolaise authentique, généreuse, accessible et populaire, dans un cadre convivial et contemporain.',
+      },
+      {
+        id: 'jaiant',
+        name: 'JAIANT',
+        logo: '/images/portfolio/jaiant.webp',
+        sector: 'Métiers de bouche',
+        status: 'En développement',
+        text: 'Marque spécialisée dans les glaces, popsicles et créations glacées, proposant une offre gourmande, créative et accessible. Elle revisite les plaisirs glacés à travers des recettes originales, des saveurs inspirées du terroir congolais et des associations innovantes, dans un univers jeune, fun et populaire.',
+      },
+      {
+        id: 'lecap',
+        name: 'LECAP',
+        logo: '/images/portfolio/lecap.webp',
+        sector: 'Médias et divertissement',
+        status: 'En développement',
+        text: 'Média dédié à la politique, à la gouvernance et aux affaires publiques, pour décrypter les mécanismes du pouvoir et mieux comprendre les enjeux de la vie publique.',
+      },
+      {
+        id: 'mololo',
+        name: 'Mololo',
+        logo: '/images/portfolio/mololo.webp',
+        sector: 'Médias et divertissement',
+        status: 'En cours',
+        text: 'Média dédié à la culture, aux arts, aux créateurs et aux industries culturelles et créatives congolaises, mettant en lumière les talents, les tendances et les initiatives qui façonnent la scène culturelle et créative.',
+      },
+      {
+        id: 'congolicious',
+        name: 'Congolicious',
+        logo: '/images/portfolio/congolicious.webp',
+        sector: 'Médias et divertissement',
+        status: 'En cours',
+        text: 'Plateforme dédiée au tourisme, au lifestyle, à la gastronomie et à la découverte de la République démocratique du Congo, valorisant ses destinations, son patrimoine, sa culture et son art de vivre.',
+      },
+      {
+        id: 'grand-mololo',
+        name: 'Grand Mololo',
+        logo: '/images/portfolio/grand-mololo.webp',
+        sector: 'Médias et divertissement',
+        status: 'En cours',
+        text: 'Maison créative pluridisciplinaire spécialisée dans la production audiovisuelle, l’événementiel, le marketing, la communication et le conseil stratégique. Elle accompagne marques, institutions, entreprises et talents dans la conception et la réalisation de projets à fort impact.',
+      },
     ],
     detail: {sectorLabel: 'Secteur', statusLabel: 'Statut du projet', pending: 'À renseigner', close: 'Fermer'},
     empty: 'Les premières entreprises du portefeuille seront présentées ici.',
@@ -128,35 +178,11 @@ export const home: HomeContent = {
     eyebrow: 'Partenaires',
     title: 'Ceux qui avancent avec nous',
     intro: 'Partenaires financiers, techniques et institutionnels. Cliquez sur un partenaire pour voir son rôle.',
-    items: [
-      {id: 'partenaire-1', name: 'Partenaire 1'},
-      {id: 'partenaire-2', name: 'Partenaire 2'},
-      {id: 'partenaire-3', name: 'Partenaire 3'},
-      {id: 'partenaire-4', name: 'Partenaire 4'},
-      {id: 'partenaire-5', name: 'Partenaire 5'},
-    ],
+    // Aucun partenaire n'a encore été communiqué : la section reste masquée
+    // tant que cette liste est vide, plutôt que d'afficher des noms inventés.
+    items: [],
     detail: {sectorLabel: 'Type de partenariat', statusLabel: 'Depuis', pending: 'À renseigner', close: 'Fermer'},
     empty: 'Les partenaires de LOKAMBE seront présentés ici.',
-  },
-  formalisation: {
-    eyebrow: 'Formalisation',
-    title: 'Faire entrer l’économie réelle dans le formel',
-    intro:
-      'Une grande partie de l’activité économique congolaise reste informelle. Investir, c’est aussi aider une activité à se structurer, et rendre sa croissance mesurable.',
-    items: [
-      {
-        title: 'Structurer avant de financer',
-        text: 'Comptabilité, caisse, stocks et procédures : nous aidons l’entrepreneur à mettre de l’ordre dans son activité, condition d’un capital bien utilisé.',
-      },
-      {
-        title: 'Accompagner l’enregistrement',
-        text: 'RCCM, identification fiscale, contrats et statuts : la formalisation devient une étape du plan de croissance, pas un obstacle à l’entrée.',
-      },
-      {
-        title: 'Rendre l’activité finançable',
-        text: 'Une entreprise structurée accède plus facilement au crédit, aux fournisseurs, aux marchés publics et privés, et peut recruter durablement.',
-      },
-    ],
   },
   support: {
     eyebrow: 'Accompagnement',
@@ -196,40 +222,5 @@ export const home: HomeContent = {
       },
     ],
     closing: 'Nous investissons dans ceux qui créent déjà.',
-  },
-  faq: {
-    eyebrow: 'Questions fréquentes',
-    title: 'Vous vous posez des questions ?',
-    items: [
-      {
-        question: 'Qui peut soumettre un projet à LOKAMBE ?',
-        answer:
-          'Les entrepreneurs qui développent une activité réelle en RDC : PME, microentreprises ou activités génératrices de revenus, avec une clientèle identifiable et un besoin précis.',
-      },
-      {
-        question: 'Mon activité n’est pas formalisée. Puis-je candidater ?',
-        answer:
-          'Oui. Une activité informelle qui présente un potentiel économique peut être accompagnée dans sa structuration et sa formalisation.',
-      },
-      {
-        question: 'Quels secteurs sont prioritaires ?',
-        answer:
-          'La restauration, les métiers de bouche et la transformation alimentaire, le commerce et la distribution, l’événementiel, les services, les médias et le divertissement, l’éducation et la formation.',
-      },
-      {
-        question: 'LOKAMBE fait-il des dons ou des subventions ?',
-        answer:
-          'Non. Nous ne donnons pas, nous investissons : le capital est engagé aux côtés de l’entrepreneur, et toujours associé à un accompagnement.',
-      },
-    ],
-    contactText: 'Une autre question ? Notre équipe vous répond.',
-    contact: {label: 'Nous contacter', href: '/contact'},
-  },
-  cta: {
-    title: 'Vous portez une activité qui mérite de grandir ?',
-    text: 'Présentez-nous votre projet : nous étudions chaque dossier avec rigueur, sur le terrain comme dans les chiffres.',
-    primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Nous découvrir', href: '/a-propos'},
-    image: {src: '/images/cta-entrepreneur.webp', alt: 'Jeune femme entrepreneure en blazer orange'},
   },
 };

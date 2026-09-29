@@ -1,18 +1,19 @@
 /**
  * Contenu de la page « Notre équipe », en français et en anglais.
  *
- * Extrait volontairement réduit du dossier de gouvernance : seuls les quatre
- * rôles permanents et le principe de collégialité sont publiés. La composition
- * du Comité d’investissement, les seuils de décision, la répartition détaillée
- * des responsabilités et les contrôles de risques restent internes.
+ * Le client l'a recadrée le 29 septembre : la page met en avant l'engagement de
+ * l'équipe, pas sa taille. Les sections « Nos décisions » et « Envie de
+ * rejoindre l'équipe ? » en ont été retirées à sa demande.
+ *
+ * Rien de ce qui décrit la mécanique interne du fonds n'est publié : ni la
+ * composition du Comité d'investissement, ni les seuils de décision, ni les
+ * contrôles de risques.
  *
  * Les postes sont présentés par rôle ; un nom n’apparaît que lorsqu’il est fourni.
  */
 
-type LinkItem = {label: string; href: string};
 type PageMeta = {title: string; description: string};
 type HeroContent = {eyebrow: string; title: string; intro: string; image?: {src: string; alt: string; position?: string}};
-type CtaContent = {title: string; text: string; primary: LinkItem; secondary?: LinkItem};
 type TitledText = {title: string; text: string};
 
 /**
@@ -41,16 +42,8 @@ export type TeamPageContent = {
   meta: PageMeta;
   hero: HeroContent;
   roles: {eyebrow: string; title: string; intro: string; members: TeamRoleCard[]};
-  decisions: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    paragraphs: string[];
-    items: TitledText[];
-    valuesTitle: string;
-    values: string[];
-  };
-  cta: CtaContent;
+  /** Ce qui réunit l'équipe : le cœur de la page depuis le 29 septembre. */
+  values: {eyebrow: string; title: string; intro: string; items: TitledText[]};
 };
 
 /** Les quatre rôles permanents, dans l’ordre de présentation. */
@@ -107,53 +100,47 @@ export const team: TeamPageContent = {
   meta: {
     title: 'Notre équipe',
     description:
-      'Les quatre rôles permanents de LOKAMBE et la façon dont les décisions sont prises : collégialement et sur la base d’analyses documentées.',
+      'Celles et ceux qui font LOKAMBE : quatre rôles, une même conviction — le talent entrepreneurial congolais mérite du capital et de l’accompagnement.',
   },
   hero: {
     eyebrow: 'Notre équipe',
-    title: 'Une équipe resserrée, au plus près du terrain',
+    title: 'Engagés aux côtés des entrepreneurs',
     intro:
-      'LOKAMBE fonctionne avec une équipe permanente volontairement réduite : quatre rôles complémentaires, une séparation claire entre la direction, l’analyse des investissements et le suivi du portefeuille, et des décisions prises collégialement.',
-    image: {src: '/images/governance-hero.webp', alt: 'Deux jeunes hommes en réunion autour d’une table de travail'},
+      'Ce qui réunit l’équipe LOKAMBE tient en une conviction : le talent entrepreneurial congolais mérite mieux que des promesses. Chacun ici travaille au contact des entrepreneurs, sur le terrain, avec exigence et dans la durée.',
+    image: {src: '/images/team-hero.webp', alt: 'Trois femmes en pleine discussion de travail autour d’un ordinateur portable'},
   },
   roles: {
     eyebrow: 'L’équipe permanente',
-    title: 'Quatre rôles permanents',
+    title: 'Quatre rôles, un même engagement',
     intro:
-      'Une organisation légère et polyvalente, qui distingue nettement la direction, la préparation des investissements et la gestion du portefeuille. Elle se renforcera à mesure que le portefeuille grandira.',
+      'Direction, investissement, portefeuille, opérations : quatre responsabilités distinctes, tenues par des personnes qui partagent la même exigence — connaître vraiment les entreprises qu’elles accompagnent, et rester proches de celles et ceux qui les dirigent.',
     members: teamRoles,
   },
-  decisions: {
-    eyebrow: 'Nos décisions',
-    title: 'Collégiales et documentées',
-    intro: 'Aucune décision d’investissement significative ne repose sur la seule appréciation d’une personne.',
-    paragraphs: [
-      'Chaque dossier est instruit par écrit, selon des critères définis à l’avance, puis soumis à une validation collégiale. L’analyse, la décision et le suivi relèvent de fonctions distinctes : personne ne contrôle seul l’ensemble du processus.',
-    ],
+  values: {
+    eyebrow: 'Ce qui nous anime',
+    title: 'Notre manière de travailler',
+    intro: 'Ce que les entrepreneurs peuvent attendre de nous, à chaque étape.',
     items: [
       {
-        title: 'Analyse documentée',
-        text: 'Chaque dossier est instruit par écrit : éligibilité, modèle économique, viabilité financière, risques identifiés.',
+        title: 'La proximité',
+        text: 'Nous allons voir. Une activité ne se juge pas sur un document : elle se comprend sur place, au contact de celui ou celle qui la dirige.',
       },
       {
-        title: 'Validation collégiale',
-        text: 'Les décisions d’investissement sont prises collectivement, selon les règles que LOKAMBE s’est fixées.',
+        title: 'L’exigence',
+        text: 'Nous regardons les chiffres en face et nous disons ce que nous voyons. Un accompagnement utile est un accompagnement franc.',
       },
       {
-        title: 'Fonctions distinctes',
-        text: 'Préparer, décider et suivre sont trois responsabilités séparées, confiées à des rôles différents.',
+        title: 'La durée',
+        text: 'Nous ne cherchons pas le coup d’éclat. Une entreprise se construit sur des années, et nous restons à ses côtés sur cette durée.',
+      },
+      {
+        title: 'La détermination',
+        text: 'Faire grandir une entreprise en RDC demande de la ténacité. Nous en attendons des entrepreneurs, et nous nous l’imposons à nous-mêmes.',
       },
     ],
-    valuesTitle: 'Ce qui guide nos décisions',
-    values: ['Responsabilité', 'Transparence', 'Collégialité', 'Protection du capital'],
-  },
-  cta: {
-    title: 'Envie de rejoindre l’équipe ?',
-    text: 'LOKAMBE recrute des profils de terrain, rigoureux et proches des entrepreneurs. Découvrez nos opportunités ou écrivez-nous.',
-    primary: {label: 'Voir les carrières', href: '/carrieres'},
-    secondary: {label: 'Nous contacter', href: '/contact'},
   },
 };
+
 
 
 /* ------------------------------------------------------------------ anglais */
@@ -212,53 +199,47 @@ export const teamEn: TeamPageContent = {
   meta: {
     title: 'Our team',
     description:
-      'LOKAMBE’s four permanent roles, and how decisions are taken: collectively, and on the basis of written analysis.',
+      'The people behind LOKAMBE: four roles, one shared conviction — Congolese entrepreneurial talent deserves capital and real support.',
   },
   hero: {
     eyebrow: 'Our team',
-    title: 'A small team, close to the ground',
+    title: 'Standing with entrepreneurs',
     intro:
-      'LOKAMBE runs with a deliberately small permanent team: four complementary roles, a clear separation between leadership, investment analysis and portfolio follow-up, and decisions taken collectively.',
-    image: {src: '/images/governance-hero.webp', alt: 'Two young men in a meeting around a work table'},
+      'One conviction brings this team together: Congolese entrepreneurial talent deserves more than promises. Everyone here works alongside entrepreneurs, on the ground, demanding much and staying for the long haul.',
+    image: {src: '/images/team-hero.webp', alt: 'Three women deep in a work discussion around a laptop'},
   },
   roles: {
     eyebrow: 'The permanent team',
-    title: 'Four permanent roles',
+    title: 'Four roles, one commitment',
     intro:
-      'A light, versatile organisation that clearly separates leadership, preparing investments and managing the portfolio. It will grow as the portfolio grows.',
+      'Leadership, investment, portfolio, operations: four distinct responsibilities held by people who share one demand — to know the companies they back inside out, and to stay close to the people running them.',
     members: teamRolesEn,
   },
-  decisions: {
-    eyebrow: 'Our decisions',
-    title: 'Collective and documented',
-    intro: 'No significant investment decision rests on one person’s judgement alone.',
-    paragraphs: [
-      'Every application is examined in writing, against criteria set in advance, then submitted for collective approval. Analysis, decision and follow-up belong to separate functions: nobody controls the whole chain alone.',
-    ],
+  values: {
+    eyebrow: 'What drives us',
+    title: 'How we work',
+    intro: 'What entrepreneurs can expect from us, at every stage.',
     items: [
       {
-        title: 'Written analysis',
-        text: 'Every application is examined in writing: eligibility, business model, financial viability, identified risks.',
+        title: 'Closeness',
+        text: 'We go and look. A business cannot be judged from a document: it is understood on site, alongside whoever runs it.',
       },
       {
-        title: 'Collective approval',
-        text: 'Investment decisions are taken collectively, according to the rules LOKAMBE has set itself.',
+        title: 'Rigour',
+        text: 'We look at figures squarely and say what we see. Support is only useful when it is honest.',
       },
       {
-        title: 'Separate functions',
-        text: 'Preparing, deciding and following up are three separate responsibilities, given to different roles.',
+        title: 'The long haul',
+        text: 'We are not after a quick win. A company is built over years, and we stay alongside it for that long.',
+      },
+      {
+        title: 'Determination',
+        text: 'Growing a company in the DRC takes grit. We expect it from entrepreneurs, and we hold ourselves to it too.',
       },
     ],
-    valuesTitle: 'What guides our decisions',
-    values: ['Accountability', 'Transparency', 'Collective judgement', 'Protecting capital'],
-  },
-  cta: {
-    title: 'Interested in joining the team?',
-    text: 'LOKAMBE hires people who like the field, work rigorously and stay close to entrepreneurs. Look through our openings or write to us.',
-    primary: {label: 'See careers', href: '/carrieres'},
-    secondary: {label: 'Contact us', href: '/contact'},
   },
 };
+
 
 /** La page « Notre équipe » dans la langue demandée. */
 export function getTeam(locale: string): TeamPageContent {

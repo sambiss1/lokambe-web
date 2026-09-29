@@ -4,6 +4,7 @@ import {Reveal} from '@/components/motion/Reveal';
 import {CardGrid} from '@/components/sections/CardGrid';
 import {Chain} from '@/components/sections/Chain';
 import {CtaBanner} from '@/components/sections/CtaBanner';
+import {Formalisation} from '@/components/sections/Formalisation';
 import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
@@ -29,6 +30,11 @@ export default async function ImpactPage({params}: Props) {
       <Section eyebrow={impact.performance.eyebrow} title={impact.performance.title} intro={impact.performance.intro}>
         <ListPanel groups={impact.performance.groups} />
       </Section>
+
+      {/* Venue de l'accueil le 29 septembre. Placée ici, elle explique ce que
+          la section suivante se contente de mesurer — et elle évite deux fonds
+          bleus qui se suivent en bas de page. */}
+      <Formalisation formalisation={impact.formalisation} />
 
       <Section tone="peach-soft" eyebrow={impact.impact.eyebrow} title={impact.impact.title} intro={impact.impact.intro}>
         <ListPanel groups={impact.impact.groups} />

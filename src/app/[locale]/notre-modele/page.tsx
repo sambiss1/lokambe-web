@@ -23,7 +23,7 @@ export default async function ModelPage({params}: Props) {
 
   return (
     <>
-      <PageHero hero={model.hero} marquee={['Investisseur', 'Créateur', 'Accompagnateur']} />
+      <PageHero hero={model.hero} />
 
       <Section eyebrow={model.roles.eyebrow} title={model.roles.title} intro={model.roles.intro}>
         <CardGrid items={model.roles.items} />

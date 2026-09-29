@@ -43,9 +43,48 @@ test('les pages du site répondent et portent un titre unique', async ({page}) =
 test('la page Secteurs annonce bien les sept secteurs', async ({page}) => {
   await page.goto('/fr/secteurs-et-criteres');
 
-  await expect(page.getByText('Sept secteurs prioritaires')).toBeVisible();
+  // Le bandeau doit dire qu'on est sur la page des secteurs : c'est le retour
+  // client du 29 septembre, l'ancien titre posait une question sans contexte.
+  await expect(page.getByRole('heading', {level: 1})).toContainText('Sept secteurs');
   await expect(page.getByRole('heading', {name: 'Médias et divertissement'})).toBeVisible();
   await expect(page.getByRole('heading', {name: 'Éducation et formation'})).toBeVisible();
+});
+
+test('le portefeuille montre les sept entreprises et ouvre leur fiche', async ({page}) => {
+  // Le bandeau de logos défile en boucle : Playwright refuse de cliquer une
+  // cible qui bouge, et le survol qui met l'animation en pause demande déjà la
+  // même stabilité. On coupe donc les animations, ce que le site sait faire.
+  await page.emulateMedia({reducedMotion: 'reduce'});
+  await page.goto('/fr');
+
+  const rail = page.getByRole('group', {name: 'Elles grandissent avec nous.'});
+  // Les tuiles sont dupliquées pour que la boucle soit sans couture : « first ».
+  await rail.getByRole('button', {name: 'Bradamada'}).first().click();
+
+  // La fiche est un vrai <dialog>. On le vise par la balise, et non par son
+  // rôle : le panneau du menu mobile porte lui aussi `role="dialog"`, et il
+  // reste dans la page — inerte — pour que sa transition joue.
+  const fiche = page.locator('dialog');
+  await expect(fiche.getByRole('heading', {name: 'Bradamada'})).toBeVisible();
+  // `exact` : « Restauration » apparaît aussi dans la description de Bradamada.
+  await expect(fiche.getByText('Restauration', {exact: true})).toBeVisible();
+  await expect(fiche.getByText('En développement', {exact: true})).toBeVisible();
+
+  await fiche.getByRole('button', {name: 'Fermer'}).click();
+  await expect(fiche).toBeHidden();
+});
+
+test('les sections déplacées sont bien à leur nouvelle place', async ({page}) => {
+  // La formalisation a quitté l'accueil pour Impact, la FAQ pour Contact.
+  await page.goto('/fr');
+  await expect(page.getByRole('heading', {name: /formel/i})).toHaveCount(0);
+  await expect(page.getByText('Vous vous posez des questions ?')).toHaveCount(0);
+
+  await page.goto('/fr/impact');
+  await expect(page.getByRole('heading', {name: /de l’informel vers le formel/i})).toBeVisible();
+
+  await page.goto('/fr/contact');
+  await expect(page.getByRole('heading', {name: 'Vous vous posez des questions ?'})).toBeVisible();
 });
 
 test('une adresse inconnue rend une page 404 utile', async ({page}) => {
@@ -60,7 +99,7 @@ test('le site bascule en anglais et le contenu suit', async ({page}) => {
   await page.goto('/en/a-propos');
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.getByRole('heading', {level: 1})).toContainText('The DRC is not short of entrepreneurs');
+  await expect(page.getByRole('heading', {level: 1})).toContainText('The talent is here');
   await expect(page.getByText('Nos convictions')).toHaveCount(0);
 });
 

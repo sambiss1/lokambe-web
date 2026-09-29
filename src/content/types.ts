@@ -19,6 +19,10 @@ export type TeamRole = {
 
 export type Fact = {value: number; label: string; text: string};
 export type FaqItem = {question: string; answer: string};
+/** Les questions fréquentes. Vivent sur la page Contact depuis le 29 septembre. */
+export type FaqContent = SectionHeading & {items: FaqItem[]; contactText: string; contact?: LinkItem};
+/** La formalisation de l'économie. Vit sur la page Impact depuis le 29 septembre. */
+export type FormalisationContent = SectionHeading & {items: TitledText[]};
 export type SectorCard = TitledText & {image: ImageRef; tags: string[]};
 /** Une entreprise du portefeuille ou un partenaire. Le logo arrive plus tard. */
 export type LogoEntry = {
@@ -53,20 +57,18 @@ export type HomeContent = {
       step: {label: string; title: string; text: string};
       sector: {label: string; title: string};
       place: {label: string; title: string};
+      /** Les trois piliers, demandés par le client le 29 septembre. */
+      pillars: {label: string; title: string};
     };
   };
-  marquee: string[];
   statement: {quote: string; text: string};
   facts: SectionHeading & {items: Fact[]};
   functions: SectionHeading & {items: TitledText[]; cycle: string[]; cycleLabel: string};
   sectors: SectionHeading & {items: SectorCard[]; link: LinkItem};
   portfolio: LogoWallContent;
   partners: LogoWallContent;
-  formalisation: SectionHeading & {items: TitledText[]};
   support: SectionHeading & {items: TitledText[]};
   pilot: SectionHeading & {paragraphs: string[]; image: ImageRef; overlay: string; points: Phase[]; closing: string};
-  faq: SectionHeading & {items: FaqItem[]; contactText: string; contact: LinkItem};
-  cta: CtaContent & {image: ImageRef};
 };
 
 export type AboutContent = {
@@ -99,7 +101,6 @@ export type SectorsContent = {
   thesis: SectionHeading & {items: TitledText[]};
   sectors: SectionHeading & {items: TitledList[]; closing: string};
   profile: SectionHeading & {items: string[]; note: string};
-  cta: CtaContent;
 };
 
 export type ImpactContent = {
@@ -108,6 +109,7 @@ export type ImpactContent = {
   performance: SectionHeading & {groups: TitledList[]};
   impact: SectionHeading & {groups: TitledList[]; closing: string};
   vision: SectionHeading & {items: TitledText[]; ecosystemTitle: string; ecosystem: string[]; closing: string};
+  formalisation: FormalisationContent;
   cta: CtaContent;
 };
 
@@ -124,6 +126,7 @@ export type ContactContent = {
   hero: PageHeroContent;
   details: {title: string; items: {label: string; value: string; href?: string}[]};
   form: {title: string};
+  faq: FaqContent;
 };
 
 export type LegalContent = {
