@@ -23,6 +23,10 @@ Photos libres de droits utilisées sur lokambe.com.
 | sector-medias.webp | Isaiah Ekele | https://www.pexels.com/photo/man-behind-a-video-camera-14699461/ | Pexels License |
 | sector-education.webp | illustrate Digital Ug | https://www.pexels.com/photo/a-group-of-people-standing-in-a-workshop-20853660/ | Pexels License |
 | cta-entrepreneur.webp | Etty Fidele | https://unsplash.com/photos/AzVexpHvuKY | Unsplash License |
+| team-hero.webp | Iwaria Inc. | https://unsplash.com/photos/M7ALc3UuX_g | Unsplash License |
+| sectors-marche.webp | Hakim LEVEL | https://www.pexels.com/photo/33251084/ | Pexels License |
+| impact-boutique.webp | Hashtag Melvin | https://www.pexels.com/photo/19838484/ | Pexels License |
+| blog-hero.webp | Carmel Nsenga | https://www.pexels.com/photo/a-woman-in-plaid-gray-blazer-holding-a-magazine-10146137/ | Pexels License |
 | home-hero-alt-1.webp | Safari Consoler | https://www.pexels.com/photo/11588303/ | Pexels License |
 | home-hero-alt-3.webp | Hashtag Melvin | https://www.pexels.com/photo/19838484/ | Pexels License |
 | home-hero-alt-2.webp | Hakim LEVEL | https://www.pexels.com/photo/33251084/ | Pexels License |
@@ -32,3 +36,26 @@ Photos libres de droits utilisées sur lokambe.com.
 > `home-hero-previous.webp` est l'ancienne photo de la hero (commerçant à Abuja, Nigeria), conservée pour pouvoir revenir en arrière. La source haute résolution est dans `images-raw/candidates/home-hero-previous-source.jpg`.
 >
 > `home-hero.webp` : commerçant dans sa boutique de quartier (choix du client). La source est la version 2400 px de Pexels (`images-raw/home-hero.jpg`). Deux variantes du même parti pris sont conservées pour le choix du client — `home-hero-alt-1.webp` (artisan dans son atelier de sandales) et `home-hero-alt-2.webp` (commerçante dans son étal de marché). `home-hero-office.webp` et `home-hero-previous.webp` sont les deux versions écartées (portrait de bureau, commerçant à Abuja).
+
+## Photos remplacées le 29 septembre
+
+Le client a demandé de changer les images des pages Équipe, Secteurs, Impact et
+Blog. Les nouvelles sont ci-dessus ; les précédentes restent dans `public/images/`
+pour pouvoir revenir en arrière d'une ligne de contenu :
+
+| Page | Avant | Après |
+|---|---|---|
+| Notre équipe | `governance-hero.webp` | `team-hero.webp` |
+| Secteurs | `sectors-hero.webp` | `sectors-marche.webp` |
+| Impact | `impact-hero.webp` | `impact-boutique.webp` |
+| Blog | `home-kinshasa.webp` | `blog-hero.webp` |
+
+`home-kinshasa.webp` sert toujours à la section « Ce que change un
+investissement » de l'accueil. `cta-entrepreneur.webp` n'est plus référencé
+depuis la suppression de l'appel à l'action final de l'accueil.
+
+## Logos du portefeuille
+
+`public/images/portfolio/*.webp` : les sept logos d'entreprises fournis par le
+client (`assets-source/entreprises accompagnees/`). Ce ne sont pas des photos de
+banque — ils lui appartiennent, et `npm run portfolio` les régénère.

@@ -18,6 +18,13 @@ const PORTRAIT = {ratio: 4 / 5, maxWidth: 1400};
  */
 const FRAMING = {
   'home-hero': {...PORTRAIT, zoom: 0.625, fx: 0.843, fy: 0.844},
+  // Les quatre photos changées à la demande du client le 29 septembre.
+  // Le bandeau des pages intérieures est une capsule 4/4,6 : un cadrage
+  // portrait s'y loge sans amputer le sujet.
+  'team-hero': PORTRAIT,
+  'sectors-marche': PORTRAIT,
+  'impact-boutique': PORTRAIT,
+  'blog-hero': PORTRAIT,
   'home-kinshasa': LANDSCAPE,
   'about-hero': {...LANDSCAPE, fx: 0.3},
   'model-hero': {...LANDSCAPE, fx: 0.75},
