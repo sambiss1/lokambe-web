@@ -7,9 +7,9 @@ export const sectors: SectorsContent = {
   },
   hero: {
     eyebrow: 'Sectors',
-    title: 'Seven sectors, and nothing else',
+    title: 'From kitchens to studios, from the counter to the classroom.',
     intro:
-      'Restaurants, food crafts, trade, events, services, media, training: LOKAMBE concentrates its investments on seven sectors rather than skimming across everything. That is what it takes to know them properly — and to be useful to the companies working in them.',
+      'Restaurants and catering, food crafts, trade, events, services, media, education: these are the seven sectors LOKAMBE invests in, and the kind of company we look for in them.',
     image: {src: '/images/sectors-marche.webp', alt: 'Smiling shopkeeper at her stall of fabrics and accessories'},
   },
   thesis: {

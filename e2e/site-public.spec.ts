@@ -63,9 +63,11 @@ test('les pages du site répondent et portent un titre unique', async ({page}) =
 test('la page Secteurs annonce bien les sept secteurs', async ({page}) => {
   await page.goto('/fr/secteurs-et-criteres');
 
-  // Le bandeau doit dire qu'on est sur la page des secteurs : c'est le retour
-  // client du 29 septembre, l'ancien titre posait une question sans contexte.
-  await expect(page.getByRole('heading', {level: 1})).toContainText('Sept secteurs');
+  // Le bandeau doit situer le visiteur : c'est le retour client du 29 septembre,
+  // l'ancien titre posait une question sans dire de quoi parlait la page. Le
+  // titre nomme maintenant les métiers, le chapô annonce les sept secteurs.
+  await expect(page.getByRole('heading', {level: 1})).toContainText('Des cuisines aux studios');
+  await expect(page.getByText('voici les sept secteurs dans lesquels LOKAMBE investit')).toBeVisible();
   await expect(page.getByRole('heading', {name: 'Médias et divertissement'})).toBeVisible();
   await expect(page.getByRole('heading', {name: 'Éducation et formation'})).toBeVisible();
 });

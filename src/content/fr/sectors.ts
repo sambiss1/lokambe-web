@@ -8,9 +8,14 @@ export const sectors: SectorsContent = {
   },
   hero: {
     eyebrow: 'Secteurs',
-    title: 'Sept secteurs, et rien d’autre',
+    // L'intitulé « Secteurs » est juste au-dessus : le titre n'a pas à répéter
+    // le mot. Il nomme les métiers eux-mêmes, aux quatre coins des sept
+    // secteurs, pour que l'entrepreneur qui arrive se reconnaisse.
+    title: 'Des cuisines aux studios, du comptoir à la salle de classe.',
+    // Ne pas reprendre l'amorce de `sectors.sectors.intro`, plus bas dans la
+    // page : le chapô annonce ce qu'on va lire, la section explique le choix.
     intro:
-      'Restauration, métiers de bouche, commerce, événementiel, services, médias, formation : LOKAMBE concentre ses investissements sur sept secteurs plutôt que de tout survoler. C’est la condition pour les connaître vraiment — et pour être utile aux entreprises qui y travaillent.',
+      'Restauration, métiers de bouche, commerce, événementiel, services, médias, éducation : voici les sept secteurs dans lesquels LOKAMBE investit, et le profil d’entreprise que nous y cherchons.',
     image: {src: '/images/sectors-marche.webp', alt: 'Commerçante souriante dans son étal de tissus et d’accessoires'},
   },
   thesis: {
