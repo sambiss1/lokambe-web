@@ -16,7 +16,8 @@
     "brand": "node scripts/prepare-brand.mjs",
     "images": "node scripts/optimize-images.mjs",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "portfolio": "node scripts/prepare-portfolio.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

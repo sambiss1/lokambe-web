@@ -12,6 +12,10 @@ import {Eyebrow} from '../ui/Eyebrow';
  * Bandeau de logos qui défile (portefeuille ou partenaires). Un clic ouvre la
  * fiche de l'entreprise. Tant qu'un logo n'est pas fourni, la tuile affiche le
  * monogramme et reste à la bonne taille : déposer l'image suffira.
+ *
+ * Les logos fournis par le client sont des **carrés au fond coloré** — chaque
+ * marque a le sien. Il a tranché le 29 septembre : on les affiche tels quels,
+ * pleine tuile, sans les poser sur un aplat neutre.
  */
 export function LogoWall({content, tone = 'light'}: {content: LogoWallContent; tone?: 'light' | 'peach'}) {
   const [selected, setSelected] = useState<LogoEntry | null>(null);
@@ -54,30 +58,21 @@ export function LogoWall({content, tone = 'light'}: {content: LogoWallContent; t
                     tabIndex={copy === 1 ? -1 : undefined}
                     onClick={() => setSelected(item)}
                     className={cx(
-                      'mx-2 flex h-28 w-52 flex-none scroll-ml-5 snap-start items-center justify-center gap-3 rounded-[1.5rem] px-6',
-                      'ring-1 ring-line ring-inset transition-[transform,box-shadow,background-color] duration-300',
+                      'mx-2 flex size-32 flex-none scroll-ml-5 snap-start items-center justify-center gap-3 overflow-hidden rounded-[1.5rem] sm:size-36',
+                      'ring-1 ring-line ring-inset transition-[transform,box-shadow] duration-300',
                       'hover:-translate-y-1 hover:shadow-[0_20px_50px_-24px_rgba(0,18,168,0.5)] focus-visible:-translate-y-1',
-                      tone === 'peach' ? 'bg-white' : 'bg-lokambe-peach-soft',
+                      item.logo ? 'ring-ink/10' : tone === 'peach' ? 'bg-white' : 'bg-lokambe-peach-soft',
                     )}
                   >
                     {item.logo ? (
-                      <Image
-                        src={item.logo}
-                        alt={item.name}
-                        width={180}
-                        height={90}
-                        className="h-14 w-auto object-contain"
-                      />
+                      <Image src={item.logo} alt={item.name} width={200} height={200} className="size-full object-cover" />
                     ) : (
-                      <>
+                      <span className="flex flex-col items-center gap-2 px-3">
                         <span className="grid size-11 flex-none place-items-center rounded-full bg-lokambe-blue text-lg font-extrabold text-white">
                           {item.name.slice(0, 1)}
                         </span>
-                        <span className="text-left">
-                          <span className="block text-base font-extrabold text-ink">{item.name}</span>
-                          <span className="block text-sm text-ink-soft">Logo à venir</span>
-                        </span>
-                      </>
+                        <span className="text-center text-sm leading-tight font-extrabold text-ink">{item.name}</span>
+                      </span>
                     )}
                   </button>
                 ))}
@@ -101,9 +96,19 @@ export function LogoWall({content, tone = 'light'}: {content: LogoWallContent; t
         {selected && (
           <div className="p-7 sm:p-9">
             <div className="flex items-start justify-between gap-6">
-              <span className="grid size-14 flex-none place-items-center rounded-full bg-lokambe-blue text-xl font-extrabold text-white">
-                {selected.name.slice(0, 1)}
-              </span>
+              {selected.logo ? (
+                <Image
+                  src={selected.logo}
+                  alt=""
+                  width={200}
+                  height={200}
+                  className="size-16 flex-none rounded-2xl object-cover ring-1 ring-ink/10 ring-inset"
+                />
+              ) : (
+                <span className="grid size-14 flex-none place-items-center rounded-full bg-lokambe-blue text-xl font-extrabold text-white">
+                  {selected.name.slice(0, 1)}
+                </span>
+              )}
               <button
                 type="button"
                 onClick={() => setSelected(null)}
