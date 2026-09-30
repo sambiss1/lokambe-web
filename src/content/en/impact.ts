@@ -103,10 +103,4 @@ export const impact: ImpactContent = {
       },
     ],
   },
-  cta: {
-    title: 'Take part in the LOKAMBE cycle',
-    text: 'Investors and partners: help build tomorrow’s Congolese economic fabric.',
-    primary: {label: 'Contact us', href: '/contact'},
-    secondary: {label: 'Submit a project', href: '/soumettre-un-projet'},
-  },
 };

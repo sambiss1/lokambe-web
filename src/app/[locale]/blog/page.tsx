@@ -1,7 +1,6 @@
 import type {Metadata} from 'next';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {BlogList} from '@/components/blog/BlogList';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {PageHero} from '@/components/sections/PageHero';
 import {Container} from '@/components/ui/Container';
 import {BLOG_BASE_PATH} from '@/content/blog';
@@ -43,15 +42,6 @@ export default async function BlogIndexPage({params}: Props) {
           <BlogList articles={articles} />
         </Container>
       </section>
-
-      <CtaBanner
-        cta={{
-          title: t('ctaTitle'),
-          text: t('ctaText'),
-          primary: {label: t('ctaPrimary'), href: '/soumettre-un-projet'},
-          secondary: {label: t('ctaSecondary'), href: '/contact'},
-        }}
-      />
     </>
   );
 }

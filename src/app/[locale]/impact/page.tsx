@@ -3,7 +3,6 @@ import {setRequestLocale} from 'next-intl/server';
 import {Reveal} from '@/components/motion/Reveal';
 import {CardGrid} from '@/components/sections/CardGrid';
 import {Chain} from '@/components/sections/Chain';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {Formalisation} from '@/components/sections/Formalisation';
 import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
@@ -55,8 +54,6 @@ export default async function ImpactPage({params}: Props) {
           <p className="max-w-[65ch] border-l-4 border-lokambe-red pl-4 text-xl font-bold text-ink">{impact.vision.closing}</p>
         </Reveal>
       </Section>
-
-      <CtaBanner cta={impact.cta} />
     </>
   );
 }

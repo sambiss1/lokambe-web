@@ -121,10 +121,4 @@ export const model: ModelContent = {
       },
     ],
   },
-  cta: {
-    title: 'Does your business fit our model?',
-    text: 'Look through our priority sectors, then tell us about your project.',
-    primary: {label: 'Submit a project', href: '/soumettre-un-projet'},
-    secondary: {label: 'Sectors', href: '/secteurs-et-criteres'},
-  },
 };

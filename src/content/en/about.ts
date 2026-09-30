@@ -109,10 +109,4 @@ export const about: AboutContent = {
       'The ambition is to help build an economy in which Congolese capital finances more of the Congolese economy, Congolese entrepreneurs build more Congolese companies, and Congolese companies create more value in the DRC.',
     ],
   },
-  cta: {
-    title: 'Let us build together',
-    text: 'Entrepreneur, investor, partner or expert: join the LOKAMBE momentum.',
-    primary: {label: 'Submit a project', href: '/soumettre-un-projet'},
-    secondary: {label: 'Our team', href: '/notre-equipe'},
-  },
 };

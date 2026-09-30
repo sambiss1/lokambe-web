@@ -2,7 +2,6 @@ import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
 import {JobOpenings} from '@/components/careers/JobOpenings';
 import {CardGrid} from '@/components/sections/CardGrid';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
 import {getCareers, jobPostings} from '@/content/careers';
@@ -38,8 +37,6 @@ export default async function CareersPage({params}: Props) {
       >
         <JobOpenings jobs={jobPostings} openings={careers.openings} />
       </Section>
-
-      <CtaBanner cta={careers.cta} />
     </>
   );
 }

@@ -3,7 +3,6 @@ import {setRequestLocale} from 'next-intl/server';
 import {Reveal} from '@/components/motion/Reveal';
 import {CardGrid} from '@/components/sections/CardGrid';
 import {Chain} from '@/components/sections/Chain';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {ListPanel} from '@/components/sections/ListPanel';
 import {PageHero} from '@/components/sections/PageHero';
 import {Prose} from '@/components/sections/Prose';
@@ -80,8 +79,6 @@ export default async function AboutPage({params}: Props) {
           </div>
         </div>
       </Section>
-
-      <CtaBanner cta={about.cta} />
     </>
   );
 }

@@ -109,10 +109,4 @@ export const about: AboutContent = {
       'L’ambition est de contribuer à bâtir une économie dans laquelle le capital congolais finance davantage l’économie congolaise, les entrepreneurs congolais construisent davantage d’entreprises congolaises, et les entreprises congolaises créent davantage de valeur en RDC.',
     ],
   },
-  cta: {
-    title: 'Construisons ensemble',
-    text: 'Entrepreneur, investisseur, partenaire ou expert : rejoignez la dynamique LOKAMBE.',
-    primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Notre équipe', href: '/notre-equipe'},
-  },
 };

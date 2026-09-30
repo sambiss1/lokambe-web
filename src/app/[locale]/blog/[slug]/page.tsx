@@ -1,10 +1,9 @@
 import type {Metadata} from 'next';
-import {getTranslations, setRequestLocale} from 'next-intl/server';
+import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {ArticleBody} from '@/components/blog/ArticleBody';
 import {ArticleHero} from '@/components/blog/ArticleHero';
 import {LatestArticles} from '@/components/blog/LatestArticles';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {articlePath} from '@/content/blog';
 import {enabledLocales} from '@/i18n/locales';
 import {getArticle, listArticleSlugs, listLatestArticles} from '@/lib/api/articles';
@@ -44,21 +43,11 @@ export default async function BlogArticlePage({params}: Props) {
   const article = await getArticle(slug, locale);
   if (!article) notFound();
 
-  const t = await getTranslations({locale, namespace: 'blog'});
-
   return (
     <>
       <ArticleHero article={article} />
       <ArticleBody article={article} />
       <LatestArticles articles={await listLatestArticles(article.slug, locale)} />
-      <CtaBanner
-        cta={{
-          title: t('ctaTitle'),
-          text: t('ctaText'),
-          primary: {label: t('ctaPrimary'), href: '/soumettre-un-projet'},
-          secondary: {label: t('ctaSecondary'), href: '/contact'},
-        }}
-      />
     </>
   );
 }

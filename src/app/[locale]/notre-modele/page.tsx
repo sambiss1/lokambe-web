@@ -1,7 +1,6 @@
 import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
 import {CardGrid} from '@/components/sections/CardGrid';
-import {CtaBanner} from '@/components/sections/CtaBanner';
 import {Highlight} from '@/components/sections/Highlight';
 import {PageHero} from '@/components/sections/PageHero';
 import {PillarBlock} from '@/components/sections/PillarBlock';
@@ -38,8 +37,6 @@ export default async function ModelPage({params}: Props) {
           ))}
         </div>
       </Section>
-
-      <CtaBanner cta={model.cta} />
     </>
   );
 }

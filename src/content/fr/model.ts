@@ -122,10 +122,4 @@ export const model: ModelContent = {
       },
     ],
   },
-  cta: {
-    title: 'Votre activité correspond à notre modèle ?',
-    text: 'Découvrez nos secteurs prioritaires puis présentez-nous votre projet.',
-    primary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-    secondary: {label: 'Secteurs', href: '/secteurs-et-criteres'},
-  },
 };

@@ -104,10 +104,4 @@ export const impact: ImpactContent = {
       },
     ],
   },
-  cta: {
-    title: 'Participez au cycle LOKAMBE',
-    text: 'Investisseurs et partenaires : contribuez à construire le tissu économique congolais de demain.',
-    primary: {label: 'Nous contacter', href: '/contact'},
-    secondary: {label: 'Soumettre un projet', href: '/soumettre-un-projet'},
-  },
 };

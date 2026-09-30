@@ -5,7 +5,6 @@ export type ImageRef = {src: string; alt: string; /** `object-position` CSS, si 
 export type PageMeta = {title: string; description: string};
 export type SectionHeading = {eyebrow?: string; title: string; intro?: string};
 export type PageHeroContent = {eyebrow: string; title: string; intro: string; image?: ImageRef};
-export type CtaContent = {title: string; text: string; primary: LinkItem; secondary?: LinkItem};
 export type Phase = {label: string; title: string; text?: string; items?: string[]};
 export type TextBlock = {title: string; paragraphs: string[]};
 export type Pillar = {label: string; title: string; text: string; groups: TitledList[]; closing?: string};
@@ -83,7 +82,6 @@ export type AboutContent = {
     evolution: string[];
     closing: string[];
   };
-  cta: CtaContent;
 };
 
 export type ModelContent = {
@@ -91,7 +89,6 @@ export type ModelContent = {
   hero: PageHeroContent;
   roles: SectionHeading & {items: TitledText[]; closing: string};
   pillars: SectionHeading & {items: Pillar[]};
-  cta: CtaContent;
 };
 
 export type SectorsContent = {
@@ -109,7 +106,6 @@ export type ImpactContent = {
   impact: SectionHeading & {groups: TitledList[]; closing: string};
   vision: SectionHeading & {items: TitledText[]; ecosystemTitle: string; ecosystem: string[]; closing: string};
   formalisation: FormalisationContent;
-  cta: CtaContent;
 };
 
 export type ApplyContent = {

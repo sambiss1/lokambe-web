@@ -11,7 +11,6 @@
 type LinkItem = {label: string; href: string};
 type PageMeta = {title: string; description: string};
 type HeroContent = {eyebrow: string; title: string; intro: string; image?: {src: string; alt: string; position?: string}};
-type CtaContent = {title: string; text: string; primary: LinkItem; secondary?: LinkItem};
 type TitledText = {title: string; text: string};
 
 /** Type de contrat proposé. */
@@ -43,7 +42,6 @@ export type CareersContent = {
     empty: {title: string; text: string; cta: LinkItem};
     labels: {location: string; contract: string; missions: string; profile: string; apply: string};
   };
-  cta: CtaContent;
 };
 
 /**
@@ -106,12 +104,6 @@ export const careers: CareersContent = {
       apply: 'Postuler',
     },
   },
-  cta: {
-    title: 'Candidature spontanée',
-    text: 'Présentez-vous en quelques lignes, précisez le rôle qui vous intéresse et joignez votre CV. Nous revenons vers chaque candidature étudiée.',
-    primary: {label: 'Nous écrire', href: '/contact'},
-    secondary: {label: 'Découvrir l’équipe', href: '/notre-equipe'},
-  },
 };
 
 /* ------------------------------------------------------------------ anglais */
@@ -169,12 +161,6 @@ export const careersEn: CareersContent = {
       profile: 'Who we are looking for',
       apply: 'Apply',
     },
-  },
-  cta: {
-    title: 'Speculative application',
-    text: 'Introduce yourself in a few lines, say which role interests you and attach your CV. We reply to every application we review.',
-    primary: {label: 'Write to us', href: '/contact'},
-    secondary: {label: 'Meet the team', href: '/notre-equipe'},
   },
 };
 
