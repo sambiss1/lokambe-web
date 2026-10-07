@@ -350,6 +350,10 @@ export function ArticleForm({article}: Props) {
             ref={coverInput}
             type="file"
             accept="image/jpeg,image/png,image/webp"
+            // Piloté par le bouton voisin, mais nommé : `sr-only` le laisse
+            // lisible par un lecteur d'écran, et sans nom il n'annonce rien.
+            aria-label="Choisir une image de couverture"
+            tabIndex={-1}
             className="sr-only"
             onChange={(event) => {
               const file = event.target.files?.[0];

@@ -1,4 +1,6 @@
+import type {Cookie} from '@playwright/test';
 import {expect, test} from '@playwright/test';
+import {ADMIN_READY, reuseSession, signInOnce} from './utils/session';
 
 /**
  * Le contenu éditorial administrable : les cinq collections et la médiathèque.
@@ -12,23 +14,19 @@ import {expect, test} from '@playwright/test';
  * Comme le reste du back-office, il est ignoré sans `E2E_API_URL`,
  * `E2E_ADMIN_EMAIL` et `E2E_ADMIN_PASSWORD`.
  */
-const email = process.env.E2E_ADMIN_EMAIL ?? '';
-const password = process.env.E2E_ADMIN_PASSWORD ?? '';
-const ready = Boolean(process.env.E2E_API_URL && email && password);
-
-async function signIn(page: import('@playwright/test').Page): Promise<void> {
-  await page.goto('/admin/login');
-  await page.getByLabel('Email').fill(email);
-  await page.getByLabel('Mot de passe').fill(password);
-  await page.getByRole('button', {name: /connexion|se connecter/i}).click();
-  await expect(page).toHaveURL(/\/admin(\?|$)/);
-}
-
 test.describe('back-office — contenu', () => {
-  test.skip(!ready, 'API ou identifiants absents : contenu non vérifié');
+  test.skip(!ADMIN_READY, 'API ou identifiants absents : contenu non vérifié');
   test.describe.configure({mode: 'serial'});
 
-  test.beforeEach(async ({page}) => {
+  // Une seule connexion : l'API plafonne les tentatives par IP et par compte.
+  let session: Cookie[] = [];
+
+  test.beforeAll(async ({request}) => {
+    session = await signInOnce(request);
+  });
+
+  test.beforeEach(async ({context, page}) => {
+    await reuseSession(context, session);
     // Aucune boîte du navigateur, nulle part : c'est la demande du client.
     page.on('dialog', (dialog) => {
       throw new Error(`boîte du navigateur inattendue : ${dialog.message()}`);
@@ -36,8 +34,6 @@ test.describe('back-office — contenu', () => {
   });
 
   test('ouvre chaque collection et sa page de création', async ({page}) => {
-    await signIn(page);
-
     const screens = [
       ['/admin/portefeuille', 'Portefeuille'],
       ['/admin/partenaires', 'Partenaires'],
@@ -58,7 +54,6 @@ test.describe('back-office — contenu', () => {
   test('crée, publie, affiche puis supprime une entreprise', async ({page}) => {
     const suffix = Date.now().toString(36);
     const name = `Essai ${suffix}`;
-    await signIn(page);
 
     // Enregistrer à vide : les erreurs s'affichent sous les champs concernés.
     await page.goto('/admin/portefeuille/nouveau');

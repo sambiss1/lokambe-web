@@ -276,6 +276,11 @@ export function MediaPicker({
         ref={fileInput}
         type="file"
         accept={MEDIA_ACCEPT}
+        // Le champ est piloté par le bouton voisin : il reste hors du parcours
+        // au clavier, mais garde un nom — `sr-only` le laisse lisible par un
+        // lecteur d'écran, et sans nom il n'annonce rien.
+        aria-label="Choisir un fichier à téléverser : photo ou vidéo"
+        tabIndex={-1}
         className="sr-only"
         onChange={(event) => {
           const file = event.target.files?.[0];

@@ -1,4 +1,5 @@
 import {expect, test} from '@playwright/test';
+import {ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_READY} from './utils/session';
 
 /**
  * Le back-office de bout en bout : connexion, écriture d'un article, publication,
@@ -7,9 +8,9 @@ import {expect, test} from '@playwright/test';
  * Ce parcours a besoin d'une API et d'un compte : sans `E2E_API_URL`,
  * `E2E_ADMIN_EMAIL` et `E2E_ADMIN_PASSWORD`, il est ignoré.
  */
-const email = process.env.E2E_ADMIN_EMAIL ?? '';
-const password = process.env.E2E_ADMIN_PASSWORD ?? '';
-const ready = Boolean(process.env.E2E_API_URL && email && password);
+const email = ADMIN_EMAIL;
+const password = ADMIN_PASSWORD;
+const ready = ADMIN_READY;
 
 test.describe('back-office', () => {
   test.skip(!ready, 'API ou identifiants absents : back-office non vérifié');

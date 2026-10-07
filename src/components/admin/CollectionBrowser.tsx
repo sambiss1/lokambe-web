@@ -83,7 +83,10 @@ export function CollectionBrowser({collection, rows, total, status, noun, emptyL
   }
 
   return (
-    <div className="mt-8 grid gap-5">
+    /* `min-w-0` : sans lui, la largeur minimale d'un élément flex est celle de
+       son contenu, et une réponse de questions fréquentes poussait la liste à
+       1 148 px sur un écran de 390 — la pastille d'état sortait de l'écran. */
+    <div className="mt-8 grid min-w-0 gap-5">
       <div role="group" aria-label="Filtrer par état" className="flex flex-wrap gap-2">
         {FILTERS.map((filter) => {
           const active = filter.value === status;
@@ -114,13 +117,16 @@ export function CollectionBrowser({collection, rows, total, status, noun, emptyL
         </p>
       ) : null}
 
-      <Surface>
+      {/* `min-w-0` à chaque étage : un élément de grille ou de flex a pour
+          largeur minimale celle de son contenu, et la chaîne entière doit
+          pouvoir rétrécir pour que la ligne tronque au lieu de déborder. */}
+      <Surface className="min-w-0">
         {rows.length === 0 ? (
           <p className="px-5 py-10 text-center text-sm text-ink-soft">{emptyLabel}</p>
         ) : (
-          <ul className="divide-y divide-line">
+          <ul className="min-w-0 divide-y divide-line">
             {rows.map((row, index) => (
-              <li key={row.id} className="flex items-center gap-4 px-4 py-3.5 sm:px-5">
+              <li key={row.id} className="flex min-w-0 items-center gap-4 px-4 py-3.5 sm:px-5">
                 {row.thumb ? <div className="w-14 flex-none">{row.thumb}</div> : null}
 
                 <div className="min-w-0 flex-1">

@@ -200,6 +200,10 @@ export function MediaUploader() {
           ref={fileInput}
           type="file"
           accept={MEDIA_ACCEPT}
+          // Piloté par le bouton voisin, mais nommé : `sr-only` le laisse
+          // lisible par un lecteur d'écran, et sans nom il n'annonce rien.
+          aria-label="Choisir un fichier à téléverser : photo ou vidéo"
+          tabIndex={-1}
           className="sr-only"
           onChange={(event) => {
             const file = event.target.files?.[0];
