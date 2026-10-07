@@ -6,6 +6,7 @@ import {Faq} from '@/components/sections/Faq';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
 import {getContent} from '@/content';
+import {liveFaq} from '@/lib/content/live';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
@@ -19,6 +20,8 @@ export default async function ContactPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
   const {contact, forms} = getContent(locale);
+  // Les questions sont administrables : sans réponse de l'API, celles du code.
+  const faq = await liveFaq(locale, contact.faq);
 
   return (
     <>
@@ -56,7 +59,7 @@ export default async function ContactPage({params}: Props) {
         </div>
       </Section>
 
-      <Faq faq={contact.faq} />
+      <Faq faq={faq} />
     </>
   );
 }

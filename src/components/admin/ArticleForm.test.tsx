@@ -3,13 +3,12 @@ import userEvent from '@testing-library/user-event';
 import {useRouter} from 'next/navigation';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {anArticle} from '@/lib/admin-fixtures';
-import {createArticle, deleteArticle, updateArticle} from '@/lib/api/admin-actions';
+import {createArticle, updateArticle} from '@/lib/api/admin-actions';
 import {ArticleForm} from './ArticleForm';
 
 vi.mock('@/lib/api/admin-actions', () => ({
   createArticle: vi.fn(),
   updateArticle: vi.fn(),
-  deleteArticle: vi.fn(),
 }));
 
 const push = vi.fn();
@@ -18,9 +17,10 @@ const refresh = vi.fn();
 beforeEach(() => {
   push.mockClear();
   refresh.mockClear();
-  vi.mocked(createArticle).mockReset().mockResolvedValue({ok: true, data: anArticle({id: 'nouveau-01'})});
+  vi.mocked(createArticle)
+    .mockReset()
+    .mockResolvedValue({ok: true, data: anArticle({id: 'nouveau-01'})});
   vi.mocked(updateArticle).mockReset().mockResolvedValue({ok: true, data: anArticle()});
-  vi.mocked(deleteArticle).mockReset().mockResolvedValue({ok: true, data: {ok: true}});
   vi.mocked(useRouter).mockReturnValue({
     push,
     refresh,
@@ -46,7 +46,7 @@ describe('ArticleForm', () => {
 
     await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
 
-    expect(await screen.findByRole('status')).toHaveTextContent('Donnez un titre');
+    expect(await screen.findByRole('alert')).toHaveTextContent('Donnez un titre');
     expect(createArticle).not.toHaveBeenCalled();
   });
 
@@ -56,11 +56,11 @@ describe('ArticleForm', () => {
 
     await user.type(screen.getByLabelText('Titre'), 'Un titre correct');
     await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
-    expect(await screen.findByRole('status')).toHaveTextContent('chapô');
+    expect(await screen.findByRole('alert')).toHaveTextContent('chapô');
 
     await user.type(screen.getByLabelText('Chapô'), 'Deux phrases qui donnent envie de lire.');
     await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
-    expect(await screen.findByRole('status')).toHaveTextContent('vide');
+    expect(await screen.findByRole('alert')).toHaveTextContent('vide');
     expect(createArticle).not.toHaveBeenCalled();
   });
 
@@ -90,21 +90,24 @@ describe('ArticleForm', () => {
 
     await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
 
-    expect(await screen.findByRole('status')).toHaveTextContent('session a expiré');
+    expect(await screen.findByRole('alert')).toHaveTextContent('session a expiré');
   });
 
-  it('demande confirmation avant de supprimer', async () => {
-    const user = userEvent.setup();
-    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+  /**
+   * La suppression a sa propre page : le formulaire ne fait que mener à elle.
+   * Rien ne doit pouvoir supprimer un article depuis cet écran, et surtout pas
+   * une boîte `window.confirm` — c'est la demande du client, « pas de modals ».
+   */
+  it('mène à la page de suppression plutôt que d’ouvrir une boîte', () => {
+    const confirm = vi.spyOn(window, 'confirm');
     render(<ArticleForm article={anArticle()} />);
 
-    await user.click(screen.getByRole('button', {name: /Supprimer/}));
-    expect(deleteArticle).not.toHaveBeenCalled();
-
-    confirm.mockReturnValue(true);
-    await user.click(screen.getByRole('button', {name: /Supprimer/}));
-    await waitFor(() => expect(deleteArticle).toHaveBeenCalledWith('article-01'));
-    expect(push).toHaveBeenCalledWith('/admin/articles');
+    expect(screen.getByRole('link', {name: /Supprimer/})).toHaveAttribute(
+      'href',
+      '/admin/articles/article-01/supprimer',
+    );
+    expect(screen.queryByRole('button', {name: /Supprimer/})).not.toBeInTheDocument();
+    expect(confirm).not.toHaveBeenCalled();
     confirm.mockRestore();
   });
 });

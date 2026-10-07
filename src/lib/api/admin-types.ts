@@ -1,4 +1,5 @@
 import type {BlogCategoryId} from '@/content/blog';
+import type {ContentCounts} from './content-types';
 import type {ApplicationStatus, ContactKind, NeedType, Sector} from '@/lib/constants';
 
 /**
@@ -108,6 +109,10 @@ export type AdminStats = {
   applicationsLast30Days: number;
   /** Trente entrées, du plus ancien au plus récent, jours vides compris. */
   applicationsPerDay: {date: string; count: number}[];
+  /** Une entrée par collection éditoriale : total et nombre de publiés. */
+  content: ContentCounts;
+  /** Photos et vidéos de la médiathèque. */
+  mediaByKind: {image: number; video: number};
 };
 
 export type ApplicationFilters = {

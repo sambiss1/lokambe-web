@@ -8,7 +8,18 @@ import {TrendChart} from '@/components/admin/TrendChart';
 import {Reveal} from '@/components/motion/Reveal';
 import {formatRelative, formatUsd, sectorLabel, STATUS_LABELS} from '@/lib/admin-format';
 import {getStats, listApplications} from '@/lib/api/admin';
+import {collectionAdminPath} from '@/lib/api/content-types';
+import type {CollectionKey} from '@/lib/api/content-types';
 import {APPLICATION_STATUSES} from '@/lib/constants';
+
+/** Les collections éditoriales du tableau de bord, dans l'ordre de la barre latérale. */
+const CONTENT_CARDS: {key: CollectionKey; label: string}[] = [
+  {key: 'portfolio', label: 'Portefeuille'},
+  {key: 'partners', label: 'Partenaires'},
+  {key: 'team', label: 'Équipe'},
+  {key: 'jobs', label: 'Offres d’emploi'},
+  {key: 'faq', label: 'Questions fréquentes'},
+];
 
 export const metadata: Metadata = {title: 'Tableau de bord'};
 
@@ -67,6 +78,37 @@ export default async function DashboardPage() {
       </Reveal>
 
       <Reveal as="section" index={3} className="flex flex-col gap-4">
+        <h2 className="display text-xl">Contenu publié</h2>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+          {CONTENT_CARDS.map(({key, label}) => {
+            const count = stats.content[key];
+            return (
+              <StatCard
+                key={key}
+                label={label}
+                value={count.published}
+                hint={
+                  count.total === count.published
+                    ? count.published === 0
+                      ? 'Rien pour l’instant'
+                      : 'Tout est publié'
+                    : `${count.total - count.published} en brouillon`
+                }
+                href={collectionAdminPath(key)}
+              />
+            );
+          })}
+          <StatCard
+            label="Médiathèque"
+            value={stats.mediaByKind.image + stats.mediaByKind.video}
+            hint={`${stats.mediaByKind.image} photo${stats.mediaByKind.image > 1 ? 's' : ''}, ${stats.mediaByKind.video} vidéo${stats.mediaByKind.video > 1 ? 's' : ''}`}
+            href="/admin/medias"
+            tone="peach"
+          />
+        </div>
+      </Reveal>
+
+      <Reveal as="section" index={4} className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="display text-xl">Dernières candidatures</h2>
           <Link

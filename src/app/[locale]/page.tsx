@@ -7,6 +7,7 @@ import {SectorsBento} from '@/components/home/SectorsBento';
 import {Statement} from '@/components/home/Statement';
 import {SupportPilot} from '@/components/home/SupportPilot';
 import {getContent} from '@/content';
+import {livePartners, livePortfolio} from '@/lib/content/live';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
@@ -25,18 +26,26 @@ export default async function HomePage({params}: Props) {
   setRequestLocale(locale);
   const home = getContent(locale).home;
 
+  // Le portefeuille et les partenaires sont administrables depuis le 7 octobre.
+  // Les deux lectures sont indépendantes, et chacune retombe sur le contenu
+  // livré avec le site si l'API ne répond pas.
+  const [portfolio, partners] = await Promise.all([
+    livePortfolio(locale, home.portfolio),
+    livePartners(locale, home.partners),
+  ]);
+
   return (
     <>
       <HomeHero hero={home.hero} />
       <Statement statement={home.statement} facts={home.facts} />
       <CapitalCycle functions={home.functions} />
       <SectorsBento sectors={home.sectors} />
-      <LogoWall content={home.portfolio} tone="peach" />
+      <LogoWall content={portfolio} tone="peach" />
       <SupportPilot support={home.support} pilot={home.pilot} />
       {/* Les partenaires : juste les logos, sans fiche au clic — le client n'a
           rien d'autre à afficher pour l'instant. La section reste masquée tant
           que la liste est vide. */}
-      {home.partners.items.length > 0 && <LogoWall content={home.partners} interactive={false} />}
+      {partners.items.length > 0 && <LogoWall content={partners} interactive={false} />}
     </>
   );
 }

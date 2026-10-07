@@ -33,9 +33,7 @@ test.describe('back-office', () => {
 
     await page.goto('/admin/articles/nouveau');
     await page.getByLabel('Titre', {exact: true}).fill(title);
-    await page
-      .getByLabel('Chapô')
-      .fill('Un article écrit par la suite de tests, pour vérifier la chaîne complète.');
+    await page.getByLabel('Chapô').fill('Un article écrit par la suite de tests, pour vérifier la chaîne complète.');
 
     const editor = page.locator('.ProseMirror');
     await editor.click();
@@ -65,11 +63,21 @@ test.describe('back-office', () => {
     await expect(page.getByRole('heading', {level: 2, name: 'Ce que nous regardons'})).toBeVisible();
     await expect(page.getByText('Des revenus démontrables')).toBeVisible();
 
-    // On ne laisse pas de trace : l'article de test est supprimé.
+    // On ne laisse pas de trace : l'article de test est supprimé. La
+    // suppression passe par une page dédiée — il n'y a plus de boîte du
+    // navigateur à accepter. Un `dialog` qui s'ouvrirait ferait échouer le test.
+    page.on('dialog', (dialog) => {
+      throw new Error(`boîte du navigateur inattendue : ${dialog.message()}`);
+    });
     await page.goto('/admin/articles');
     await page.getByRole('link', {name: title}).click();
-    page.once('dialog', (dialog) => dialog.accept());
-    await page.getByRole('button', {name: /Supprimer/}).click();
+    await page
+      .getByRole('link', {name: /Supprimer/})
+      .first()
+      .click();
+    await expect(page).toHaveURL(/supprimer$/, {timeout: 20_000});
+    await expect(page.getByRole('heading', {level: 1})).toContainText('Supprimer');
+    await page.getByRole('button', {name: 'Supprimer définitivement'}).click();
     await expect(page).toHaveURL(/\/admin\/articles$/, {timeout: 20_000});
   });
 });
