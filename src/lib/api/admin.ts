@@ -51,7 +51,9 @@ async function requireToken(): Promise<string> {
  * un jeton expiré ne doit pas afficher une page d'erreur, mais l'écran de
  * connexion.
  */
-async function read<T>(path: string): Promise<T> {
+export async function readAdmin<T>(path: string): Promise<T>;
+export async function readAdmin<T>(path: string, options: {nullOnMissing: true}): Promise<T | null>;
+export async function readAdmin<T>(path: string, options: {nullOnMissing?: boolean} = {}): Promise<T | null> {
   const token = await requireToken();
   try {
     return await fetchAdminJson<T>(path, {token, forwardedFor: await forwardedFor()});
@@ -59,9 +61,17 @@ async function read<T>(path: string): Promise<T> {
     if (error instanceof AdminApiError && error.kind === 'unauthorized') {
       redirect('/admin/login?expiree=1');
     }
+    // `nullOnMissing` traduit un 404 en `null`, pour que l'écran appelle
+    // `notFound()` au lieu de laisser remonter une erreur.
+    if (options.nullOnMissing && error instanceof AdminApiError && error.kind === 'not-found') {
+      return null;
+    }
     throw error;
   }
 }
+
+/** Raccourci interne : les listes de ce module n'attendent jamais `null`. */
+const read = <T>(path: string): Promise<T> => readAdmin<T>(path);
 
 function query(params: Record<string, string | number | boolean | undefined>): string {
   const search = new URLSearchParams();
@@ -94,12 +104,7 @@ export async function listApplications(
 
 /** `null` quand la candidature n'existe pas : au rendu, `notFound()`. */
 export async function getApplication(id: string): Promise<AdminApplication | null> {
-  try {
-    return await read<AdminApplication>(`/admin/applications/${encodeURIComponent(id)}`);
-  } catch (error) {
-    if (error instanceof AdminApiError && error.kind === 'not-found') return null;
-    throw error;
-  }
+  return readAdmin<AdminApplication>(`/admin/applications/${encodeURIComponent(id)}`, {nullOnMissing: true});
 }
 
 export async function listContacts(
@@ -135,12 +140,7 @@ export async function listAdminArticles(
 
 /** `null` quand l'article n'existe plus : au rendu, `notFound()`. */
 export async function getAdminArticle(id: string): Promise<ApiArticle | null> {
-  try {
-    return await read<ApiArticle>(`/admin/articles/${encodeURIComponent(id)}`);
-  } catch (error) {
-    if (error instanceof AdminApiError && error.kind === 'not-found') return null;
-    throw error;
-  }
+  return readAdmin<ApiArticle>(`/admin/articles/${encodeURIComponent(id)}`, {nullOnMissing: true});
 }
 
 /** Réponse brute de l'API, pour les routes relais (téléchargement, export). */

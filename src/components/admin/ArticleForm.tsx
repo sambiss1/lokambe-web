@@ -6,8 +6,10 @@ import {useRouter} from 'next/navigation';
 import {useRef, useState, useTransition} from 'react';
 import {blogCategories} from '@/content/blog';
 import type {BlogCategoryId} from '@/content/blog';
-import {createArticle, deleteArticle, updateArticle} from '@/lib/api/admin-actions';
+import {createArticle, updateArticle} from '@/lib/api/admin-actions';
 import type {ActionResult, ArticleInput} from '@/lib/api/admin-actions';
+import {ACTION_FAILURES} from '@/lib/api/action-result';
+import {AdminButtonLink} from './AdminButton';
 import {isEmptyHtml, mediaPath, slugify} from '@/lib/blog/article';
 import type {ApiArticle} from '@/lib/blog/article';
 import {cx} from '@/lib/cx';
@@ -20,17 +22,21 @@ import {Surface} from './Surface';
  *
  * L'enregistrement passe par des server actions, jamais par un appel direct à
  * l'API : le jeton reste dans le cookie httpOnly.
+ *
+ * La suppression n'est plus ici : elle a sa propre page
+ * (`/admin/articles/<id>/supprimer`), qui nomme ce qu'on perd. Une boîte
+ * `window.confirm` ne disait rien et ne se testait qu'en détournant `window`.
  */
 
 type Props = {article?: ApiArticle};
 
 type Feedback = {tone: 'ok' | 'erreur'; text: string};
 
+/** Les messages communs, avec deux formulations propres à l'article. */
 const FAILURES: Record<string, string> = {
-  session: 'Votre session a expiré. Reconnectez-vous puis réessayez.',
+  ...ACTION_FAILURES,
   invalid: 'L’API a refusé ces valeurs. Vérifiez le titre, le chapô et le contenu.',
   introuvable: 'Cet article n’existe plus.',
-  indisponible: 'API injoignable. Rien n’a été enregistré.',
 };
 
 const buttonBase =
@@ -109,23 +115,8 @@ export function ArticleForm({article}: Props) {
 
       const result = await createArticle(payload(nextStatus ?? 'brouillon'));
       if (result.ok) {
-        // L'article existe désormais : on passe sur son écran de reprise.
+        // L'article existe désormais : on passe sur sa fiche.
         router.push(`/admin/articles/${result.data.id}`);
-        router.refresh();
-        return;
-      }
-      handle(result, '');
-    });
-  }
-
-  function remove() {
-    if (!article) return;
-    if (!window.confirm(`Supprimer définitivement « ${article.title} » ?`)) return;
-
-    startTransition(async () => {
-      const result = await deleteArticle(article.id);
-      if (result.ok) {
-        router.push('/admin/articles');
         router.refresh();
         return;
       }
@@ -247,24 +238,21 @@ export function ArticleForm({article}: Props) {
             )}
 
             {article && (
-              <button
-                type="button"
-                disabled={pending}
-                onClick={remove}
-                className={cx(buttonBase, 'text-lokambe-red-strong hover:bg-lokambe-red/10')}
-              >
+              <AdminButtonLink tone="danger" href={`/admin/articles/${article.id}/supprimer`}>
                 <Trash2 aria-hidden="true" className="size-4" strokeWidth={2.2} />
                 Supprimer
-              </button>
+              </AdminButtonLink>
             )}
           </div>
 
           {feedback && (
             <p
-              role="status"
+              role={feedback.tone === 'erreur' ? 'alert' : 'status'}
               className={cx(
                 'mt-4 rounded-xl px-3.5 py-2.5 text-sm font-medium',
-                feedback.tone === 'ok' ? 'bg-lokambe-peach-soft text-ink-soft' : 'bg-lokambe-red/10 text-lokambe-red-strong',
+                feedback.tone === 'ok'
+                  ? 'bg-lokambe-peach-soft text-ink-soft'
+                  : 'bg-lokambe-red/10 text-lokambe-red-strong',
               )}
             >
               {feedback.text}
@@ -318,7 +306,11 @@ export function ArticleForm({article}: Props) {
                   unoptimized
                 />
               </div>
-              <Field label="Description de l’image" htmlFor="article-couverture-alt" hint="Lue par les lecteurs d’écran.">
+              <Field
+                label="Description de l’image"
+                htmlFor="article-couverture-alt"
+                hint="Lue par les lecteurs d’écran."
+              >
                 <input
                   id="article-couverture-alt"
                   value={coverAlt}

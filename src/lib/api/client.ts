@@ -12,10 +12,10 @@
  * cookie httpOnly.
  */
 
-import {normalizeBase} from './base';
+import {apiUrlFrom} from './base';
 
-/** Base des routes de l'API. Vide tant qu'elle n'est pas déployée. */
-export const API_URL = normalizeBase(process.env.NEXT_PUBLIC_API_URL ?? '');
+/** Base des routes de l'API : la variable Vercel, sinon l'adresse de production. */
+export const API_URL = apiUrlFrom(process.env.NEXT_PUBLIC_API_URL);
 
 /**
  * Tant que l'API n'a pas d'adresse, les formulaires gardent leur écran de

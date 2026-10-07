@@ -1,4 +1,4 @@
-import {normalizeBase} from './base';
+import {apiUrlFrom} from './base';
 
 /**
  * Appels du back-office vers l'API, côté serveur uniquement.
@@ -11,9 +11,7 @@ import {normalizeBase} from './base';
  * navigateur. Sur Vercel il n'y a pas de réseau privé vers l'API : les deux
  * valeurs sont identiques, et l'une sert de repli à l'autre.
  */
-export const ADMIN_API_URL = normalizeBase(
-  process.env.API_INTERNAL_URL ?? process.env.NEXT_PUBLIC_API_URL ?? '',
-);
+export const ADMIN_API_URL = apiUrlFrom(process.env.API_INTERNAL_URL, process.env.NEXT_PUBLIC_API_URL);
 
 /** Faux tant que l'API n'est pas déployée : le back-office reste alors sur ses données de démonstration. */
 export const isAdminApiConfigured = ADMIN_API_URL !== '';

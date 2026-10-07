@@ -6,11 +6,22 @@ import {useState} from 'react';
 import {Logo} from '@/components/ui/Logo';
 import {cx} from '@/lib/cx';
 
+/**
+ * La navigation du back-office, en deux temps : ce qui arrive de l'extérieur
+ * (candidatures, messages), puis ce que l'équipe publie. Les six dernières
+ * entrées sont nouvelles : le contenu éditorial vivait dans le code du site.
+ */
 export const ADMIN_LINKS = [
   {href: '/admin', label: 'Tableau de bord', exact: true},
   {href: '/admin/candidatures', label: 'Candidatures', exact: false},
   {href: '/admin/messages', label: 'Messages', exact: false},
   {href: '/admin/articles', label: 'Articles', exact: false},
+  {href: '/admin/portefeuille', label: 'Portefeuille', exact: false},
+  {href: '/admin/partenaires', label: 'Partenaires', exact: false},
+  {href: '/admin/equipe', label: 'Équipe', exact: false},
+  {href: '/admin/offres', label: 'Offres d’emploi', exact: false},
+  {href: '/admin/questions', label: 'Questions fréquentes', exact: false},
+  {href: '/admin/medias', label: 'Médiathèque', exact: false},
 ] as const;
 
 export function isActive(pathname: string, href: string, exact: boolean): boolean {
@@ -41,7 +52,7 @@ export function AdminNav({onNavigate}: {onNavigate?: () => void}) {
         <Logo tone="white" className="w-32" priority />
       </Link>
 
-      <nav aria-label="Navigation du back-office" className="flex flex-col gap-1.5">
+      <nav aria-label="Navigation du back-office" className="flex min-h-0 flex-col gap-1.5 overflow-y-auto">
         {ADMIN_LINKS.map((link) => {
           const active = isActive(pathname, link.href, link.exact);
           return (

@@ -1,7 +1,7 @@
 import {blogArticles} from '@/content/blog';
 import {fromApi, fromStatic} from '@/lib/blog/article';
 import type {ApiArticle, Article} from '@/lib/blog/article';
-import {normalizeBase} from './base';
+import {apiUrlFrom} from './base';
 
 /**
  * Lecture publique du blog.
@@ -13,9 +13,7 @@ import {normalizeBase} from './base';
  * Si l'API est injoignable ou pas encore déployée, le blog montre les articles
  * d'exemple livrés avec le site plutôt qu'une page vide.
  */
-const BLOG_API_URL = normalizeBase(
-  process.env.API_INTERNAL_URL ?? process.env.NEXT_PUBLIC_API_URL ?? '',
-);
+const BLOG_API_URL = apiUrlFrom(process.env.API_INTERNAL_URL, process.env.NEXT_PUBLIC_API_URL);
 
 export const isBlogApiConfigured = BLOG_API_URL !== '';
 
@@ -70,9 +68,7 @@ export async function listArticles(locale: string = 'fr'): Promise<ArticleList> 
 
 /** `null` quand l'article n'existe pas ou n'est pas publié : la page rend un 404. */
 export async function getArticle(slug: string, locale: string = 'fr'): Promise<Article | null> {
-  const result = await get<ApiArticle>(
-    `/articles/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`,
-  );
+  const result = await get<ApiArticle>(`/articles/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`);
   if (result.kind === 'ok') return fromApi(result.data);
 
   // Que l'API réponde « inconnu » ou ne réponde pas, l'article peut encore être
@@ -83,11 +79,7 @@ export async function getArticle(slug: string, locale: string = 'fr'): Promise<A
 }
 
 /** Les derniers articles publiés, hors article courant. */
-export async function listLatestArticles(
-  excludeSlug: string,
-  locale: string = 'fr',
-  limit = 3,
-): Promise<Article[]> {
+export async function listLatestArticles(excludeSlug: string, locale: string = 'fr', limit = 3): Promise<Article[]> {
   const {articles} = await listArticles(locale);
   return articles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
 }

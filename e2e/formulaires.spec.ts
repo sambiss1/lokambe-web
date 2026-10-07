@@ -1,4 +1,5 @@
 import {expect, test} from '@playwright/test';
+import {apiAllowsOrigin} from './utils/cors';
 
 /**
  * Le formulaire de candidature, côté visiteur.
@@ -85,7 +86,16 @@ test('le formulaire de contact anglais refuse une adresse invalide, en anglais',
 test.describe('avec l’API', () => {
   test.skip(!withApi, 'E2E_API_URL absente : envoi réel non vérifié');
 
-  test('envoie une candidature complète et affiche sa référence', async ({page}) => {
+  test('envoie une candidature complète et affiche sa référence', async ({page, request, baseURL}) => {
+    // Le formulaire poste depuis le navigateur : l'API doit autoriser cette
+    // origine. Elle ne connaît que le domaine du site en production, donc en
+    // local l'envoi est bloqué par le navigateur, sans que ce soit une panne.
+    const allowed = await apiAllowsOrigin(request, process.env.E2E_API_URL ?? '', baseURL ?? '');
+    test.skip(
+      !allowed,
+      `CORS_ORIGIN de l’API ne contient pas ${baseURL} : envoi réel vérifiable seulement depuis le site déployé`,
+    );
+
     await page.goto('/fr/soumettre-un-projet');
 
     await page.getByLabel('Prénom').fill('Grâce');

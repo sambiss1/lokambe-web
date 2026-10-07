@@ -37,3 +37,37 @@ export type Sector = (typeof SECTORS)[number];
 export type NeedType = (typeof NEED_TYPES)[number];
 export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number];
 export type ContactKind = (typeof CONTACT_KINDS)[number];
+
+/* ------------------------------------- médiathèque et contenu administrable */
+
+export const MEDIA_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const MEDIA_VIDEO_TYPES = ['video/mp4', 'video/webm'] as const;
+export const MEDIA_TYPES = [...MEDIA_IMAGE_TYPES, ...MEDIA_VIDEO_TYPES] as const;
+export const MEDIA_KINDS = ['image', 'video'] as const;
+
+export const MAX_MEDIA_IMAGE_BYTES = 10 * 1024 * 1024;
+export const MAX_MEDIA_VIDEO_BYTES = 80 * 1024 * 1024;
+
+export const PUBLICATION_STATUSES = ['brouillon', 'publie'] as const;
+export const CONTRACT_TYPES = ['cdi', 'cdd', 'stage', 'consultance', 'alternance'] as const;
+
+export type MediaImageType = (typeof MEDIA_IMAGE_TYPES)[number];
+export type MediaVideoType = (typeof MEDIA_VIDEO_TYPES)[number];
+export type MediaType = (typeof MEDIA_TYPES)[number];
+export type MediaKind = (typeof MEDIA_KINDS)[number];
+export type PublicationStatus = (typeof PUBLICATION_STATUSES)[number];
+export type ContractType = (typeof CONTRACT_TYPES)[number];
+
+/** Libellés français : écrans du back-office et page Carrières. */
+export const CONTRACT_TYPE_LABELS: Record<ContractType, string> = {
+  cdi: 'CDI',
+  cdd: 'CDD',
+  stage: 'Stage',
+  consultance: 'Consultance',
+  alternance: 'Alternance',
+};
+
+export const PUBLICATION_STATUS_LABELS: Record<PublicationStatus, string> = {
+  brouillon: 'Brouillon',
+  publie: 'Publié',
+};

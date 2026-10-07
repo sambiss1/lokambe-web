@@ -5,6 +5,7 @@ import {CardGrid} from '@/components/sections/CardGrid';
 import {PageHero} from '@/components/sections/PageHero';
 import {Section} from '@/components/sections/Section';
 import {getCareers, jobPostings} from '@/content/careers';
+import {liveJobs} from '@/lib/content/live';
 import {pageMetadata} from '@/lib/seo';
 
 type Props = {params: Promise<{locale: string}>};
@@ -19,6 +20,9 @@ export default async function CareersPage({params}: Props) {
   setRequestLocale(locale);
 
   const careers = getCareers(locale);
+  // Les offres viennent de l'API. Le tableau du code est vide : sans offre
+  // publiée, la page garde son état « aucun poste ouvert ».
+  const jobs = await liveJobs(locale, jobPostings);
 
   return (
     <>
@@ -35,7 +39,7 @@ export default async function CareersPage({params}: Props) {
         title={careers.openings.title}
         intro={careers.openings.intro}
       >
-        <JobOpenings jobs={jobPostings} openings={careers.openings} />
+        <JobOpenings jobs={jobs} openings={careers.openings} />
       </Section>
     </>
   );
