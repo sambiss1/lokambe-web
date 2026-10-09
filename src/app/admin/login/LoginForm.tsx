@@ -4,6 +4,7 @@ import {useRouter, useSearchParams} from 'next/navigation';
 import {type FormEvent, useState} from 'react';
 import {Field, controlClass} from '@/components/admin/Field';
 import {Button} from '@/components/ui/Button';
+import {cx} from '@/lib/cx';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,6 +25,7 @@ export function LoginForm() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -85,15 +87,27 @@ export function LoginForm() {
       </Field>
 
       <Field label="Mot de passe" htmlFor="login-password">
-        <input
-          id="login-password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          className={controlClass}
-        />
+        <div className="relative">
+          <input
+            id="login-password"
+            name="password"
+            type={passwordVisible ? 'text' : 'password'}
+            autoComplete="current-password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className={cx(controlClass, 'pr-11')}
+          />
+          {/* `type="button"` : sans lui, le bouton soumettrait le formulaire. */}
+          <button
+            type="button"
+            onClick={() => setPasswordVisible((visible) => !visible)}
+            aria-pressed={passwordVisible}
+            aria-label={passwordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+            className="absolute inset-y-0 right-0 grid w-11 place-items-center rounded-r-xl text-ink-soft transition-colors duration-200 hover:text-ink focus-visible:text-lokambe-blue focus-visible:outline-none"
+          >
+            <EyeIcon crossed={passwordVisible} />
+          </button>
+        </div>
       </Field>
 
       {error ? (
@@ -106,5 +120,25 @@ export function LoginForm() {
         {pending ? 'Connexion…' : 'Se connecter'}
       </Button>
     </form>
+  );
+}
+
+/** L'œil du bouton de visibilité : barré quand le mot de passe est déjà lisible. */
+function EyeIcon({crossed}: {crossed: boolean}) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-[1.15rem] w-[1.15rem]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="3" />
+      {crossed ? <path d="M4 20 20 4" /> : null}
+    </svg>
   );
 }
