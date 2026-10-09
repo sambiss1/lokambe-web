@@ -65,7 +65,25 @@ export function FaqForm({entry}: Props) {
         const errors = formState.errors;
         return (
           <>
-            <fieldset className="grid gap-5">
+            <AdminField
+              label="Adresse de la fiche"
+              hint="Laissée vide, elle est déduite de la question."
+              optionalLabel="facultatif"
+              error={errors.slug?.message}
+            >
+              {({id, describedBy, invalid}) => (
+                <TextInput
+                  id={id}
+                  aria-describedby={describedBy}
+                  invalid={invalid}
+                  disabled={disabled}
+                  placeholder="qui-peut-soumettre-un-projet"
+                  {...register('slug')}
+                />
+              )}
+            </AdminField>
+
+            <fieldset className="grid gap-5 border-t border-line pt-5">
               <legend className="text-xs font-extrabold tracking-[0.12em] text-lokambe-blue uppercase">Français</legend>
 
               <AdminField label="Question" error={errors.frQuestion?.message}>
@@ -94,24 +112,6 @@ export function FaqForm({entry}: Props) {
                 )}
               </AdminField>
             </fieldset>
-
-            <AdminField
-              label="Adresse de la fiche"
-              hint="Laissée vide, elle est déduite de la question."
-              optionalLabel="facultatif"
-              error={errors.slug?.message}
-            >
-              {({id, describedBy, invalid}) => (
-                <TextInput
-                  id={id}
-                  aria-describedby={describedBy}
-                  invalid={invalid}
-                  disabled={disabled}
-                  placeholder="qui-peut-soumettre-un-projet"
-                  {...register('slug')}
-                />
-              )}
-            </AdminField>
 
             <fieldset className="grid gap-5 border-t border-line pt-5">
               <legend className="text-xs font-extrabold tracking-[0.12em] text-lokambe-blue uppercase">Anglais</legend>

@@ -3,9 +3,11 @@
 import type {ApiMedia, ApiPortfolioCompany} from '@/lib/api/content-types';
 import {portfolioFormSchema} from '@/lib/forms/content-schemas';
 import type {PortfolioFormValues} from '@/lib/forms/content-schemas';
+import {PORTFOLIO_SECTORS, PORTFOLIO_STATUSES, translateTerm} from '@/lib/vocabulary';
 import {CollectionForm} from '../form/CollectionForm';
 import {AdminField} from '../form/AdminField';
 import {MediaPicker} from '../form/MediaPicker';
+import {TranslatedField, VocabularyField} from '../form/VocabularyField';
 import {Surface} from '../Surface';
 import {TextArea, TextInput} from '../form/inputs';
 
@@ -24,16 +26,20 @@ type Props = {
 };
 
 function defaults(company?: ApiPortfolioCompany): PortfolioFormValues {
+  const frSector = company?.fr.sector ?? '';
+  const frStatus = company?.fr.status ?? '';
   return {
     name: company?.name ?? '',
     slug: company?.slug ?? '',
     websiteUrl: company?.websiteUrl ?? '',
     mediaId: company?.mediaId ?? null,
-    frSector: company?.fr.sector ?? '',
-    frStatus: company?.fr.status ?? '',
+    frSector,
+    frStatus,
     frDescription: company?.fr.description ?? '',
-    enSector: company?.en?.sector ?? '',
-    enStatus: company?.en?.status ?? '',
+    // Une fiche enregistrée avant les listes rattrape sa traduction au premier
+    // affichage : le français est connu, l'anglais l'est donc aussi.
+    enSector: translateTerm(PORTFOLIO_SECTORS, frSector) ?? company?.en?.sector ?? '',
+    enStatus: translateTerm(PORTFOLIO_STATUSES, frStatus) ?? company?.en?.status ?? '',
     enDescription: company?.en?.description ?? '',
   };
 }
@@ -124,35 +130,38 @@ export function PortfolioForm({company, library, media}: Props) {
             <fieldset className="grid gap-5 border-t border-line pt-5">
               <legend className="text-xs font-extrabold tracking-[0.12em] text-lokambe-blue uppercase">Français</legend>
 
-              <AdminField label="Secteur" error={errors.frSector?.message}>
-                {({id, describedBy, invalid}) => (
-                  <TextInput
-                    id={id}
-                    aria-describedby={describedBy}
-                    invalid={invalid}
-                    disabled={disabled}
-                    placeholder="Restauration"
-                    {...register('frSector')}
-                  />
-                )}
-              </AdminField>
+              <VocabularyField
+                label="Secteur"
+                hint="Les sept secteurs prioritaires de LOKAMBE, tels que la page d’accueil les nomme."
+                vocabulary={PORTFOLIO_SECTORS}
+                placeholder="— Choisir un secteur —"
+                otherPlaceholder="Restauration"
+                requiredMessage="Choisissez un secteur."
+                error={errors.frSector?.message}
+                disabled={disabled}
+                value={form.watch('frSector')}
+                onChange={({fr, en}) => {
+                  form.setValue('frSector', fr, {shouldDirty: true, shouldValidate: true});
+                  // Hors liste, l’anglais redevient libre : on n’a rien à y mettre.
+                  form.setValue('enSector', en ?? '', {shouldDirty: true});
+                }}
+              />
 
-              <AdminField
+              <VocabularyField
                 label="Statut du projet"
-                hint="Tel qu’il s’affiche sur la fiche : « En cours », « En pause »…"
+                hint="L’avancement, tel qu’il s’affiche sur la fiche."
+                vocabulary={PORTFOLIO_STATUSES}
+                placeholder="— Choisir un statut —"
+                otherPlaceholder="En développement"
+                requiredMessage="Choisissez un statut."
                 error={errors.frStatus?.message}
-              >
-                {({id, describedBy, invalid}) => (
-                  <TextInput
-                    id={id}
-                    aria-describedby={describedBy}
-                    invalid={invalid}
-                    disabled={disabled}
-                    placeholder="En développement"
-                    {...register('frStatus')}
-                  />
-                )}
-              </AdminField>
+                disabled={disabled}
+                value={form.watch('frStatus')}
+                onChange={({fr, en}) => {
+                  form.setValue('frStatus', fr, {shouldDirty: true, shouldValidate: true});
+                  form.setValue('enStatus', en ?? '', {shouldDirty: true});
+                }}
+              />
 
               <AdminField label="Description" error={errors.frDescription?.message}>
                 {({id, describedBy, invalid}) => (
@@ -174,31 +183,27 @@ export function PortfolioForm({company, library, media}: Props) {
                 Chaque champ laissé vide reprend le français sur la version anglaise du site.
               </p>
 
-              <AdminField label="Secteur" optionalLabel="facultatif" error={errors.enSector?.message}>
-                {({id, describedBy, invalid}) => (
-                  <TextInput
-                    id={id}
-                    aria-describedby={describedBy}
-                    invalid={invalid}
-                    disabled={disabled}
-                    placeholder="Restaurants and catering"
-                    {...register('enSector')}
-                  />
-                )}
-              </AdminField>
+              <TranslatedField
+                label="Secteur"
+                vocabulary={PORTFOLIO_SECTORS}
+                french={form.watch('frSector')}
+                value={form.watch('enSector')}
+                onChange={(next) => form.setValue('enSector', next, {shouldDirty: true})}
+                error={errors.enSector?.message}
+                placeholder="Restaurants and catering"
+                disabled={disabled}
+              />
 
-              <AdminField label="Statut" optionalLabel="facultatif" error={errors.enStatus?.message}>
-                {({id, describedBy, invalid}) => (
-                  <TextInput
-                    id={id}
-                    aria-describedby={describedBy}
-                    invalid={invalid}
-                    disabled={disabled}
-                    placeholder="In development"
-                    {...register('enStatus')}
-                  />
-                )}
-              </AdminField>
+              <TranslatedField
+                label="Statut"
+                vocabulary={PORTFOLIO_STATUSES}
+                french={form.watch('frStatus')}
+                value={form.watch('enStatus')}
+                onChange={(next) => form.setValue('enStatus', next, {shouldDirty: true})}
+                error={errors.enStatus?.message}
+                placeholder="In development"
+                disabled={disabled}
+              />
 
               <AdminField label="Description" optionalLabel="facultatif" error={errors.enDescription?.message}>
                 {({id, describedBy, invalid}) => (

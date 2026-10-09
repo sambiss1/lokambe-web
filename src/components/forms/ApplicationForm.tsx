@@ -19,6 +19,7 @@ import {
   type ApplicationValues,
 } from '@/lib/forms/schemas';
 import {Reveal} from '../motion/Reveal';
+import {AttachmentThumb} from './AttachmentThumb';
 import {Button, ButtonLink} from '../ui/Button';
 import {CheckboxCard, Field, Honeypot, Input, Select, Textarea} from './Field';
 import {FormSteps} from './FormSteps';
@@ -329,7 +330,7 @@ export function ApplicationForm({content, labels}: Props) {
                   {files.length === 0 && <li className="text-base text-ink-soft">{labels.application.files.empty}</li>}
                   {files.map((file) => (
                     <li key={file.name} className="flex items-center gap-3 rounded-2xl bg-lokambe-peach-soft px-4 py-3">
-                      <Paperclip aria-hidden="true" className="size-4 flex-none text-lokambe-blue" />
+                      <AttachmentThumb file={file} />
                       <span className="min-w-0 flex-1 truncate text-base text-ink">{file.name}</span>
                       <span className="flex-none text-sm text-ink-soft tabular-nums">{Math.round(file.size / 1024)} Ko</span>
                       <button

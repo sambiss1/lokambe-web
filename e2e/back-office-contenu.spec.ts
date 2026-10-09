@@ -63,8 +63,9 @@ test.describe('back-office — contenu', () => {
 
     await page.getByLabel('Nom de l’entreprise').fill(name);
     const français = page.getByRole('group', {name: 'Français'});
-    await français.getByLabel('Secteur').fill('Services');
-    await page.getByLabel('Statut du projet').fill('En essai');
+    // Secteur et statut sont des listes fermées, traduites d'office en anglais.
+    await français.getByLabel('Secteur', {exact: true}).selectOption('Services');
+    await page.getByLabel('Statut du projet').selectOption('En cours');
     await français
       .getByLabel('Description')
       .fill('Entreprise créée par la suite de tests pour vérifier le parcours complet.');

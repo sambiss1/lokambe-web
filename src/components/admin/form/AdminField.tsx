@@ -77,12 +77,15 @@ export function AdminFieldset({
   label,
   hint,
   error,
+  optionalLabel,
   className,
   children,
 }: {
   label: string;
   hint?: string;
   error?: string;
+  /** Affiché à côté de l'étiquette, comme pour `AdminField`. */
+  optionalLabel?: string;
   className?: string;
   children: (props: {labelledBy: string; describedBy?: string}) => ReactNode;
 }) {
@@ -95,6 +98,9 @@ export function AdminFieldset({
     <div className={cx('flex flex-col gap-1.5', className)}>
       <p id={id} className="text-xs font-bold tracking-[0.08em] text-ink-soft uppercase">
         {label}
+        {optionalLabel ? (
+          <span className="text-[0.7rem] font-medium tracking-normal normal-case"> ({optionalLabel})</span>
+        ) : null}
       </p>
       {children({labelledBy: id, describedBy})}
       {hint ? (

@@ -39,6 +39,10 @@ const FAILURES: Record<string, string> = {
   introuvable: 'Cet article n’existe plus.',
 };
 
+/** Ce que la route de téléversement accepte, vérifié avant de partir. */
+const COVER_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_COVER_BYTES = 10 * 1024 * 1024;
+
 const buttonBase =
   'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[0.95rem] font-bold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60';
 
@@ -58,6 +62,12 @@ export function ArticleForm({article}: Props) {
   const [coverFileId, setCoverFileId] = useState<string | null>(article?.coverFileId ?? null);
   const [coverAlt, setCoverAlt] = useState(article?.coverAlt ?? '');
   const [uploadingCover, setUploadingCover] = useState(false);
+  /**
+   * L'image choisie, lue dans le navigateur, **montrée avant la fin de
+   * l'envoi**. Le panneau restait vide le temps du téléversement : on ne
+   * voyait qu'au bout de plusieurs secondes qu'on s'était trompé de fichier.
+   */
+  const [localCover, setLocalCover] = useState<string | null>(null);
 
   const status = article?.status ?? 'brouillon';
   const published = status === 'publie';
@@ -125,6 +135,24 @@ export function ArticleForm({article}: Props) {
   }
 
   async function uploadCover(file: File) {
+    if (!COVER_TYPES.includes(file.type)) {
+      setFeedback({tone: 'erreur', text: 'Format refusé : choisissez une image JPEG, PNG ou WebP.'});
+      return;
+    }
+    if (file.size > MAX_COVER_BYTES) {
+      setFeedback({
+        tone: 'erreur',
+        text: `Image trop lourde (${Math.round(file.size / (1024 * 1024))} Mo). ${Math.round(MAX_COVER_BYTES / (1024 * 1024))} Mo au maximum.`,
+      });
+      return;
+    }
+
+    // L'aperçu d'abord, l'envoi ensuite : on voit tout de suite ce qu'on a pris.
+    const preview = URL.createObjectURL(file);
+    setLocalCover((previous) => {
+      if (previous) URL.revokeObjectURL(previous);
+      return preview;
+    });
     setUploadingCover(true);
     setFeedback(null);
     try {
@@ -141,6 +169,10 @@ export function ArticleForm({article}: Props) {
       setFeedback({tone: 'erreur', text: 'Téléversement impossible : vérifiez votre connexion.'});
     } finally {
       setUploadingCover(false);
+      // L'image est désormais servie par l'API — ou l'envoi a échoué : dans les
+      // deux cas l'adresse locale n'a plus de raison de retenir le fichier.
+      URL.revokeObjectURL(preview);
+      setLocalCover(null);
     }
   }
 
@@ -332,8 +364,18 @@ export function ArticleForm({article}: Props) {
             </div>
           ) : (
             <>
+              {localCover ? (
+                <div className="relative mt-4 aspect-[16/10] overflow-hidden rounded-xl bg-lokambe-peach-soft">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- fichier local (blob:), hors de portée de next/image */}
+                  <img src={localCover} alt="" className="size-full object-cover" />
+                  <span className="absolute inset-0 grid place-items-center bg-ink/45 text-sm font-bold text-white">
+                    Téléversement…
+                  </span>
+                </div>
+              ) : null}
               <p className="mt-3 text-sm text-ink-soft">
-                Sans image, le site affiche une photo correspondant au thème choisi.
+                Sans image, le site affiche une photo correspondant au thème choisi. JPEG, PNG ou WebP, 10 Mo au
+                maximum.
               </p>
               <button
                 type="button"

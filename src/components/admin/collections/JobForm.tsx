@@ -250,7 +250,8 @@ export function JobForm({job, library, media}: Props) {
               </AdminField>
 
               <AdminFieldset
-                label="Missions (facultatif)"
+                label="Missions"
+                optionalLabel="facultatif"
                 hint="Une ligne par mission. Les lignes laissées vides sont ignorées."
                 error={errors.enMissions?.message}
               >
@@ -270,7 +271,8 @@ export function JobForm({job, library, media}: Props) {
               </AdminFieldset>
 
               <AdminFieldset
-                label="Profil recherché (facultatif)"
+                label="Profil recherché"
+                optionalLabel="facultatif"
                 hint="Une ligne par exigence. Les lignes laissées vides sont ignorées."
                 error={errors.enProfile?.message}
               >

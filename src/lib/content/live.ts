@@ -1,8 +1,9 @@
 import {listCollection, localized} from '@/lib/api/content';
 import type {ApiFaqEntry, ApiJobPosting, ApiPartner, ApiPortfolioCompany, ApiTeamMember} from '@/lib/api/content-types';
 import type {ContractType as ApiContractType} from '@/lib/constants';
+import {CONTRACT_TYPE_TEXTS} from '@/lib/vocabulary';
 import {entryImageUrl} from '@/lib/media/url';
-import type {ContractType, JobPosting} from '@/content/careers';
+import type {JobPosting} from '@/content/careers';
 import type {TeamRoleCard} from '@/content/team';
 import type {FaqContent, LogoEntry, LogoWallContent} from '@/content/types';
 
@@ -21,17 +22,16 @@ import type {FaqContent, LogoEntry, LogoWallContent} from '@/content/types';
  */
 
 /**
- * Le type de contrat de l'API vers le libellé affiché par la page Carrières.
- * La table est typée sur l'union du contenu statique : ajouter un type côté API
- * sans libellé ici ne compile pas.
+ * Le type de contrat de l'API vers le libellé affiché par la page Carrières,
+ * **dans la langue de la page**.
+ *
+ * La page anglaise affichait « CDI » et « Alternance » : des termes du droit
+ * français et congolais, que la table de `@/lib/vocabulary` traduit.
  */
-const CONTRACT_LABELS: Record<ApiContractType, ContractType> = {
-  cdi: 'CDI',
-  cdd: 'CDD',
-  stage: 'Stage',
-  consultance: 'Consultance',
-  alternance: 'Alternance',
-};
+function contractLabel(type: ApiContractType, locale: string): string {
+  const text = CONTRACT_TYPE_TEXTS[type];
+  return locale === 'en' ? text.en : text.fr;
+}
 
 /** L'ordre vient de l'API (rang d'affichage) : on ne retrie pas ici. */
 function toLogoEntry(company: ApiPortfolioCompany, locale: string): LogoEntry {
@@ -102,7 +102,7 @@ export async function liveJobs(locale: string, fallback: JobPosting[]): Promise<
       slug: posting.slug,
       title: text.title,
       location: posting.location,
-      contractType: CONTRACT_LABELS[posting.contractType],
+      contractType: contractLabel(posting.contractType, locale),
       summary: text.summary,
       missions: text.missions,
       profile: text.profile,

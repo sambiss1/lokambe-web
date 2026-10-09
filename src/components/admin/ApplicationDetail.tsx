@@ -1,5 +1,6 @@
 'use client';
 
+import {FileText} from 'lucide-react';
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import {type FormEvent, useState, useTransition} from 'react';
@@ -215,7 +216,24 @@ export function ApplicationDetail({application}: {application: AdminApplication}
                     key={file.fileId}
                     className="flex flex-col gap-2 rounded-2xl bg-lokambe-peach-soft/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                   >
-                    <span className="min-w-0 truncate text-sm font-bold">{file.filename}</span>
+                    <span className="flex min-w-0 items-center gap-3">
+                      {/* Une photo se regarde : le nom du fichier ne dit pas ce
+                          qu'on a reçu. Le relais signe l'appel, l'image passe
+                          par lui comme le téléchargement. */}
+                      {file.mimeType.startsWith('image/') ? (
+                        // eslint-disable-next-line @next/next/no-img-element -- relais authentifié du site, hors du domaine d'images de next/image
+                        <img
+                          src={`/api/admin/files/${document.id}/${file.fileId}`}
+                          alt=""
+                          className="size-12 flex-none rounded-xl border border-line bg-white object-cover"
+                        />
+                      ) : (
+                        <span className="grid size-12 flex-none place-items-center rounded-xl border border-line bg-white text-lokambe-blue">
+                          <FileText aria-hidden="true" className="size-5" strokeWidth={2} />
+                        </span>
+                      )}
+                      <span className="min-w-0 truncate text-sm font-bold">{file.filename}</span>
+                    </span>
                     <span className="flex flex-none items-center justify-between gap-4 sm:justify-end">
                       <span className="text-xs text-ink-soft tabular-nums">{formatBytes(file.size)}</span>
                       {/* Le fichier passe par le site, qui signe l'appel : le jeton reste au serveur. */}

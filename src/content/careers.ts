@@ -13,8 +13,14 @@ type PageMeta = {title: string; description: string};
 type HeroContent = {eyebrow: string; title: string; intro: string; image?: {src: string; alt: string; position?: string}};
 type TitledText = {title: string; text: string};
 
-/** Type de contrat proposé. */
-export type ContractType = 'CDI' | 'CDD' | 'Stage' | 'Consultance' | 'Alternance';
+/**
+ * Le type de contrat, **déjà mis en mots dans la langue de la page**.
+ *
+ * Ce n'était qu'une union de libellés français, affichée telle quelle sur la
+ * page anglaise. La liste fermée vit maintenant dans `@/lib/vocabulary`, qui en
+ * donne les deux langues ; ici on ne reçoit plus que le texte à afficher.
+ */
+export type ContractType = string;
 
 /** Une offre d’emploi publiée sur la page « Carrières ». */
 export type JobPosting = {

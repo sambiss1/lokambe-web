@@ -43,8 +43,9 @@ function createdPayload(): Record<string, unknown> {
 
 async function fillFrench(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText('Nom de l’entreprise'), 'Bradamada');
-  await user.type(screen.getByLabelText('Secteur'), 'Restauration');
-  await user.type(screen.getByLabelText('Statut du projet'), 'En développement');
+  // Secteur et statut sont des listes fermées : on choisit, on ne tape pas.
+  await user.selectOptions(screen.getByLabelText('Secteur'), 'Restauration');
+  await user.selectOptions(screen.getByLabelText('Statut du projet'), 'En développement');
   await user.type(screen.getByLabelText('Description'), 'Un concept de restauration rapide, immersif et mémorable.');
 }
 
@@ -55,9 +56,12 @@ describe('PortfolioForm', () => {
 
     await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
 
-    // Nom, secteur et statut veulent deux caractères ; la description en veut dix.
+    // Le nom veut deux caractères, la description dix. Secteur et statut sont
+    // des menus : « 2 caractères minimum » n'y voudrait rien dire.
     expect(await screen.findByText('10 caractères minimum.')).toBeInTheDocument();
-    expect(screen.getAllByText('2 caractères minimum.')).toHaveLength(3);
+    expect(screen.getAllByText('2 caractères minimum.')).toHaveLength(1);
+    expect(screen.getByText('Choisissez un secteur.')).toBeInTheDocument();
+    expect(screen.getByText('Choisissez un statut.')).toBeInTheDocument();
 
     // Le message est bien rattaché au champ, donc lu avec lui.
     const describedBy = screen.getByLabelText('Nom de l’entreprise').getAttribute('aria-describedby');
@@ -97,7 +101,10 @@ describe('PortfolioForm', () => {
     expect(screen.getByLabelText('Secteur')).toHaveValue('Restauration');
     expect(screen.getByLabelText('Description')).toHaveValue(company.fr.description);
     const anglais = screen.getByRole('group', {name: 'Anglais'});
-    expect(within(anglais).getByLabelText(/Secteur/)).toHaveValue('Restaurants and catering');
+    // L'anglais d'une liste fermée n'est pas saisi : il est su.
+    const enSector = within(anglais).getByLabelText(/Secteur/);
+    expect(enSector).toHaveValue('Restaurants and catering');
+    expect(enSector).toHaveAttribute('readonly');
 
     await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
 
@@ -134,9 +141,50 @@ describe('PortfolioForm', () => {
     await waitFor(() => expect(createCollectionEntry).toHaveBeenCalled());
     const en = createdPayload().en as Record<string, unknown>;
     expect(Object.values(en)).not.toContain('');
-    expect(en.sector).toBeUndefined();
-    expect(en.status).toBeUndefined();
+    // La description n'a pas été traduite : elle reste absente, et le site
+    // anglais affichera le français.
     expect(en.description).toBeUndefined();
+  });
+
+  /** Le secteur et le statut, eux, sont traduits sans qu'on ait rien à saisir. */
+  it('traduit secteur et statut en anglais depuis le choix français', async () => {
+    const user = userEvent.setup();
+    render(<PortfolioForm library={[]} />);
+
+    await fillFrench(user);
+    await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
+
+    await waitFor(() => expect(createCollectionEntry).toHaveBeenCalled());
+    expect(createdPayload().en).toMatchObject({
+      sector: 'Restaurants and catering',
+      status: 'In development',
+    });
+  });
+
+  /**
+   * La liste ne prévoit pas tout. « Autre » rouvre le champ en français, et
+   * l'anglais redevient à saisir : la table n'a rien à proposer.
+   */
+  it('laisse saisir un secteur hors liste, et son anglais avec', async () => {
+    const user = userEvent.setup();
+    render(<PortfolioForm library={[]} />);
+
+    await user.type(screen.getByLabelText('Nom de l’entreprise'), 'Bradamada');
+    await user.selectOptions(screen.getByLabelText('Secteur'), 'Autre (à préciser)');
+    await user.type(screen.getByLabelText('Secteur — à préciser'), 'Agriculture');
+    await user.selectOptions(screen.getByLabelText('Statut du projet'), 'En cours');
+    await user.type(screen.getByLabelText('Description'), 'Une exploitation maraîchère aux portes de Kinshasa.');
+
+    const anglais = screen.getByRole('group', {name: 'Anglais'});
+    await user.type(within(anglais).getByLabelText(/Secteur/), 'Farming');
+
+    await user.click(screen.getByRole('button', {name: 'Enregistrer'}));
+
+    await waitFor(() => expect(createCollectionEntry).toHaveBeenCalled());
+    expect(createdPayload()).toMatchObject({
+      fr: {sector: 'Agriculture', status: 'En cours'},
+      en: {sector: 'Farming', status: 'Under way'},
+    });
   });
 
   it('mène à la page de suppression plutôt que d’ouvrir une boîte', () => {
