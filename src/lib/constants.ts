@@ -26,12 +26,29 @@ export const MAX_FILES = 5;
 export const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
 /**
- * Copie exacte de `PHONE_REGEX` côté API. Le site doit refuser ce que l'API
- * refuse : sa regex acceptait le point et le `+` en milieu de chaîne, si bien
- * qu'un numéro saisi « +243 810.000.141 » passait le formulaire et revenait
- * en 400.
+ * Copie exacte de `PHONE_REGEX` côté API, et des bornes qui l'accompagnent. Le
+ * site doit refuser ce que l'API refuse, sans quoi un numéro passe le
+ * formulaire et revient en 400.
+ *
+ * Deux formes, et elles seules :
+ *
+ * - **avec indicatif** — un `+` puis 8 à 15 chiffres (le maximum d'un numéro
+ *   dans la norme E.164). C'est la forme à préférer : un numéro étranger,
+ *   celui d'un entrepreneur de la diaspora par exemple, passe sans rien
+ *   changer. C'est elle que proposent le texte d'aide et l'exemple du champ.
+ * - **sans indicatif** — un `0` puis 9 chiffres, le format national congolais.
+ *
+ * Espaces, parenthèses et tirets sont tolérés entre les chiffres et ne
+ * comptent pas ; `PHONE_MAX_LENGTH` borne la chaîne brute pour qu'on ne
+ * puisse pas la rallonger de séparateurs.
  */
-export const PHONE_REGEX = /^\+?[0-9 ()-]{6,20}$/;
+export const PHONE_REGEX = /^(?:\+\d(?:[ ()-]*\d){7,14}|0(?:[ ()-]*\d){9})$/;
+
+export const PHONE_MIN_LENGTH = 6;
+export const PHONE_MAX_LENGTH = 20;
+
+/** Ce qu'on retire de ce qui est tapé ou collé dans un champ téléphone. */
+export const PHONE_DISALLOWED_CHARS = /[^0-9 ()+-]/g;
 
 export type Sector = (typeof SECTORS)[number];
 export type NeedType = (typeof NEED_TYPES)[number];

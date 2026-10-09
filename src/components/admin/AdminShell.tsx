@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import {type ReactNode, useCallback, useEffect, useState} from 'react';
 import {Logo} from '@/components/ui/Logo';
 import {cx} from '@/lib/cx';
@@ -55,7 +56,9 @@ export function AdminShell({children}: {children: ReactNode}) {
 
       {/* Barre supérieure mobile. */}
       <div className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-white px-4 py-3 min-[900px]:hidden">
-        <Logo tone="blue" className="w-24" priority />
+        <Link href="/admin" aria-label="LOKAMBE — tableau de bord" className="block">
+          <Logo tone="blue" className="w-24" priority />
+        </Link>
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}

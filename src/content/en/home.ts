@@ -111,7 +111,7 @@ export const home: HomeContent = {
     eyebrow: 'Portfolio',
     title: 'Growing with us.',
     intro:
-      'Seven companies financed or created by LOKAMBE. Click on one of them to see what it does, its sector and how far along the project is.',
+      'Seven companies financed or created by LOKAMBE. Hover one of them — or tap it — to see what it does, its sector and how far along the project is.',
     items: [
       {
         id: 'bradamada',

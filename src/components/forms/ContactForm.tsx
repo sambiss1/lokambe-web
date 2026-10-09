@@ -8,6 +8,7 @@ import type {FormsContent} from '@/content/types';
 import {isApiConfigured, SubmitError, type SubmitFailure, submitContact} from '@/lib/api/client';
 import {toContactPayload} from '@/lib/api/payload';
 import {CONTACT_KINDS} from '@/lib/constants';
+import {phoneField} from '@/lib/forms/phone-input';
 import {type ContactParsed, createContactSchema, type ContactValues} from '@/lib/forms/schemas';
 import {Reveal} from '../motion/Reveal';
 import {Button} from '../ui/Button';
@@ -117,7 +118,7 @@ export function ContactForm({title, labels, defaultKind}: Props) {
           </Field>
           <Field label={f.phone} optionalLabel={labels.common.optional} error={errors.phone?.message}>
             {({id, describedBy, invalid}) => (
-              <Input id={id} type="tel" inputMode="tel" aria-describedby={describedBy} invalid={invalid} autoComplete="tel" {...register('phone')} />
+              <Input id={id} aria-describedby={describedBy} invalid={invalid} {...phoneField(register('phone'))} />
             )}
           </Field>
           <div className="sm:col-span-2">

@@ -5,6 +5,7 @@ import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILES,
   NEED_TYPES,
+  PHONE_MAX_LENGTH,
   PHONE_REGEX,
   SECTORS,
 } from '@/lib/constants';
@@ -30,7 +31,7 @@ export function createApplicantSchema(t: Translate) {
   return z.object({
     firstName: required(t('firstName')),
     lastName: required(t('lastName')),
-    phone: required(t('phone')).regex(PHONE_REGEX, t('phoneInvalid')),
+    phone: required(t('phone')).max(PHONE_MAX_LENGTH, t('phoneInvalid')).regex(PHONE_REGEX, t('phoneInvalid')),
     email: z.union([z.literal(''), z.string().trim().email(t('emailInvalid'))]).optional(),
     city: required(t('city')),
     commune: z.string().trim().optional(),
@@ -90,7 +91,10 @@ export function createContactSchema(t: Translate) {
     organization: z.string().trim().optional(),
     email: required(t('email')).email(t('emailInvalid')),
     phone: z
-      .union([z.literal(''), z.string().trim().regex(PHONE_REGEX, t('phoneInvalid'))])
+      .union([
+        z.literal(''),
+        z.string().trim().max(PHONE_MAX_LENGTH, t('phoneInvalid')).regex(PHONE_REGEX, t('phoneInvalid')),
+      ])
       .optional(),
     message: required(t('message')).min(20, t('messageShort')),
     website: z.literal('').optional(),

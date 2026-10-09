@@ -31,7 +31,7 @@ export const forms: FormsContent = {
       firstName: 'Prénom',
       lastName: 'Nom',
       phone: 'Téléphone',
-      phoneHint: 'Numéro joignable, WhatsApp de préférence.',
+      phoneHint: 'Numéro joignable, WhatsApp de préférence. Écrivez-le avec l’indicatif : +243…',
       email: 'Email',
       emailHint: 'Pour recevoir votre accusé de réception.',
       city: 'Ville',

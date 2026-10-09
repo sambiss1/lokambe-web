@@ -111,7 +111,7 @@ export const home: HomeContent = {
     eyebrow: 'Portefeuille',
     title: 'Elles grandissent avec nous.',
     intro:
-      'Sept entreprises financées ou créées par LOKAMBE. Cliquez sur l’une d’elles pour découvrir son activité, son secteur et l’avancement du projet.',
+      'Sept entreprises financées ou créées par LOKAMBE. Survolez l’une d’elles — ou touchez-la — pour découvrir son activité, son secteur et l’avancement du projet.',
     items: [
       {
         id: 'bradamada',

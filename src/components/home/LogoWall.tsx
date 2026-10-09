@@ -35,7 +35,28 @@ export function LogoWall({
   interactive?: boolean;
 }) {
   const [selected, setSelected] = useState<LogoEntry | null>(null);
+  const [hovered, setHovered] = useState<HoveredTile | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  /**
+   * La fiche au survol n'a de sens qu'avec un pointeur. Sur un écran tactile,
+   * un appui déclencherait le survol *et* le clic : la fiche s'afficherait
+   * derrière sa propre boîte de dialogue.
+   */
+  const showOnHover = (item: LogoEntry, element: HTMLElement) => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    const box = element.getBoundingClientRect();
+    const half = Math.min(FICHE_WIDTH, window.innerWidth - 2 * FICHE_MARGIN) / 2;
+
+    // Centrée sous la tuile, mais jamais hors de l'écran : les premiers et les
+    // derniers logos du bandeau touchent les bords.
+    const x = clamp(box.left + box.width / 2, half + FICHE_MARGIN, window.innerWidth - half - FICHE_MARGIN);
+    // Et au-dessus plutôt qu'en dessous quand le bas de la fenêtre est trop
+    // proche, sinon la fiche s'ouvre dans le vide.
+    const above = box.bottom + FICHE_HEIGHT + FICHE_MARGIN > window.innerHeight;
+
+    setHovered({item, x, y: above ? box.top - 12 : box.bottom + 12, above});
+  };
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -65,12 +86,13 @@ export function LogoWall({
       'mx-2 flex size-32 flex-none scroll-ml-5 snap-start items-center justify-center gap-3 overflow-hidden rounded-[1.5rem] sm:size-36',
       'ring-1 ring-line ring-inset',
       item.logo ? 'ring-ink/10' : tone === 'peach' ? 'bg-white' : 'bg-lokambe-peach-soft',
-      interactive &&
-        'transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_-24px_rgba(0,18,168,0.5)] focus-visible:-translate-y-1',
+      // Le client ne veut pas que la tuile bouge au survol : la fiche qui
+      // apparaît suffit à dire que le logo répond.
+      interactive && 'cursor-pointer transition-[box-shadow] duration-200 hover:ring-2 hover:ring-lokambe-blue/35',
     );
 
   return (
-    <section className={cx('overflow-hidden py-20 sm:py-28', tone === 'peach' ? 'bg-lokambe-peach-soft' : 'bg-white')}>
+    <section className={cx('overflow-hidden py-28 sm:py-36', tone === 'peach' ? 'bg-lokambe-peach-soft' : 'bg-white')}>
       <Container>
         <Eyebrow className="text-ink-soft">{content.eyebrow}</Eyebrow>
         <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
@@ -86,7 +108,12 @@ export function LogoWall({
           </p>
         </Container>
       ) : scrolls ? (
-        <div className="logo-rail no-scrollbar mt-12 flex overflow-hidden px-5 sm:px-8" aria-label={content.title} role="group">
+        <div
+          className="logo-rail no-scrollbar mt-14 flex overflow-hidden px-5 py-4 sm:px-8"
+          aria-label={content.title}
+          role="group"
+          onMouseLeave={() => setHovered(null)}
+        >
           <div className="logo-track motion-reduce:animate-none">
             {[0, 1].map((copy) => (
               <div key={copy} className="logo-copy flex" aria-hidden={copy === 1 ? true : undefined}>
@@ -95,7 +122,13 @@ export function LogoWall({
                     key={`${copy}-${item.id}`}
                     type="button"
                     tabIndex={copy === 1 ? -1 : undefined}
-                    onClick={() => setSelected(item)}
+                    onClick={() => {
+                      setHovered(null);
+                      setSelected(item);
+                    }}
+                    onMouseEnter={(event) => showOnHover(item, event.currentTarget)}
+                    onFocus={(event) => showOnHover(item, event.currentTarget)}
+                    onBlur={() => setHovered(null)}
                     className={tileClass(item)}
                   >
                     {tile(item)}
@@ -115,6 +148,23 @@ export function LogoWall({
             ))}
           </ul>
         </Container>
+      )}
+
+      {/* Au survol, la même fiche qu'au clic, en plus compact. `fixed` la sort
+          des deux `overflow-hidden` — celui de la section et celui du bandeau —
+          qui la couperaient en deux. */}
+      {interactive && hovered && (
+        <div
+          role="tooltip"
+          style={{left: hovered.x, top: hovered.y}}
+          className={cx(
+            'pointer-events-none fixed z-50 w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 rounded-[1.5rem] bg-white p-6',
+            'shadow-[0_30px_70px_-30px_rgba(0,18,168,0.55)] ring-1 ring-ink/10 ring-inset',
+            hovered.above && '-translate-y-full',
+          )}
+        >
+          <Fiche item={hovered.item} content={content} compact />
+        </div>
       )}
 
       {/* Pas de fiche à ouvrir quand les tuiles ne sont pas cliquables : inutile
@@ -157,27 +207,53 @@ export function LogoWall({
                 </button>
               </div>
 
-              <h3 className="display mt-5 text-2xl text-lokambe-blue">{selected.name}</h3>
-              <p className="mt-3 text-[1.0625rem] leading-relaxed text-ink-soft">{selected.text ?? content.empty}</p>
-
-              <dl className="mt-6 grid gap-4 border-t border-line pt-6 sm:grid-cols-2">
-                <div>
-                  <dt className="text-sm font-medium text-ink-soft">{content.detail.sectorLabel}</dt>
-                  <dd className={cx('mt-1 text-lg font-bold', selected.sector ? 'text-ink' : 'text-ink-soft/60')}>
-                    {selected.sector ?? content.detail.pending}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-ink-soft">{content.detail.statusLabel}</dt>
-                  <dd className={cx('mt-1 text-lg font-bold', selected.status ? 'text-ink' : 'text-ink-soft/60')}>
-                    {selected.status ?? content.detail.pending}
-                  </dd>
-                </div>
-              </dl>
+              <Fiche item={selected} content={content} />
             </div>
           )}
         </dialog>
       )}
     </section>
+  );
+}
+
+/** Où poser la fiche flottante : au centre de la tuile, au-dessus ou dessous. */
+type HoveredTile = {item: LogoEntry; x: number; y: number; above: boolean};
+
+/** Mesures de la fiche au survol, en pixels : largeur, marge au bord, hauteur
+ *  estimée — elle dépend du texte, on ne la mesure pas, on s'en approche. */
+const FICHE_WIDTH = 384;
+const FICHE_MARGIN = 16;
+const FICHE_HEIGHT = 260;
+
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), Math.max(min, max));
+
+/**
+ * Le contenu d'une fiche, partagé par la boîte de dialogue du clic et la carte
+ * du survol. Deux rendus de la même chose divergent toujours ; celui-ci est
+ * écrit une fois.
+ */
+function Fiche({item, content, compact}: {item: LogoEntry; content: LogoWallContent; compact?: boolean}) {
+  return (
+    <>
+      <h3 className={cx('display text-lokambe-blue', compact ? 'text-xl' : 'mt-5 text-2xl')}>{item.name}</h3>
+      <p className={cx('leading-relaxed text-ink-soft', compact ? 'mt-2 text-[0.95rem]' : 'mt-3 text-[1.0625rem]')}>
+        {item.text ?? content.empty}
+      </p>
+
+      <dl className={cx('grid gap-4 border-t border-line sm:grid-cols-2', compact ? 'mt-4 pt-4' : 'mt-6 pt-6')}>
+        <div>
+          <dt className="text-sm font-medium text-ink-soft">{content.detail.sectorLabel}</dt>
+          <dd className={cx('mt-1 font-bold', compact ? 'text-base' : 'text-lg', item.sector ? 'text-ink' : 'text-ink-soft/60')}>
+            {item.sector ?? content.detail.pending}
+          </dd>
+        </div>
+        <div>
+          <dt className="text-sm font-medium text-ink-soft">{content.detail.statusLabel}</dt>
+          <dd className={cx('mt-1 font-bold', compact ? 'text-base' : 'text-lg', item.status ? 'text-ink' : 'text-ink-soft/60')}>
+            {item.status ?? content.detail.pending}
+          </dd>
+        </div>
+      </dl>
+    </>
   );
 }

@@ -31,7 +31,7 @@ export const forms: FormsContent = {
       firstName: 'First name',
       lastName: 'Last name',
       phone: 'Phone',
-      phoneHint: 'A number we can reach you on, WhatsApp preferably.',
+      phoneHint: 'A number we can reach you on, WhatsApp preferably. Write it with the dialling code: +243…',
       email: 'Email',
       emailHint: 'So that we can send you your confirmation.',
       city: 'City',

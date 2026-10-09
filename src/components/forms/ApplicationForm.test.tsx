@@ -14,6 +14,27 @@ describe('ApplicationForm', () => {
     expect(screen.getByLabelText(/Prénom/)).toBeInTheDocument();
   });
 
+  it('refuse les lettres dans le téléphone au lieu de les signaler après coup', async () => {
+    const user = userEvent.setup();
+    renderWithIntl(<ApplicationForm content={fr.apply.form} labels={fr.forms} />);
+    const phone = screen.getByLabelText(/Téléphone/);
+
+    await user.type(phone, '32u4uwfeinedsnjcssknjdcjnkdcds');
+
+    expect(phone).toHaveValue('324');
+  });
+
+  it('borne le téléphone à la plus longue écriture légitime', async () => {
+    const user = userEvent.setup();
+    renderWithIntl(<ApplicationForm content={fr.apply.form} labels={fr.forms} />);
+    const phone = screen.getByLabelText(/Téléphone/);
+
+    await user.type(phone, '+243 810 000 141 222 333');
+
+    expect(phone).toHaveAttribute('maxLength', '20');
+    expect(phone).toHaveValue('+243 810 000 141 222');
+  });
+
   it('passe à l’étape suivante quand les champs requis sont remplis', async () => {
     const user = userEvent.setup();
     renderWithIntl(<ApplicationForm content={fr.apply.form} labels={fr.forms} />);

@@ -16,7 +16,9 @@ export function Footer() {
       <Container className="pt-20 pb-10 sm:pt-28">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
           <div>
-            <Logo tone="white" className="w-44 sm:w-56" />
+            <Link href="/" aria-label={t('homeLink')} className="inline-block">
+              <Logo tone="white" className="w-44 sm:w-56" />
+            </Link>
             <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-white/70">{tf('description')}</p>
             <ButtonLink href={APPLY_HREF} variant="red" size="lg" className="mt-8">
               {t('apply')}

@@ -10,6 +10,7 @@ import {Link} from '@/i18n/navigation';
 import {isApiConfigured, SubmitError, type SubmitFailure, submitApplication} from '@/lib/api/client';
 import {toApplicationPayload} from '@/lib/api/payload';
 import {ALLOWED_FILE_TYPES, NEED_TYPES, SECTORS} from '@/lib/constants';
+import {phoneField} from '@/lib/forms/phone-input';
 import {
   type ApplicationParsed,
   createApplicationSchema,
@@ -181,7 +182,7 @@ export function ApplicationForm({content, labels}: Props) {
               </Field>
               <Field label={f.phone} hint={f.phoneHint} error={errors.applicant?.phone?.message}>
                 {({id, describedBy, invalid}) => (
-                  <Input id={id} type="tel" inputMode="tel" aria-describedby={describedBy} invalid={invalid} autoComplete="tel" {...register('applicant.phone')} />
+                  <Input id={id} aria-describedby={describedBy} invalid={invalid} {...phoneField(register('applicant.phone'))} />
                 )}
               </Field>
               <Field label={f.email} hint={f.emailHint} optionalLabel={labels.common.optional} error={errors.applicant?.email?.message}>
