@@ -105,6 +105,11 @@ export type ApiFaqEntry = ApiPublishable & {
   en?: Partial<FaqText>;
 };
 
+export type ApiTheme = ApiPublishable & {
+  fr: {name: string};
+  en?: {name?: string};
+};
+
 /** Filtres des listes du back-office : état de publication et page. */
 export type CollectionFilters = {
   status?: PublicationStatus;
@@ -118,7 +123,7 @@ export type MediaFilters = {
 };
 
 /**
- * Les cinq collections, désignées par la même clé partout : chemin de l'API,
+ * Les collections éditoriales, désignées par la même clé partout : chemin de l'API,
  * adresse du back-office, étiquette de cache. Une seule table à tenir à jour.
  */
 export const COLLECTIONS = {
@@ -127,6 +132,7 @@ export const COLLECTIONS = {
   team: {apiPath: 'team', adminPath: 'equipe'},
   jobs: {apiPath: 'jobs', adminPath: 'offres'},
   faq: {apiPath: 'faq', adminPath: 'questions'},
+  themes: {apiPath: 'themes', adminPath: 'themes'},
 } as const;
 
 export type CollectionKey = keyof typeof COLLECTIONS;
@@ -143,6 +149,7 @@ export type CollectionEntry = {
   team: ApiTeamMember;
   jobs: ApiJobPosting;
   faq: ApiFaqEntry;
+  themes: ApiTheme;
 };
 
 /** Comptes affichés sur le tableau de bord, ajoutés à `/admin/stats`. */

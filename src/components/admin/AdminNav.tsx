@@ -16,6 +16,7 @@ export const ADMIN_LINKS = [
   {href: '/admin/candidatures', label: 'Candidatures', exact: false},
   {href: '/admin/messages', label: 'Messages', exact: false},
   {href: '/admin/articles', label: 'Articles', exact: false},
+  {href: '/admin/themes', label: 'Thèmes', exact: false},
   {href: '/admin/portefeuille', label: 'Portefeuille', exact: false},
   {href: '/admin/partenaires', label: 'Partenaires', exact: false},
   {href: '/admin/equipe', label: 'Équipe', exact: false},

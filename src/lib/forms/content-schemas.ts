@@ -166,6 +166,17 @@ export const faqFormSchema = z.object({
 
 export type FaqFormValues = z.input<typeof faqFormSchema>;
 
+/* --------------------------------------------------------- thèmes d'articles */
+
+export const themeFormSchema = z.object({
+  slug: optionalSlug,
+  mediaId,
+  frName: requiredText(2, 60),
+  enName: optionalText(2, 60),
+});
+
+export type ThemeFormValues = z.input<typeof themeFormSchema>;
+
 /* ------------------------------------------------------------ médiathèque */
 
 export const mediaFormSchema = z.object({

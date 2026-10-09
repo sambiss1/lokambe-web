@@ -1,6 +1,7 @@
 import type {AdminApplication, AdminApplicationSummary, AdminContact, Page} from '@/lib/api/admin-types';
 import type {
   ApiFaqEntry,
+  ApiTheme,
   ApiJobPosting,
   ApiMedia,
   ApiPartner,
@@ -221,6 +222,16 @@ export function aJobPosting(overrides: Partial<ApiJobPosting> = {}): ApiJobPosti
       missions: ['Instruire les candidatures reçues', 'Préparer les notes d’investissement'],
       profile: ['Trois ans en analyse financière', 'Français courant'],
     },
+    ...overrides,
+  };
+}
+
+export function aTheme(overrides: Partial<ApiTheme> = {}): ApiTheme {
+  return {
+    ...publishable,
+    id: 'theme-01',
+    slug: 'entrepreneuriat',
+    fr: {name: 'Entrepreneuriat congolais'},
     ...overrides,
   };
 }
