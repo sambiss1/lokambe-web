@@ -45,8 +45,8 @@ describe('BlogList', () => {
     const user = userEvent.setup();
     renderWithIntl(<BlogList articles={articles} />);
 
-    const category = fr.blog.categories.restauration;
-    const expected = articles.filter((article) => article.category === 'restauration');
+    const category = fr.blog.categories.secteurs;
+    const expected = articles.filter((article) => article.category === 'secteurs');
 
     await user.click(screen.getByRole('button', {name: category.label}));
     expect(screen.getByRole('button', {name: category.label})).toHaveAttribute('aria-pressed', 'true');

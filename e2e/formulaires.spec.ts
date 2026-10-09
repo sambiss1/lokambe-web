@@ -28,7 +28,7 @@ test('avance d’étape en étape et laisse revenir en arrière', async ({page})
   await page.getByLabel('Prénom').fill('Grâce');
   await page.getByLabel('Nom', {exact: true}).fill('Mbala');
   await page.getByLabel('Téléphone').fill('+243 810 000 000');
-  await page.getByLabel('Ville').fill('Kinshasa');
+  await page.getByLabel('Ville', {exact: true}).selectOption('Kinshasa');
   await page.getByRole('button', {name: 'Continuer'}).click();
 
   await expect(page.getByText('Étape 2 sur 4')).toBeVisible();
@@ -43,7 +43,7 @@ test('demande un numéro de téléphone plausible', async ({page}) => {
   await page.getByLabel('Prénom').fill('Grâce');
   await page.getByLabel('Nom', {exact: true}).fill('Mbala');
   await page.getByLabel('Téléphone').fill('abc');
-  await page.getByLabel('Ville').fill('Kinshasa');
+  await page.getByLabel('Ville', {exact: true}).selectOption('Kinshasa');
   await page.getByRole('button', {name: 'Continuer'}).click();
 
   await expect(page.getByLabel('Téléphone')).toHaveAttribute('aria-invalid', 'true');
@@ -101,7 +101,7 @@ test.describe('avec l’API', () => {
     await page.getByLabel('Prénom').fill('Grâce');
     await page.getByLabel('Nom', {exact: true}).fill('Mbala');
     await page.getByLabel('Téléphone').fill('+243 810 000 000');
-    await page.getByLabel('Ville').fill('Kinshasa');
+    await page.getByLabel('Ville', {exact: true}).selectOption('Kinshasa');
     await page.getByRole('button', {name: 'Continuer'}).click();
 
     await page.getByLabel('Nom de l’activité').fill('Pâtisserie Mbala');

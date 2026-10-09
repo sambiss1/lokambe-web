@@ -17,6 +17,7 @@ export function DeleteEntry({
   summary,
   doneHref,
   cancelHref,
+  blocked,
 }: {
   collection: CollectionKey;
   id: string;
@@ -25,6 +26,8 @@ export function DeleteEntry({
   summary?: ReactNode;
   doneHref: string;
   cancelHref: string;
+  /** Refus connu d'avance : le bouton n'est pas proposé, l'explication l'est. */
+  blocked?: ReactNode;
 }) {
   return (
     <DeleteConfirm
@@ -33,6 +36,7 @@ export function DeleteEntry({
       summary={summary}
       cancelHref={cancelHref}
       doneHref={doneHref}
+      blocked={blocked}
       remove={() => deleteCollectionEntry(collection, id)}
     />
   );

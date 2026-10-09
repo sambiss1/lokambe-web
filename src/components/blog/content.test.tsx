@@ -35,9 +35,17 @@ describe('contenu du blog', () => {
     expect(dates).toEqual([...dates].sort().reverse());
   });
 
-  it('couvre tous les thèmes annoncés dans le filtre', () => {
-    const used = new Set(blogArticles.map((article) => article.category));
-    expect(CATEGORY_IDS.filter((id) => used.has(id))).toEqual(CATEGORY_IDS);
+  /**
+   * L'inverse de ce que ce test vérifiait avant : il y a maintenant plus de
+   * thèmes que d'articles de repli, et le blog n'affiche de pastille que pour
+   * les thèmes portés. Ce qui doit rester vrai, c'est qu'aucun article de
+   * repli ne porte un thème que la liste ne connaît pas — sinon il s'affiche
+   * avec son slug brut le jour où l'API est muette.
+   */
+  it('ne porte que des thèmes que la liste de repli connaît', () => {
+    const connus = new Set(CATEGORY_IDS);
+    const inconnus = blogArticles.map((a) => a.category).filter((id) => !connus.has(id));
+    expect(inconnus).toEqual([]);
   });
 
   it('a des identifiants uniques et utilisables dans une URL', () => {
@@ -106,11 +114,11 @@ describe('aides du blog', () => {
    * congolais » sur un article qui n'en est pas — mieux vaut son propre slug.
    */
   it('rend le slug lui-même pour un thème qu’elle ne connaît pas', () => {
-    expect(getCategory('gouvernance').label).toBe('gouvernance');
+    expect(getCategory('theme-inexistant').label).toBe('theme-inexistant');
   });
 
   it('cherche d’abord dans la liste qu’on lui donne', () => {
-    const served = [{id: 'gouvernance', label: 'Gouvernance & gestion', short: 'Gouvernance'}];
-    expect(getCategory('gouvernance', served).label).toBe('Gouvernance & gestion');
+    const served = [{id: 'gouvernance', label: 'Gouvernance publique', short: 'Gouvernance'}];
+    expect(getCategory('gouvernance', served).label).toBe('Gouvernance publique');
   });
 });

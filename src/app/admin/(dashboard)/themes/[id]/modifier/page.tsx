@@ -24,7 +24,7 @@ export default async function EditThemePage({params}: Props) {
       <PageHeader
         eyebrow="Thèmes"
         title={`Modifier « ${entry.fr.name} »`}
-        description="Changer l’adresse du thème change l’adresse du blog filtré, et reclasse les articles qui le portent."
+        description="Changer l’adresse du thème emmène avec elle les articles qui le portent : ils restent classés dessous."
       />
       <ThemeForm entry={entry} />
     </>

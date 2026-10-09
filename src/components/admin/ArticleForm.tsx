@@ -55,7 +55,7 @@ const MAX_COVER_BYTES = 10 * 1024 * 1024;
 const buttonBase =
   'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[0.95rem] font-bold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60';
 
-export function ArticleForm({article, themes = FALLBACK_BLOG_CATEGORIES}: Props) {
+export function ArticleForm({article, themes}: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -65,7 +65,11 @@ export function ArticleForm({article, themes = FALLBACK_BLOG_CATEGORIES}: Props)
   const [slug, setSlug] = useState(article?.slug ?? '');
   const [slugTouched, setSlugTouched] = useState(Boolean(article));
   const [excerpt, setExcerpt] = useState(article?.excerpt ?? '');
-  const [category, setCategory] = useState<BlogCategoryId>(article?.category ?? themes[0]?.id ?? '');
+  // `themes = FALLBACK` ne servait à rien : les pages passent toujours la
+  // prop, parfois vide. C'est la liste vide qu'il faut rattraper — un menu
+  // sans option rend le formulaire insoumissible. Même règle que les villes.
+  const options = themes && themes.length > 0 ? themes : FALLBACK_BLOG_CATEGORIES;
+  const [category, setCategory] = useState<BlogCategoryId>(article?.category ?? options[0]?.id ?? '');
   const [author, setAuthor] = useState(article?.author ?? 'L’équipe LOKAMBE');
   const [content, setContent] = useState(article?.content ?? '');
   const [coverFileId, setCoverFileId] = useState<string | null>(article?.coverFileId ?? null);
@@ -313,7 +317,7 @@ export function ArticleForm({article, themes = FALLBACK_BLOG_CATEGORIES}: Props)
                 className={selectClass}
                 style={selectChevronStyle}
               >
-                {themes.map((item) => (
+                {options.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.label}
                   </option>

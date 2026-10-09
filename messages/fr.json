@@ -78,37 +78,45 @@
     "exampleLabel": "Article d’exemple",
     "exampleNotice": "Article d’exemple. Ce texte illustre la ligne éditoriale du blog LOKAMBE : il ne décrit ni une opération, ni une entreprise financée par le fonds.",
     "categories": {
+      "gouvernance": {
+        "label": "Gouvernance & gestion",
+        "short": "Gouvernance"
+      },
+      "communaute": {
+        "label": "Entrepreneurs & communauté",
+        "short": "Communauté"
+      },
+      "modeles-economiques": {
+        "label": "Idées & modèles économiques",
+        "short": "Modèles"
+      },
+      "economie-congolaise": {
+        "label": "Économie congolaise",
+        "short": "Économie"
+      },
+      "creation": {
+        "label": "Création d’entreprises",
+        "short": "Création"
+      },
+      "insights": {
+        "label": "LOKAMBE Insights",
+        "short": "Insights"
+      },
+      "secteurs": {
+        "label": "Secteurs & opportunités",
+        "short": "Secteurs"
+      },
+      "croissance": {
+        "label": "Faire grandir son entreprise",
+        "short": "Croissance"
+      },
       "entrepreneuriat": {
         "label": "Entrepreneuriat congolais",
         "short": "Entrepreneuriat"
       },
-      "financement": {
-        "label": "Financement des PME",
-        "short": "Financement"
-      },
-      "creation": {
-        "label": "Création d’entreprise",
-        "short": "Création"
-      },
-      "commerce": {
-        "label": "Commerce de proximité",
-        "short": "Commerce"
-      },
-      "restauration": {
-        "label": "Restauration",
-        "short": "Restauration"
-      },
       "investissement": {
-        "label": "Investissement et économie réelle",
+        "label": "Investissement & capital",
         "short": "Investissement"
-      },
-      "histoires": {
-        "label": "Histoires d’entrepreneurs",
-        "short": "Histoires"
-      },
-      "portefeuille": {
-        "label": "Actualités du portefeuille",
-        "short": "Portefeuille"
       }
     }
   },

@@ -58,7 +58,7 @@ export default async function BlogArticlePage({params}: Props) {
     <>
       <ArticleHero article={article} categories={categories} />
       <ArticleBody article={article} />
-      <LatestArticles articles={await listLatestArticles(article.slug, locale)} />
+      <LatestArticles articles={await listLatestArticles(article.slug, locale)} categories={categories} />
     </>
   );
 }

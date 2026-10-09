@@ -96,7 +96,10 @@ export async function adminThemeOptions(): Promise<BlogCategory[]> {
   const page = await listCollectionAdmin('themes', {});
   return page.items.map((theme) => ({
     id: theme.slug,
-    label: theme.fr.name,
+    // Un thème en brouillon n'apparaît pas dans les filtres du blog : un
+    // article publié sous ce thème afficherait son slug brut. On le dit dans
+    // le menu plutôt que de laisser la surprise au public.
+    label: theme.status === 'brouillon' ? `${theme.fr.name} (brouillon)` : theme.fr.name,
     short: theme.fr.name,
   }));
 }

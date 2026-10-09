@@ -78,37 +78,45 @@
     "exampleLabel": "Sample article",
     "exampleNotice": "Sample article. This text illustrates the editorial line of the LOKAMBE blog: it describes neither a transaction nor a company financed by the fund.",
     "categories": {
+      "gouvernance": {
+        "label": "Governance & management",
+        "short": "Governance"
+      },
+      "communaute": {
+        "label": "Entrepreneurs & community",
+        "short": "Community"
+      },
+      "modeles-economiques": {
+        "label": "Ideas & business models",
+        "short": "Models"
+      },
+      "economie-congolaise": {
+        "label": "The Congolese economy",
+        "short": "Economy"
+      },
+      "creation": {
+        "label": "Starting a business",
+        "short": "Starting up"
+      },
+      "insights": {
+        "label": "LOKAMBE Insights",
+        "short": "Insights"
+      },
+      "secteurs": {
+        "label": "Sectors & opportunities",
+        "short": "Sectors"
+      },
+      "croissance": {
+        "label": "Growing your business",
+        "short": "Growth"
+      },
       "entrepreneuriat": {
         "label": "Congolese entrepreneurship",
         "short": "Entrepreneurship"
       },
-      "financement": {
-        "label": "Financing small businesses",
-        "short": "Financing"
-      },
-      "creation": {
-        "label": "Starting a company",
-        "short": "Starting up"
-      },
-      "commerce": {
-        "label": "Local trade",
-        "short": "Trade"
-      },
-      "restauration": {
-        "label": "Restaurants and catering",
-        "short": "Restaurants"
-      },
       "investissement": {
-        "label": "Investment and the real economy",
+        "label": "Investment & capital",
         "short": "Investment"
-      },
-      "histoires": {
-        "label": "Entrepreneurs’ stories",
-        "short": "Stories"
-      },
-      "portefeuille": {
-        "label": "Portfolio news",
-        "short": "Portfolio"
       }
     }
   },

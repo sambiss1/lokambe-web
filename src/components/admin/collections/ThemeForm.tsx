@@ -85,7 +85,7 @@ export function ThemeForm({entry}: {entry?: ApiTheme}) {
 
             <AdminField
               label="Adresse du thème"
-              hint="Laissée vide, elle est déduite du nom. C’est elle qui apparaît dans l’adresse du blog filtré."
+              hint="Laissée vide, elle est déduite du nom. C’est la clé que portent les articles classés sous ce thème."
               optionalLabel="facultatif"
               error={errors.slug?.message}
             >

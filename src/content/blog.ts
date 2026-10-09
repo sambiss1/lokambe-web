@@ -54,14 +54,16 @@ export type BlogArticle = {
  * la reprenne pour la source de vérité.
  */
 export const FALLBACK_BLOG_CATEGORIES: readonly BlogCategory[] = [
+  {id: 'gouvernance', label: 'Gouvernance & gestion', short: 'Gouvernance'},
+  {id: 'communaute', label: 'Entrepreneurs & communauté', short: 'Communauté'},
+  {id: 'modeles-economiques', label: 'Idées & modèles économiques', short: 'Modèles'},
+  {id: 'economie-congolaise', label: 'Économie congolaise', short: 'Économie'},
+  {id: 'creation', label: 'Création d’entreprises', short: 'Création'},
+  {id: 'insights', label: 'LOKAMBE Insights', short: 'Insights'},
+  {id: 'secteurs', label: 'Secteurs & opportunités', short: 'Secteurs'},
+  {id: 'croissance', label: 'Faire grandir son entreprise', short: 'Croissance'},
   {id: 'entrepreneuriat', label: 'Entrepreneuriat congolais', short: 'Entrepreneuriat'},
-  {id: 'financement', label: 'Financement des PME', short: 'Financement'},
-  {id: 'creation', label: 'Création d’entreprise', short: 'Création'},
-  {id: 'commerce', label: 'Commerce de proximité', short: 'Commerce'},
-  {id: 'restauration', label: 'Restauration', short: 'Restauration'},
-  {id: 'investissement', label: 'Investissement et économie réelle', short: 'Investissement'},
-  {id: 'histoires', label: 'Histoires d’entrepreneurs', short: 'Histoires'},
-  {id: 'portefeuille', label: 'Actualités du portefeuille', short: 'Portefeuille'},
+  {id: 'investissement', label: 'Investissement & capital', short: 'Investissement'},
 ];
 
 /**
@@ -165,7 +167,7 @@ const ARTICLES: BlogArticle[] = [
     title: 'Ce qu’un financeur regarde vraiment dans votre dossier',
     excerpt:
       'Ni la beauté du plan, ni l’ambition du chiffre. Ce qu’un financeur cherche à comprendre, ce sont vos flux, votre marge et votre capacité à tenir vos engagements.',
-    category: 'financement',
+    category: 'investissement',
     publishedAt: '2026-08-25',
     readingMinutes: 6,
     image: {src: '/images/investors-hero.webp', alt: 'Réunion de travail autour d’une table'},
@@ -304,7 +306,7 @@ const ARTICLES: BlogArticle[] = [
     title: 'Calculer sa marge avant d’ouvrir un second point de vente',
     excerpt:
       'Dans le commerce de détail, dupliquer un magasin sans connaître sa marge par famille de produits revient à doubler un problème plutôt qu’un résultat.',
-    category: 'commerce',
+    category: 'secteurs',
     publishedAt: '2026-06-18',
     readingMinutes: 5,
     image: {src: '/images/sector-commerce.webp', alt: 'Étal d’un commerce de proximité'},
@@ -371,7 +373,7 @@ const ARTICLES: BlogArticle[] = [
     title: 'Maîtriser son coût matière, plat par plat',
     excerpt:
       'Une salle pleine ne garantit rien. Tant que le coût matière de chaque plat n’est pas connu, la rentabilité d’un restaurant reste une hypothèse.',
-    category: 'restauration',
+    category: 'secteurs',
     publishedAt: '2026-09-02',
     readingMinutes: 6,
     image: {src: '/images/sector-restauration.webp', alt: 'Cuisinier dressant une assiette en cuisine'},
@@ -512,7 +514,7 @@ const ARTICLES: BlogArticle[] = [
     title: 'Les six étapes qui reviennent dans toute trajectoire',
     excerpt:
       'Les parcours diffèrent, mais les points de bascule se ressemblent. Une lecture des étapes qui séparent une activité rentable d’une entreprise installée.',
-    category: 'histoires',
+    category: 'communaute',
     publishedAt: '2026-07-15',
     readingMinutes: 5,
     image: {src: '/images/cta-entrepreneur.webp', alt: 'Entrepreneur devant son lieu d’activité'},
@@ -581,7 +583,7 @@ const ARTICLES: BlogArticle[] = [
     title: 'Ce que vous lirez dans les actualités du portefeuille',
     excerpt:
       'Cette rubrique accueillera les informations relatives aux entreprises accompagnées par LOKAMBE. Voici ce qu’elle publiera, et selon quelles règles.',
-    category: 'portefeuille',
+    category: 'insights',
     publishedAt: '2026-03-12',
     readingMinutes: 4,
     image: {src: '/images/model-hero.webp', alt: 'Équipe en réunion de suivi'},
