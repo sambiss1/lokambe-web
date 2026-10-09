@@ -39,6 +39,8 @@ export const forms: FormsContent = {
       businessName: 'Nom de l’activité',
       sector: 'Secteur',
       sectorOther: 'Précisez votre secteur',
+      cityOther: 'Précisez votre ville',
+      cityOtherOption: 'Autre ville',
       isFormal: 'Mon activité est formalisée (RCCM, registre de commerce)',
       rccm: 'Numéro RCCM',
       foundedYear: 'Année de démarrage',

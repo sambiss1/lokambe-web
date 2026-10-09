@@ -5,6 +5,7 @@ import type {
   ApiPartner,
   ApiPortfolioCompany,
   ApiTeamMember,
+  ApiCity,
   ApiTheme,
 } from '@/lib/api/content-types';
 import type {ContractType as ApiContractType} from '@/lib/constants';
@@ -147,4 +148,20 @@ export async function liveThemes(
     const text = localized(theme.fr, theme.en, locale);
     return {id: theme.slug, label: text.name, short: text.name};
   });
+}
+
+/**
+ * Les villes proposées par le formulaire de candidature.
+ *
+ * Le repli est la liste livrée avec le site : un champ obligatoire dont le
+ * menu serait vide rendrait le formulaire insoumissible, et une candidature
+ * perdue ne revient pas.
+ */
+export async function liveCities(
+  locale: string,
+  fallback: readonly string[],
+): Promise<readonly string[]> {
+  const cities = await listCollection('cities');
+  if (cities.length === 0) return fallback;
+  return cities.map((city: ApiCity) => localized(city.fr, city.en, locale).name);
 }

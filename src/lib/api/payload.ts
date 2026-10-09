@@ -11,6 +11,7 @@
  * quand il est rempli. Il doit donc être transmis tel quel, jamais filtré ici.
  */
 
+import {CITY_OTHER} from '@/lib/constants';
 import type {ApplicationParsed, ContactParsed} from '@/lib/forms/schemas';
 
 type Locale = 'fr' | 'en';
@@ -38,7 +39,9 @@ export function toApplicationPayload(values: ApplicationParsed, locale: Locale =
       lastName: applicant.lastName,
       phone: applicant.phone,
       email: text(applicant.email),
-      city: applicant.city,
+      // « autre » est la valeur du menu, pas une ville : l'envoyer telle
+      // quelle domicilierait la candidature à « autre ».
+      city: applicant.city === CITY_OTHER ? (applicant.cityOther ?? '') : applicant.city,
       commune: text(applicant.commune),
     },
     business: {

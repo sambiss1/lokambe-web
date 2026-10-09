@@ -9,7 +9,7 @@ import type {ApplyContent, FormsContent} from '@/content/types';
 import {Link} from '@/i18n/navigation';
 import {isApiConfigured, SubmitError, type SubmitFailure, submitApplication} from '@/lib/api/client';
 import {toApplicationPayload} from '@/lib/api/payload';
-import {ALLOWED_FILE_TYPES, NEED_TYPES, SECTORS} from '@/lib/constants';
+import {ALLOWED_FILE_TYPES, CITY_OTHER, FALLBACK_CITIES, NEED_TYPES, SECTORS} from '@/lib/constants';
 import {phoneField} from '@/lib/forms/phone-input';
 import {
   type ApplicationParsed,
@@ -26,12 +26,21 @@ import {FormSteps} from './FormSteps';
 import {SubmitErrorNotice} from './SubmitErrorNotice';
 import {SuccessPanel} from './SuccessPanel';
 
-type Props = {content: ApplyContent['form']; labels: FormsContent};
+type Props = {
+  content: ApplyContent['form'];
+  labels: FormsContent;
+  /**
+   * Les villes enregistrées, servies par le back-office. À défaut, celles
+   * livrées avec le site : un champ obligatoire sans aucune option rendrait
+   * le formulaire insoumissible.
+   */
+  cities?: readonly string[];
+};
 
 const FORM_TOP_ID = 'candidature';
 
 const STEP_FIELDS = [
-  ['applicant.firstName', 'applicant.lastName', 'applicant.phone', 'applicant.email', 'applicant.city', 'applicant.commune'],
+  ['applicant.firstName', 'applicant.lastName', 'applicant.phone', 'applicant.email', 'applicant.city', 'applicant.cityOther', 'applicant.commune'],
   [
     'business.name',
     'business.sector',
@@ -47,8 +56,9 @@ const STEP_FIELDS = [
   ['consent'],
 ] as const;
 
-export function ApplicationForm({content, labels}: Props) {
+export function ApplicationForm({content, labels, cities}: Props) {
   const f = labels.application.fields;
+  const cityOptions = cities && cities.length > 0 ? cities : FALLBACK_CITIES;
   // Les messages de validation suivent la langue de la page.
   const tv = useTranslations('validation');
   const schema = useMemo(() => createApplicationSchema(tv), [tv]);
@@ -71,7 +81,7 @@ export function ApplicationForm({content, labels}: Props) {
     resolver: zodResolver(schema),
     mode: 'onBlur',
     defaultValues: {
-      applicant: {firstName: '', lastName: '', phone: '', email: '', city: '', commune: ''},
+      applicant: {firstName: '', lastName: '', phone: '', email: '', city: '', cityOther: '', commune: ''},
       business: {
         name: '',
         sector: undefined,
@@ -90,6 +100,7 @@ export function ApplicationForm({content, labels}: Props) {
   });
 
   const sector = useWatch({control, name: 'business.sector'});
+  const city = useWatch({control, name: 'applicant.city'});
   const isFormal = useWatch({control, name: 'business.isFormal'});
   const consent = useWatch({control, name: 'consent'});
 
@@ -193,9 +204,33 @@ export function ApplicationForm({content, labels}: Props) {
               </Field>
               <Field label={f.city} error={errors.applicant?.city?.message}>
                 {({id, describedBy, invalid}) => (
-                  <Input id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="address-level2" {...register('applicant.city')} />
+                  <Select
+                    id={id}
+                    aria-describedby={describedBy}
+                    invalid={invalid}
+                    defaultValue=""
+                    autoComplete="address-level2"
+                    {...register('applicant.city')}
+                  >
+                    <option value="" disabled>
+                      —
+                    </option>
+                    {cityOptions.map((value) => (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    ))}
+                    <option value={CITY_OTHER}>{f.cityOtherOption}</option>
+                  </Select>
                 )}
               </Field>
+              {city === CITY_OTHER && (
+                <Field label={f.cityOther} error={errors.applicant?.cityOther?.message}>
+                  {({id, describedBy, invalid}) => (
+                    <Input id={id} aria-describedby={describedBy} invalid={invalid} {...register('applicant.cityOther')} />
+                  )}
+                </Field>
+              )}
               <Field label={f.commune} optionalLabel={labels.common.optional} error={errors.applicant?.commune?.message}>
                 {({id, describedBy, invalid}) => <Input id={id} aria-describedby={describedBy} invalid={invalid} {...register('applicant.commune')} />}
               </Field>

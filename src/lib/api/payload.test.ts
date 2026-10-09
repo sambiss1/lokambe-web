@@ -122,3 +122,27 @@ describe('garde-fous partagés avec l’API', () => {
     );
   });
 });
+
+describe('la ville écrite à la main', () => {
+  /**
+   * « Autre » est la valeur du menu, pas une ville : l'envoyer telle quelle
+   * remplirait le back-office de candidatures domiciliées à « autre ».
+   */
+  it('remplace « autre » par ce que le candidat a écrit', () => {
+    const values = {
+      ...filledApplication,
+      applicant: {...filledApplication.applicant, city: 'autre', cityOther: 'Boma'},
+    };
+
+    const parsed = applicationSchema.parse(values);
+    const payload = toApplicationPayload(parsed);
+
+    expect(payload.applicant.city).toBe('Boma');
+    expect('cityOther' in payload.applicant).toBe(false);
+  });
+
+  it('garde la ville choisie dans la liste', () => {
+    const parsed = applicationSchema.parse(filledApplication);
+    expect(toApplicationPayload(parsed).applicant.city).toBe('Kinshasa');
+  });
+});

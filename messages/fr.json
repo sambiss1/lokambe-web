@@ -120,6 +120,7 @@
     "email": "Indiquez votre email.",
     "emailInvalid": "Adresse email invalide.",
     "city": "Indiquez votre ville.",
+    "cityOther": "Précisez votre ville.",
     "businessName": "Indiquez le nom de votre activité.",
     "sector": "Choisissez un secteur.",
     "sectorOther": "Précisez votre secteur.",

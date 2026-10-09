@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
 import {ApplicationForm} from '@/components/forms/ApplicationForm';
+import {FALLBACK_CITIES} from '@/lib/constants';
+import {liveCities} from '@/lib/content/live';
 import {Reveal} from '@/components/motion/Reveal';
 import {CheckList} from '@/components/sections/CheckList';
 import {ListPanel} from '@/components/sections/ListPanel';
@@ -20,6 +22,7 @@ export default async function ApplyPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
   const {apply, forms} = getContent(locale);
+  const cities = await liveCities(locale, FALLBACK_CITIES);
 
   return (
     <>
@@ -49,7 +52,7 @@ export default async function ApplyPage({params}: Props) {
       </Section>
 
       <Section id="formulaire">
-        <ApplicationForm content={apply.form} labels={forms} />
+        <ApplicationForm content={apply.form} labels={forms} cities={cities} />
       </Section>
 
     </>

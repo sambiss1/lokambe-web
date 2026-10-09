@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {
   ALLOWED_FILE_TYPES,
+  CITY_OTHER,
   CONTACT_KINDS,
   MAX_FILE_SIZE_BYTES,
   MAX_FILES,
@@ -28,14 +29,22 @@ export const identityTranslate: Translate = (key) => key;
 const required = (message: string) => z.string().trim().min(1, message);
 
 export function createApplicantSchema(t: Translate) {
-  return z.object({
-    firstName: required(t('firstName')),
-    lastName: required(t('lastName')),
-    phone: required(t('phone')).max(PHONE_MAX_LENGTH, t('phoneInvalid')).regex(PHONE_REGEX, t('phoneInvalid')),
-    email: z.union([z.literal(''), z.string().trim().email(t('emailInvalid'))]).optional(),
-    city: required(t('city')),
-    commune: z.string().trim().optional(),
-  });
+  return z
+    .object({
+      firstName: required(t('firstName')),
+      lastName: required(t('lastName')),
+      phone: required(t('phone')).max(PHONE_MAX_LENGTH, t('phoneInvalid')).regex(PHONE_REGEX, t('phoneInvalid')),
+      email: z.union([z.literal(''), z.string().trim().email(t('emailInvalid'))]).optional(),
+      city: required(t('city')),
+      cityOther: z.string().trim().optional(),
+      commune: z.string().trim().optional(),
+    })
+    // Même mécanique que le secteur d'activité : « Autre » ouvre un champ
+    // texte, et le laisser vide est refusé sur ce champ-là, pas sur le menu.
+    .refine((value) => value.city !== CITY_OTHER || Boolean(value.cityOther), {
+      message: t('cityOther'),
+      path: ['cityOther'],
+    });
 }
 
 export function createBusinessSchema(t: Translate) {

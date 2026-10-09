@@ -47,6 +47,28 @@ export const PHONE_REGEX = /^(?:\+\d(?:[ ()-]*\d){7,14}|0(?:[ ()-]*\d){9})$/;
 export const PHONE_MIN_LENGTH = 6;
 export const PHONE_MAX_LENGTH = 20;
 
+/**
+ * Les villes livrées avec le site. Elles ne font pas autorité — la liste vit
+ * en base et s'administre depuis le back-office — mais le menu ne doit jamais
+ * être vide : un champ obligatoire sans aucune option rendrait le formulaire
+ * de candidature insoumissible.
+ */
+export const FALLBACK_CITIES = [
+  'Kinshasa',
+  'Lubumbashi',
+  'Mbuji-Mayi',
+  'Kananga',
+  'Kisangani',
+  'Bukavu',
+  'Goma',
+  'Matadi',
+  'Kolwezi',
+  'Likasi',
+] as const;
+
+/** Valeur du choix « Autre » du menu des villes : elle ouvre un champ texte. */
+export const CITY_OTHER = 'autre';
+
 /** Ce qu'on retire de ce qui est tapé ou collé dans un champ téléphone. */
 export const PHONE_DISALLOWED_CHARS = /[^0-9 ()+-]/g;
 

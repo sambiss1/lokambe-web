@@ -120,6 +120,7 @@
     "email": "Enter your email address.",
     "emailInvalid": "This email address is not valid.",
     "city": "Enter your city.",
+    "cityOther": "Tell us your city.",
     "businessName": "Enter the name of your business.",
     "sector": "Choose a sector.",
     "sectorOther": "Please specify your sector.",

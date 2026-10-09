@@ -39,6 +39,8 @@ export const forms: FormsContent = {
       businessName: 'Name of the business',
       sector: 'Sector',
       sectorOther: 'Please specify your sector',
+      cityOther: 'Tell us your city',
+      cityOtherOption: 'Another city',
       isFormal: 'My business is formally registered (trade register)',
       rccm: 'Trade register number',
       foundedYear: 'Year you started',
