@@ -22,6 +22,7 @@ export const ADMIN_LINKS = [
   {href: '/admin/equipe', label: 'Équipe', exact: false},
   {href: '/admin/offres', label: 'Offres d’emploi', exact: false},
   {href: '/admin/questions', label: 'Questions fréquentes', exact: false},
+  {href: '/admin/villes', label: 'Villes', exact: false},
   {href: '/admin/medias', label: 'Médiathèque', exact: false},
 ] as const;
 

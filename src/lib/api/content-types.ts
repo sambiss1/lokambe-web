@@ -110,6 +110,11 @@ export type ApiTheme = ApiPublishable & {
   en?: {name?: string};
 };
 
+export type ApiCity = ApiPublishable & {
+  fr: {name: string};
+  en?: {name?: string};
+};
+
 /** Filtres des listes du back-office : état de publication et page. */
 export type CollectionFilters = {
   status?: PublicationStatus;
@@ -133,6 +138,7 @@ export const COLLECTIONS = {
   jobs: {apiPath: 'jobs', adminPath: 'offres'},
   faq: {apiPath: 'faq', adminPath: 'questions'},
   themes: {apiPath: 'themes', adminPath: 'themes'},
+  cities: {apiPath: 'cities', adminPath: 'villes'},
 } as const;
 
 export type CollectionKey = keyof typeof COLLECTIONS;
@@ -150,6 +156,7 @@ export type CollectionEntry = {
   jobs: ApiJobPosting;
   faq: ApiFaqEntry;
   themes: ApiTheme;
+  cities: ApiCity;
 };
 
 /** Comptes affichés sur le tableau de bord, ajoutés à `/admin/stats`. */

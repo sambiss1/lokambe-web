@@ -177,6 +177,17 @@ export const themeFormSchema = z.object({
 
 export type ThemeFormValues = z.input<typeof themeFormSchema>;
 
+/* ------------------------------------------------------------------ villes */
+
+export const cityFormSchema = z.object({
+  slug: optionalSlug,
+  mediaId,
+  frName: requiredText(2, 80),
+  enName: optionalText(2, 80),
+});
+
+export type CityFormValues = z.input<typeof cityFormSchema>;
+
 /* ------------------------------------------------------------ médiathèque */
 
 export const mediaFormSchema = z.object({

@@ -1,6 +1,7 @@
 import type {AdminApplication, AdminApplicationSummary, AdminContact, Page} from '@/lib/api/admin-types';
 import type {
   ApiFaqEntry,
+  ApiCity,
   ApiTheme,
   ApiJobPosting,
   ApiMedia,
@@ -232,6 +233,16 @@ export function aTheme(overrides: Partial<ApiTheme> = {}): ApiTheme {
     id: 'theme-01',
     slug: 'entrepreneuriat',
     fr: {name: 'Entrepreneuriat congolais'},
+    ...overrides,
+  };
+}
+
+export function aCity(overrides: Partial<ApiCity> = {}): ApiCity {
+  return {
+    ...publishable,
+    id: 'city-01',
+    slug: 'kinshasa',
+    fr: {name: 'Kinshasa'},
     ...overrides,
   };
 }
