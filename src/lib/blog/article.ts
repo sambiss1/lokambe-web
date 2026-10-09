@@ -47,7 +47,11 @@ export type ApiArticle = {
 };
 
 /** Image de repli quand l'article n'a pas de couverture téléversée. */
-const FALLBACK_COVER: Record<BlogCategoryId, string> = {
+/** Couverture servie quand le thème n'en a pas de dédiée — un thème créé par
+ *  le client n'en aura jamais. */
+const DEFAULT_COVER = '/images/home-kinshasa.webp';
+
+const FALLBACK_COVER: Record<string, string> = {
   entrepreneuriat: '/images/sector-services.webp',
   financement: '/images/investors-hero.webp',
   creation: '/images/model-hero.webp',
@@ -117,7 +121,7 @@ export function fromApi(article: ApiArticle): Article {
     readingMinutes: article.readingMinutes,
     image: article.coverFileId
       ? {src: mediaPath(article.coverFileId), alt: article.coverAlt ?? ''}
-      : {src: FALLBACK_COVER[article.category] ?? FALLBACK_COVER.entrepreneuriat, alt: ''},
+      : {src: FALLBACK_COVER[article.category] ?? DEFAULT_COVER, alt: ''},
     html: article.content ?? '',
     isExample: article.isExample,
   };

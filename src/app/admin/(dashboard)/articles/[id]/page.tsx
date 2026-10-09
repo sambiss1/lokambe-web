@@ -8,16 +8,13 @@ import {EntryViewShell} from '@/components/admin/form/EntryViewShell';
 import {MediaEmpty} from '@/components/admin/form/MediaPreview';
 import {PageHeader} from '@/components/admin/PageHeader';
 import {DataRow, Panel} from '@/components/admin/Surface';
-import {blogCategories} from '@/content/blog';
+import {getCategory} from '@/content/blog';
 import {formatDate, formatDateTime} from '@/lib/admin-format';
 import {getAdminArticle} from '@/lib/api/admin';
+import {adminThemeOptions} from '@/lib/api/admin-content';
 import {mediaPath} from '@/lib/blog/article';
 
 type Props = {params: Promise<{id: string}>};
-
-function categoryLabel(id: string): string {
-  return blogCategories.find((category) => category.id === id)?.label ?? id;
-}
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {id} = await params;
@@ -28,6 +25,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 export default async function ArticlePage({params}: Props) {
   const {id} = await params;
   const article = await getAdminArticle(id);
+  const themes = await adminThemeOptions();
   if (!article) notFound();
 
   return (
@@ -90,7 +88,7 @@ export default async function ArticlePage({params}: Props) {
         <DataRow label="Titre" value={article.title} />
         <DataRow label="Adresse publique" value={`/blog/${article.slug}`} />
         <DataRow label="Chapô" value={article.excerpt} />
-        <DataRow label="Thème" value={categoryLabel(article.category)} />
+        <DataRow label="Thème" value={getCategory(article.category, themes).label} />
         <DataRow label="Signature" value={article.author} />
         <DataRow label="Langue" value={article.locale === 'en' ? 'Anglais' : 'Français'} />
         <DataRow label="Temps de lecture" value={`${article.readingMinutes} min`} />

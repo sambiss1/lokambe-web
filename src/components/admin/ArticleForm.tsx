@@ -4,7 +4,7 @@ import {Trash2} from 'lucide-react';
 import NextImage from 'next/image';
 import {useRouter} from 'next/navigation';
 import {useRef, useState, useTransition} from 'react';
-import {blogCategories} from '@/content/blog';
+import {FALLBACK_BLOG_CATEGORIES, type BlogCategory} from '@/content/blog';
 import type {BlogCategoryId} from '@/content/blog';
 import {createArticle, updateArticle} from '@/lib/api/admin-actions';
 import type {ActionResult, ArticleInput} from '@/lib/api/admin-actions';
@@ -28,7 +28,16 @@ import {Surface} from './Surface';
  * `window.confirm` ne disait rien et ne se testait qu'en détournant `window`.
  */
 
-type Props = {article?: ApiArticle};
+type Props = {
+  article?: ApiArticle;
+  /**
+   * Les thèmes administrables, brouillons compris : on prépare un thème avant
+   * de l'ouvrir, et l'article qui l'attend doit pouvoir le choisir. À défaut,
+   * la liste livrée avec le site — un menu vide rendrait le formulaire
+   * insoumissible.
+   */
+  themes?: readonly BlogCategory[];
+};
 
 type Feedback = {tone: 'ok' | 'erreur'; text: string};
 
@@ -46,7 +55,7 @@ const MAX_COVER_BYTES = 10 * 1024 * 1024;
 const buttonBase =
   'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[0.95rem] font-bold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60';
 
-export function ArticleForm({article}: Props) {
+export function ArticleForm({article, themes = FALLBACK_BLOG_CATEGORIES}: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -56,7 +65,7 @@ export function ArticleForm({article}: Props) {
   const [slug, setSlug] = useState(article?.slug ?? '');
   const [slugTouched, setSlugTouched] = useState(Boolean(article));
   const [excerpt, setExcerpt] = useState(article?.excerpt ?? '');
-  const [category, setCategory] = useState<BlogCategoryId>(article?.category ?? 'entrepreneuriat');
+  const [category, setCategory] = useState<BlogCategoryId>(article?.category ?? themes[0]?.id ?? '');
   const [author, setAuthor] = useState(article?.author ?? 'L’équipe LOKAMBE');
   const [content, setContent] = useState(article?.content ?? '');
   const [coverFileId, setCoverFileId] = useState<string | null>(article?.coverFileId ?? null);
@@ -304,7 +313,7 @@ export function ArticleForm({article}: Props) {
                 className={selectClass}
                 style={selectChevronStyle}
               >
-                {blogCategories.map((item) => (
+                {themes.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.label}
                   </option>

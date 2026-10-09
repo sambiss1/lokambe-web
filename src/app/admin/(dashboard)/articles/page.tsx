@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import Link from 'next/link';
 import {ArticlesBrowser} from '@/components/admin/ArticlesBrowser';
 import {PageHeader} from '@/components/admin/PageHeader';
+import {adminThemeOptions} from '@/lib/api/admin-content';
 import {listAdminArticles, PAGE_SIZE} from '@/lib/api/admin';
 import type {ArticleFilters} from '@/lib/api/admin-types';
 
@@ -28,6 +29,7 @@ export default async function ArticlesPage({searchParams}: {searchParams: Promis
   };
 
   const result = await listAdminArticles(filters);
+  const themes = await adminThemeOptions();
 
   return (
     <>
@@ -44,7 +46,7 @@ export default async function ArticlesPage({searchParams}: {searchParams: Promis
           </Link>
         }
       />
-      <ArticlesBrowser result={result} filters={filters} pageSize={PAGE_SIZE} />
+      <ArticlesBrowser result={result} filters={filters} pageSize={PAGE_SIZE} themes={themes} />
     </>
   );
 }

@@ -1,3 +1,4 @@
+import type {BlogCategory} from '@/content/blog';
 import {COLLECTIONS} from './content-types';
 import {readAdmin} from './admin';
 import type {Page} from './admin-types';
@@ -81,4 +82,21 @@ export async function getMedia(id: string): Promise<ApiMedia | null> {
 /** Où ce média est posé. Liste vide : il est supprimable. */
 export async function getMediaUsage(id: string): Promise<ApiMediaUsage[]> {
   return readAdmin<ApiMediaUsage[]>(`/admin/media/${encodeURIComponent(id)}/usage`);
+}
+
+/**
+ * Les thèmes tels que le back-office doit les proposer : **brouillons
+ * compris**. On prépare un thème avant de l'ouvrir au public, et l'article
+ * qui l'attend doit pouvoir le choisir — l'API l'accepte d'ailleurs.
+ *
+ * Rendus sous la forme attendue par les écrans du blog, pour que le même
+ * `getCategory` serve des deux côtés.
+ */
+export async function adminThemeOptions(): Promise<BlogCategory[]> {
+  const page = await listCollectionAdmin('themes', {});
+  return page.items.map((theme) => ({
+    id: theme.slug,
+    label: theme.fr.name,
+    short: theme.fr.name,
+  }));
 }

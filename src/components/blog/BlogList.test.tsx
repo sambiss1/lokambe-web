@@ -1,4 +1,4 @@
-import {screen} from '@testing-library/react';
+import {screen, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it} from 'vitest';
 import {blogArticles} from '@/content/blog';
@@ -13,6 +13,18 @@ const articleLinks = () =>
   screen.getAllByRole('link').filter((link) => link.getAttribute('href')?.startsWith('/fr/blog/'));
 
 describe('BlogList', () => {
+  it('affiche les thèmes servis par l’API, pas une liste figée', () => {
+    // Les thèmes viennent de la base : la pastille porte le nom enregistré,
+    // pas celui qui dormait dans `src/content/blog.ts`.
+    const themes = [
+      {id: articles[0].category, label: 'Secteurs & opportunités', short: 'Secteurs'},
+    ];
+    renderWithIntl(<BlogList articles={articles} categories={themes} />);
+
+    const group = screen.getByRole('group', {name: fr.blog.filterLabel});
+    expect(within(group).getByRole('button', {name: 'Secteurs & opportunités'})).toBeInTheDocument();
+  });
+
   it('affiche tous les articles et le compteur', () => {
     renderWithIntl(<BlogList articles={articles} />);
 

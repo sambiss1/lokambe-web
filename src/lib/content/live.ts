@@ -1,8 +1,16 @@
 import {listCollection, localized} from '@/lib/api/content';
-import type {ApiFaqEntry, ApiJobPosting, ApiPartner, ApiPortfolioCompany, ApiTeamMember} from '@/lib/api/content-types';
+import type {
+  ApiFaqEntry,
+  ApiJobPosting,
+  ApiPartner,
+  ApiPortfolioCompany,
+  ApiTeamMember,
+  ApiTheme,
+} from '@/lib/api/content-types';
 import type {ContractType as ApiContractType} from '@/lib/constants';
 import {CONTRACT_TYPE_TEXTS} from '@/lib/vocabulary';
 import {entryImageUrl} from '@/lib/media/url';
+import type {BlogCategory} from '@/content/blog';
 import type {JobPosting} from '@/content/careers';
 import type {TeamRoleCard} from '@/content/team';
 import type {FaqContent, LogoEntry, LogoWallContent} from '@/content/types';
@@ -120,4 +128,23 @@ export async function liveFaq(locale: string, fallback: FaqContent): Promise<Faq
       return {question: text.question, answer: text.answer};
     }),
   };
+}
+
+/**
+ * Les thèmes du blog, servis par le back-office.
+ *
+ * Le repli n'est pas la liste brute de `src/content/blog.ts` mais celle que la
+ * page construit depuis ses traductions : sans cela, une API muette ferait
+ * perdre l'anglais des huit thèmes d'origine.
+ */
+export async function liveThemes(
+  locale: string,
+  fallback: readonly BlogCategory[],
+): Promise<readonly BlogCategory[]> {
+  const themes = await listCollection('themes');
+  if (themes.length === 0) return fallback;
+  return themes.map((theme: ApiTheme) => {
+    const text = localized(theme.fr, theme.en, locale);
+    return {id: theme.slug, label: text.name, short: text.name};
+  });
 }

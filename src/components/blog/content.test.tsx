@@ -7,7 +7,7 @@ import {
   type BlogArticle,
   articlePath,
   blogArticles,
-  blogCategories,
+  FALLBACK_BLOG_CATEGORIES,
   formatArticleDate,
   getCategory,
 } from '@/content/blog';
@@ -18,7 +18,7 @@ import {
  */
 const slugs = blogArticles.map((article) => article.slug);
 
-const CATEGORY_IDS = blogCategories.map((category) => category.id);
+const CATEGORY_IDS = FALLBACK_BLOG_CATEGORIES.map((category) => category.id);
 
 function words(article: BlogArticle): number {
   return article.body
@@ -96,7 +96,21 @@ describe('aides du blog', () => {
     expect(formatArticleDate('2026-09-02', 'en')).toBe('2 September 2026');
   });
 
-  it('retombe sur la première catégorie pour un identifiant inconnu', () => {
+  it('nomme un thème de la liste de repli', () => {
     expect(getCategory('entrepreneuriat').label).toBe('Entrepreneuriat congolais');
+  });
+
+  /**
+   * Les thèmes s'administrent : la liste livrée avec le site ne les connaît
+   * pas tous. Rendre le premier de la liste afficherait « Entrepreneuriat
+   * congolais » sur un article qui n'en est pas — mieux vaut son propre slug.
+   */
+  it('rend le slug lui-même pour un thème qu’elle ne connaît pas', () => {
+    expect(getCategory('gouvernance').label).toBe('gouvernance');
+  });
+
+  it('cherche d’abord dans la liste qu’on lui donne', () => {
+    const served = [{id: 'gouvernance', label: 'Gouvernance & gestion', short: 'Gouvernance'}];
+    expect(getCategory('gouvernance', served).label).toBe('Gouvernance & gestion');
   });
 });

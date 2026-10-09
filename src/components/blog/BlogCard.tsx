@@ -1,7 +1,7 @@
 import {ArrowUpRight} from 'lucide-react';
 import Image from 'next/image';
 import {useLocale, useTranslations} from 'next-intl';
-import {articlePath, formatArticleDate} from '@/content/blog';
+import {articlePath, formatArticleDate, getCategory, type BlogCategory} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {Link} from '@/i18n/navigation';
 import {cx} from '@/lib/cx';
@@ -9,6 +9,8 @@ import {ExampleBadge} from './ExampleBadge';
 
 type Props = {
   article: Article;
+  /** Les thèmes connus, pour nommer celui de l'article. */
+  categories?: readonly BlogCategory[];
   /** Carte large « à la une » : image à gauche, texte à droite sur grand écran. */
   featured?: boolean;
   /** Niveau de titre, pour rester cohérent avec le plan de la page. */
@@ -16,7 +18,7 @@ type Props = {
 };
 
 /** Carte d’article : image, thème, titre, accroche et informations de lecture. */
-export function BlogCard({article, featured = false, headingLevel: Heading = 'h3'}: Props) {
+export function BlogCard({article, categories, featured = false, headingLevel: Heading = 'h3'}: Props) {
   const t = useTranslations('blog');
   const locale = useLocale();
 
@@ -43,7 +45,7 @@ export function BlogCard({article, featured = false, headingLevel: Heading = 'h3
           className="object-cover transition-transform duration-700 ease-(--ease-out-expo) group-hover:scale-[1.04]"
         />
         <span className="absolute bottom-4 left-4 rounded-full bg-lokambe-blue px-3.5 py-1.5 text-[0.6875rem] font-bold tracking-[0.1em] text-white uppercase">
-          {t(`categories.${article.category}.short`)}
+          {getCategory(article.category, categories).short}
         </span>
       </div>
 

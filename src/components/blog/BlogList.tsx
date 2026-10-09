@@ -2,7 +2,7 @@
 
 import {useTranslations} from 'next-intl';
 import {useMemo, useState} from 'react';
-import {blogCategories, type BlogCategoryId} from '@/content/blog';
+import {FALLBACK_BLOG_CATEGORIES, getCategory, type BlogCategory, type BlogCategoryId} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {cx} from '@/lib/cx';
 import {Reveal} from '../motion/Reveal';
@@ -19,15 +19,22 @@ function chipClasses(active: boolean) {
 }
 
 /** Liste filtrable des articles : thèmes en pastilles, article à la une puis grille. */
-export function BlogList({articles: all}: {articles: Article[]}) {
+export function BlogList({
+  articles: all,
+  categories: known = FALLBACK_BLOG_CATEGORIES,
+}: {
+  articles: Article[];
+  /** Les thèmes servis par l'API ; à défaut, ceux livrés avec le site. */
+  categories?: readonly BlogCategory[];
+}) {
   const t = useTranslations('blog');
   const [active, setActive] = useState<BlogCategoryId | null>(null);
 
   // Les thèmes affichés sont ceux qui portent au moins un article, dans l'ordre de référence.
   const categories = useMemo(() => {
     const used = new Set(all.map((article) => article.category));
-    return blogCategories.filter((category) => used.has(category.id)).map((category) => category.id);
-  }, [all]);
+    return known.filter((category) => used.has(category.id)).map((category) => category.id);
+  }, [all, known]);
   const articles = active ? all.filter((article) => article.category === active) : all;
   const [featured, ...rest] = articles;
 
@@ -52,7 +59,7 @@ export function BlogList({articles: all}: {articles: Article[]}) {
             className={chipClasses(active === category)}
             onClick={() => setActive(category)}
           >
-            {t(`categories.${category}.label`)}
+            {getCategory(category, known).label}
           </button>
         ))}
       </div>
@@ -65,14 +72,14 @@ export function BlogList({articles: all}: {articles: Article[]}) {
             </Reveal>
           )}
           <Reveal className={active === null ? 'mt-5' : 'mt-12'}>
-            <BlogCard article={featured} featured headingLevel="h2" />
+            <BlogCard article={featured} categories={known} featured headingLevel="h2" />
           </Reveal>
 
           {rest.length > 0 && (
             <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {rest.map((article, index) => (
                 <Reveal as="li" key={article.slug} index={index % 3}>
-                  <BlogCard article={article} />
+                  <BlogCard article={article} categories={known} />
                 </Reveal>
               ))}
             </ul>

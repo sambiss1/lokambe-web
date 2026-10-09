@@ -3,6 +3,7 @@ import {notFound} from 'next/navigation';
 import {BackLink} from '@/components/admin/AdminButton';
 import {ArticleForm} from '@/components/admin/ArticleForm';
 import {PageHeader} from '@/components/admin/PageHeader';
+import {adminThemeOptions} from '@/lib/api/admin-content';
 import {getAdminArticle} from '@/lib/api/admin';
 
 type Props = {params: Promise<{id: string}>};
@@ -16,6 +17,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 export default async function EditArticlePage({params}: Props) {
   const {id} = await params;
   const article = await getAdminArticle(id);
+  const themes = await adminThemeOptions();
   if (!article) notFound();
 
   return (
@@ -30,7 +32,7 @@ export default async function EditArticlePage({params}: Props) {
             : 'Brouillon : visible seulement dans le back-office.'
         }
       />
-      <ArticleForm article={article} />
+      <ArticleForm article={article} themes={themes} />
     </>
   );
 }

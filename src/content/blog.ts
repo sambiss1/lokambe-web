@@ -11,15 +11,12 @@
 
 export type BlogImage = {src: string; alt: string};
 
-export type BlogCategoryId =
-  | 'entrepreneuriat'
-  | 'financement'
-  | 'creation'
-  | 'commerce'
-  | 'restauration'
-  | 'investissement'
-  | 'histoires'
-  | 'portefeuille';
+/**
+ * Le slug d'un thème. Ce n'était qu'une union de huit valeurs tant que la
+ * liste vivait dans ce fichier ; les thèmes sont désormais administrables,
+ * donc c'est une chaîne — celle que l'API renvoie.
+ */
+export type BlogCategoryId = string;
 
 export type BlogCategory = {
   id: BlogCategoryId;
@@ -50,7 +47,13 @@ export type BlogArticle = {
 
 /* ------------------------------------------------------------- catégories */
 
-export const blogCategories: readonly BlogCategory[] = [
+/**
+ * La liste livrée avec le site. Elle **ne fait plus autorité** : les thèmes
+ * vivent en base et s'administrent depuis le back-office. Celle-ci ne sert
+ * qu'au repli, quand l'API est muette — son nom le dit pour que personne ne
+ * la reprenne pour la source de vérité.
+ */
+export const FALLBACK_BLOG_CATEGORIES: readonly BlogCategory[] = [
   {id: 'entrepreneuriat', label: 'Entrepreneuriat congolais', short: 'Entrepreneuriat'},
   {id: 'financement', label: 'Financement des PME', short: 'Financement'},
   {id: 'creation', label: 'Création d’entreprise', short: 'Création'},
@@ -61,10 +64,18 @@ export const blogCategories: readonly BlogCategory[] = [
   {id: 'portefeuille', label: 'Actualités du portefeuille', short: 'Portefeuille'},
 ];
 
-const CATEGORY_BY_ID = new Map(blogCategories.map((category) => [category.id, category]));
-
-export function getCategory(id: BlogCategoryId): BlogCategory {
-  return CATEGORY_BY_ID.get(id) ?? blogCategories[0];
+/**
+ * Le thème d'un identifiant, cherché dans la liste qu'on lui donne — celle de
+ * l'API quand on l'a, celle du repli sinon. Un identifiant inconnu rend un
+ * thème portant son propre slug plutôt que le premier de la liste : afficher
+ * « Entrepreneuriat congolais » sur un article qui n'en est pas est pire que
+ * d'afficher son slug.
+ */
+export function getCategory(
+  id: BlogCategoryId,
+  categories: readonly BlogCategory[] = FALLBACK_BLOG_CATEGORIES,
+): BlogCategory {
+  return categories.find((category) => category.id === id) ?? {id, label: id, short: id};
 }
 
 /* ----------------------------------------------------------- mentions UI */

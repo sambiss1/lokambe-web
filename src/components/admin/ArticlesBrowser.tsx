@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
-import {getCategory} from '@/content/blog';
+import {getCategory, type BlogCategory} from '@/content/blog';
 import type {ArticleFilters, Page} from '@/lib/api/admin-types';
 import type {ApiArticle} from '@/lib/blog/article';
 import {formatDate, totalPages} from '@/lib/admin-format';
@@ -16,6 +16,8 @@ type Props = {
   result: Page<ApiArticle>;
   filters: ArticleFilters;
   pageSize: number;
+  /** Les thèmes connus, pour nommer celui de chaque ligne. */
+  themes?: readonly BlogCategory[];
 };
 
 const FILTERS = [
@@ -33,7 +35,7 @@ function chipClass(active: boolean) {
   );
 }
 
-export function ArticlesBrowser({result, filters, pageSize}: Props) {
+export function ArticlesBrowser({result, filters, pageSize, themes}: Props) {
   const router = useRouter();
 
   function go(next: {status?: 'brouillon' | 'publie'; page?: number}) {
@@ -88,7 +90,7 @@ export function ArticlesBrowser({result, filters, pageSize}: Props) {
                   {article.title}
                 </Link>
 
-                <span className="text-sm text-ink-soft">{getCategory(article.category).short}</span>
+                <span className="text-sm text-ink-soft">{getCategory(article.category, themes).short}</span>
 
                 <time dateTime={article.publishedAt ?? article.updatedAt} className="text-sm text-ink-soft tabular-nums">
                   {formatDate(article.publishedAt ?? article.updatedAt)}

@@ -1,7 +1,7 @@
 import {ArrowLeft} from 'lucide-react';
 import type {CSSProperties} from 'react';
 import {useLocale, useTranslations} from 'next-intl';
-import {BLOG_BASE_PATH, formatArticleDate} from '@/content/blog';
+import {BLOG_BASE_PATH, formatArticleDate, getCategory, type BlogCategory} from '@/content/blog';
 import type {Article} from '@/lib/blog/article';
 import {Link} from '@/i18n/navigation';
 import {Container} from '../ui/Container';
@@ -12,7 +12,14 @@ const SEPARATED =
   "flex items-center gap-4 before:block before:size-1.5 before:flex-none before:rounded-full before:bg-lokambe-peach before:content-['']";
 
 /** Bandeau bleu d’un article : thème, titre, date, durée de lecture. */
-export function ArticleHero({article}: {article: Article}) {
+export function ArticleHero({
+  article,
+  categories,
+}: {
+  article: Article;
+  /** Les thèmes connus, pour nommer celui de l'article. */
+  categories?: readonly BlogCategory[];
+}) {
   const t = useTranslations('blog');
   const locale = useLocale();
 
@@ -37,7 +44,7 @@ export function ArticleHero({article}: {article: Article}) {
         </Link>
 
         <div className="fade-up mt-9" style={{'--i': 1} as CSSProperties}>
-          <Eyebrow className="text-white/85">{t(`categories.${article.category}.label`)}</Eyebrow>
+          <Eyebrow className="text-white/85">{getCategory(article.category, categories).label}</Eyebrow>
         </div>
 
         <h1 className="display mt-6 max-w-[24ch] text-[clamp(1.85rem,6.23vw,3.45rem)] lg:text-[clamp(2.3rem,3.6vw,3.9rem)]">
